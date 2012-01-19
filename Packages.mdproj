@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ItemType>PackagingProject</ItemType>
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{82D0E11B-CB0B-4ABE-B3C3-A97586955CA2}</ProjectGuid>
+    <Packages>
+      <Packages>
+        <Package name="Linux Binaries">
+          <Builder targetFile="BlockWorld-linux.tar.gz" platform="Linux" configuration="Debug" ctype="BinariesZipPackageBuilder">
+            <ChildEntries>
+              <SolutionItemReference path="BlockWorld.cproj" />
+            </ChildEntries>
+            <RootEntry path="BlockWorld.sln" id=":root:" />
+          </Builder>
+        </Package>
+        <Package name="Microsoft Windows Binaries">
+          <Builder targetFile="BlockWorld-windows.tar.gz" platform="Windows" configuration="Debug" ctype="BinariesZipPackageBuilder">
+            <ChildEntries>
+              <SolutionItemReference path="BlockWorld.cproj" />
+            </ChildEntries>
+            <RootEntry path="BlockWorld.sln" id=":root:" />
+          </Builder>
+        </Package>
+      </Packages>
+    </Packages>
+  </PropertyGroup>
+</Project>
