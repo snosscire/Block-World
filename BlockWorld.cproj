@@ -20,15 +20,27 @@
     <CompileTarget>Bin</CompileTarget>
     <Externalconsole>true</Externalconsole>
     <OutputName>BlockWorld</OutputName>
+    <Libs>
+      <Libs>
+        <Lib>SDL</Lib>
+      </Libs>
+    </Libs>
+    <WarningLevel>All</WarningLevel>
+    <WarningsAsErrors>true</WarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>bin\Release</OutputPath>
-    <OptimizationLevel>3</OptimizationLevel>
+    <OptimizationLevel>2</OptimizationLevel>
     <DefineSymbols>MONODEVELOP</DefineSymbols>
     <SourceDirectory>.</SourceDirectory>
     <Externalconsole>true</Externalconsole>
     <OutputName>BlockWorld</OutputName>
     <CompileTarget>Bin</CompileTarget>
+    <Libs>
+      <Libs>
+        <Lib>SDL</Lib>
+      </Libs>
+    </Libs>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Source\main.cpp" />
