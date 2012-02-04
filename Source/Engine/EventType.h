@@ -1,0 +1,16 @@
+#ifndef __EVENTTYPE_H__
+#define __EVENTTYPE_H__
+
+namespace BadEngine {
+	enum EventType {
+		EVENT_NONE,
+		EVENT_QUIT,
+		EVENT_KEYBOARD_BUTTON_DOWN,
+		EVENT_KEYBOARD_BUTTON_UP,
+		EVENT_MOUSE_BUTTON_DOWN,
+		EVENT_MOUSE_BUTTON_UP,
+		EVENT_MOUSE_MOVEMENT
+	};
+};
+
+#endif // __EVENTTYPE_H__

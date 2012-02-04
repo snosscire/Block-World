@@ -1,0 +1,16 @@
+#ifndef __MOUSEBUTTON_H__
+#define __MOUSEBUTTON_H__
+
+namespace BadEngine {
+	enum MouseButton {
+		MOUSE_BUTTON_LEFT = 1,
+		MOUSE_BUTTON_MIDDLE,
+		MOUSE_BUTTON_RIGHT,
+		MOUSE_BUTTON_WHEELUP,
+		MOUSE_BUTTON_WHEELDOWN,
+		MOUSE_BUTTON_X1,
+		MOUSE_BUTTON_X2
+	};
+};
+
+#endif // __MOUSEBUTTON_H__
