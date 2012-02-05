@@ -2,6 +2,7 @@
 #define ___BLOCKWORLD_BLOCK_H__
 
 #include "Engine/Engine.h"
+#include "Engine/Position.h"
 #include "BlockType.h"
 
 using namespace BadEngine;
@@ -12,9 +13,8 @@ namespace BlockWorld {
 	class Block {
 		private:
 			BlockType m_type;
+			Position m_position;
 			World* m_world;
-			unsigned int m_x;
-			unsigned int m_y;
 		
 		private:
 			Block();
@@ -23,8 +23,7 @@ namespace BlockWorld {
 			Block(World *world, unsigned int x, unsigned int y);
 			~Block();
 			BlockType getType();
-			void setX(unsigned int x);
-			void setY(unsigned int y);
+			void setPosition(unsigned int x, unsigned int y);
 			virtual void update();
 			virtual void draw(Engine* engine, Camera* camera);
 	};

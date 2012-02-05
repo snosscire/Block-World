@@ -2,6 +2,7 @@
 #define __BLOCKWORLD_WORLD_H__
 
 #include "Engine/Engine.h"
+#include "Engine/Position.h"
 
 using namespace BadEngine;
 
@@ -26,7 +27,7 @@ namespace BlockWorld {
 			Block* getBlock(unsigned int x, unsigned int y);
 			void draw(Engine* engine, Camera *camera);
 			bool haveCollision(unsigned int x, unsigned int y, unsigned int width, unsigned int height);
-			void getWorldPositionFromScreenPosition(Camera *camera, unsigned int screenX, unsigned int screenY, unsigned int* worldX, unsigned int* worldY);
+			void getWorldPositionFromScreenPosition(Camera *camera, Position* screenPosition, Position* worldPosition);
 			Block* takeBlock(unsigned int x, unsigned int y);
 	};
 };

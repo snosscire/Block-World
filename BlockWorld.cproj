@@ -56,6 +56,7 @@
     <Compile Include="Source\World.cpp" />
     <Compile Include="Source\Block.cpp" />
     <Compile Include="Source\WorldGenerator.cpp" />
+    <Compile Include="Source\Engine\Position.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Source\" />
@@ -85,5 +86,6 @@
     <None Include="Source\Camera.h" />
     <None Include="Source\BlockType.h" />
     <None Include="Source\WorldGenerator.h" />
+    <None Include="Source\Engine\Position.h" />
   </ItemGroup>
 </Project>

@@ -8,17 +8,15 @@
 namespace BlockWorld {
 	Block::Block() :
 		m_type(BLOCK_TYPE_NONE),
-		m_world(NULL),
-		m_x(0),
-		m_y(0)
+		m_position(),
+		m_world(NULL)
 	{
 	}
 	
 	Block::Block(World* world, unsigned int x, unsigned int y) :
 		m_type(BLOCK_TYPE_NONE),
-		m_world(world),
-		m_x(x),
-		m_y(y)
+		m_position(x, y),
+		m_world(world)
 	{
 	}
 	
@@ -31,16 +29,12 @@ namespace BlockWorld {
 		return m_type;
 	}
 	
-	void Block::setX(unsigned int x)
+	void Block::setPosition(unsigned int x, unsigned int y)
 	{
-		m_x = x;
+		m_position.setX(x);
+		m_position.setY(y);
 	}
-	
-	void Block::setY(unsigned int y)
-	{
-		m_y = y;
-	}
-	
+		
 	void Block::update()
 	{
 	}

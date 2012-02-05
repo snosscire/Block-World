@@ -103,10 +103,10 @@ namespace BlockWorld {
 		return false;
 	}
 	
-	void World::getWorldPositionFromScreenPosition(Camera* camera, unsigned int screenX, unsigned int screenY, unsigned int* worldX, unsigned int* worldY)
+	void World::getWorldPositionFromScreenPosition(Camera* camera, Position* screenPosition, Position* worldPosition)
 	{
-		*worldX = (screenX + camera->getLeft()) / BlockWorld::BLOCK_WIDTH;
-		*worldY = (screenY + camera->getTop()) / BlockWorld::BLOCK_HEIGHT;
+		worldPosition->setX((screenPosition->getX() + camera->getLeft()) / BlockWorld::BLOCK_WIDTH);
+		worldPosition->setY((screenPosition->getY() + camera->getTop()) / BlockWorld::BLOCK_HEIGHT);
 	}
 	
 	Block* World::takeBlock(unsigned int x, unsigned int y)
