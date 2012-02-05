@@ -39,7 +39,7 @@ namespace BlockWorld {
 	{
 	}
 	
-	void Block::draw(Engine* engine, Camera* camera)
+	void Block::draw(Engine& engine, Camera& camera)
 	{
 		/*
 		SDL_Rect dst;

@@ -25,7 +25,7 @@ namespace BlockWorld {
 			BlockType getType();
 			void setPosition(unsigned int x, unsigned int y);
 			virtual void update();
-			virtual void draw(Engine* engine, Camera* camera);
+			virtual void draw(Engine& engine, Camera& camera);
 	};
 };
 
