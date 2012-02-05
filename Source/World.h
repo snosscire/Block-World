@@ -23,7 +23,7 @@ namespace BlockWorld {
 			~World();
 			unsigned int getWidth();
 			unsigned int getHeight();
-			void setBlock(unsigned int x, unsigned int y, Block& block);
+			void setBlock(unsigned int x, unsigned int y, Block* block);
 			Block* getBlock(unsigned int x, unsigned int y);
 			void draw(Engine& engine, Camera& camera);
 			bool haveCollision(unsigned int x, unsigned int y, unsigned int width, unsigned int height);

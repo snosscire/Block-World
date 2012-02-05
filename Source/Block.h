@@ -20,7 +20,7 @@ namespace BlockWorld {
 			Block();
 		
 		public:
-			Block(World *world, unsigned int x, unsigned int y);
+			Block(World& world, unsigned int x, unsigned int y);
 			~Block();
 			BlockType getType();
 			void setPosition(unsigned int x, unsigned int y);

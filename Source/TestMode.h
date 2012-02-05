@@ -10,6 +10,7 @@ using namespace BadEngine;
 class TestMode : public GameMode, public EventObserver {
 	private:
 		BlockWorld::World* m_world;
+		BlockWorld::Camera* m_camera;
 	
 	private:
 		TestMode();

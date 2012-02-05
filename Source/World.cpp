@@ -3,6 +3,8 @@
 #include "Block.h"
 #include "Camera.h"
 
+#include "Engine/Rectangle.h"
+
 #include <iostream>
 
 namespace BlockWorld {
@@ -56,14 +58,14 @@ namespace BlockWorld {
 		return m_height;
 	}
 	
-	void World::setBlock(unsigned int x, unsigned int y, Block& newBlock)
+	void World::setBlock(unsigned int x, unsigned int y, Block* newBlock)
 	{
 		if (x >= 0 && x < m_width && y >= 0 && y < m_height) {
 			Block* oldBlock = getBlock(x, y);
 			if (oldBlock) {
 				delete oldBlock;
 			}
-			m_blocks[x][y] = &newBlock;
+			m_blocks[x][y] = newBlock;
 		}
 	}
 	
@@ -78,14 +80,16 @@ namespace BlockWorld {
 	
 	void World::draw(Engine& engine, Camera& camera)
 	{
+		Rectangle backgroundRectangle(0, 0, engine.getScreenWidth(), engine.getScreenHeight());
+		
 		unsigned int left = camera.getLeft() / BlockWorld::BLOCK_WIDTH;
 		unsigned int right = camera.getRight() / BlockWorld::BLOCK_WIDTH;
 		unsigned int top = camera.getTop() / BlockWorld::BLOCK_HEIGHT;
 		unsigned int bottom = camera.getBottom() / BlockWorld::BLOCK_HEIGHT;
 				
 		Block *block = NULL;
-				
-		//engine.drawRectangle(0, 0, engine->getScreenWidth(), engine->getScreenHeight(), 50, 150, 200);
+						
+		engine.drawRectangle(backgroundRectangle, 50, 150, 200);
 		
 		for (unsigned int x = left; x <= right; x++) {
 			for (unsigned int y = top; y <= bottom; y++) {

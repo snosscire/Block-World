@@ -18,6 +18,10 @@ namespace BadEngine {
 			void notifyEventObservers();
 			void clearScreen();
 			void updateScreen();
+			void drawRectangle(Rectangle& rectangle, unsigned int red, unsigned int green, unsigned int blue);
+			int getRandomNumber(int min, int max);
+			unsigned int getScreenWidth();
+			unsigned int getScreenHeight();
 	};
 };
 

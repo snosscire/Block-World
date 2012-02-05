@@ -57,11 +57,15 @@
     <Compile Include="Source\Block.cpp" />
     <Compile Include="Source\WorldGenerator.cpp" />
     <Compile Include="Source\Engine\Position.cpp" />
+    <Compile Include="Source\Engine\Rectangle.cpp" />
+    <Compile Include="Source\MouseScrollCamera.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Source\" />
     <Folder Include="Source\Engine\" />
     <Folder Include="Source\Engine\SDL\" />
+    <Folder Include="Source\Game\" />
+    <Folder Include="Source\Game\Blocks\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Source\Game.h" />
@@ -87,5 +91,7 @@
     <None Include="Source\BlockType.h" />
     <None Include="Source\WorldGenerator.h" />
     <None Include="Source\Engine\Position.h" />
+    <None Include="Source\Engine\Rectangle.h" />
+    <None Include="Source\MouseScrollCamera.h" />
   </ItemGroup>
 </Project>

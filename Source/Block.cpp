@@ -1,7 +1,10 @@
 #include "Block.h"
+#include "BlockWorld.h"
 #include "World.h"
 #include "Camera.h"
+
 #include "Engine/Engine.h"
+#include "Engine/Rectangle.h"
 
 #include <iostream>
 
@@ -13,10 +16,10 @@ namespace BlockWorld {
 	{
 	}
 	
-	Block::Block(World* world, unsigned int x, unsigned int y) :
+	Block::Block(World& world, unsigned int x, unsigned int y) :
 		m_type(BLOCK_TYPE_NONE),
 		m_position(x, y),
-		m_world(world)
+		m_world(&world)
 	{
 	}
 	
@@ -41,14 +44,9 @@ namespace BlockWorld {
 	
 	void Block::draw(Engine& engine, Camera& camera)
 	{
-		/*
-		SDL_Rect dst;
-		dst.x = (self->x * BLOCK_WIDTH) - MineCamera_Left(camera);
-		dst.y = (self->y * BLOCK_HEIGHT) - MineCamera_Top(camera);
-		dst.w = BLOCK_WIDTH;
-		dst.h = BLOCK_HEIGHT;
-		
-		SDL_BlitSurface(self->image, NULL, MineEngine_VideoSurface, &dst);
-		*/
+		unsigned int x = (m_position.getX() * BlockWorld::BLOCK_WIDTH) - camera.getLeft();
+		unsigned int y = (m_position.getY() * BlockWorld::BLOCK_HEIGHT) - camera.getTop();
+		Rectangle rectangle(x, y, BLOCK_WIDTH, BLOCK_HEIGHT);
+		engine.drawRectangle(rectangle, 255, 255, 255);
 	}
 };

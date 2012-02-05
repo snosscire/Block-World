@@ -3,6 +3,11 @@
 #include "SDLMouseMovementEvent.h"
 #include "SDLMouseButtonEvent.h"
 
+#include "../Rectangle.h"
+
+#include <stdlib.h>
+#include <time.h>
+
 namespace BadEngine
 {
 	SDLEngine::SDLEngine() :
@@ -19,6 +24,7 @@ namespace BadEngine
 	{
 		SDL_Init(SDL_INIT_VIDEO);
 		m_videoSurface = SDL_SetVideoMode(640, 480, 0, 0);
+		srand(time(NULL));
 	}
 	
 	void SDLEngine::stop()
@@ -52,8 +58,8 @@ namespace BadEngine
 					case EVENT_QUIT:                 (*it)->onQuit(); break;
 					case EVENT_KEYBOARD_BUTTON_DOWN: (*it)->onKeyboardButtonDown(keyboardButtonEvent); break;
 					case EVENT_KEYBOARD_BUTTON_UP:   (*it)->onKeyboardButtonUp(keyboardButtonEvent); break;
-					//case EVENT_MOUSE_BUTTON_DOWN:    (*it)->onMouseButtonDown(mouseButtonEvent); break;
-					//case EVENT_MOUSE_BUTTON_UP:      (*it)->onMouseButtonUp(mouseButtonEvent); break;
+					case EVENT_MOUSE_BUTTON_DOWN:    (*it)->onMouseButtonDown(mouseButtonEvent); break;
+					case EVENT_MOUSE_BUTTON_UP:      (*it)->onMouseButtonUp(mouseButtonEvent); break;
 					case EVENT_MOUSE_MOVEMENT:       (*it)->onMouseMovement(mouseMovementEvent); break;
 					default: break;
 				}
@@ -71,5 +77,33 @@ namespace BadEngine
 	void SDLEngine::updateScreen()
 	{
 		SDL_Flip(m_videoSurface);
+	}
+	
+	void SDLEngine::drawRectangle(Rectangle& rectangle, unsigned int red, unsigned int green, unsigned int blue)
+	{
+		SDL_Rect rect;
+		rect.x = rectangle.getX();
+		rect.y = rectangle.getY();
+		rect.w = rectangle.getWidth();
+		rect.h = rectangle.getHeight();
+		
+		Uint32 color = SDL_MapRGB(m_videoSurface->format, red, green, blue);
+		
+		SDL_FillRect(m_videoSurface, &rect, color);
+	}
+	
+	int SDLEngine::getRandomNumber(int min, int max)
+	{
+		return (rand() % (max - min + 1) + min);
+	}
+	
+	unsigned int SDLEngine::getScreenWidth()
+	{
+		return m_videoSurface->w;
+	}
+	
+	unsigned int SDLEngine::getScreenHeight()
+	{
+		return m_videoSurface->h;
 	}
 };
