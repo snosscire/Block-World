@@ -73,7 +73,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Source\Engine\Game.h" />
-    <None Include="Source\Include.h" />
     <None Include="Source\Engine\GameMode.h" />
     <None Include="Source\Game\BlockWorld.h" />
     <None Include="Source\Game\TestMode.h" />
