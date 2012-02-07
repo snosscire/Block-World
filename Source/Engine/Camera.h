@@ -1,7 +1,7 @@
-#ifndef __BLOCKWORLD_CAMERA_H__
-#define __BLOCKWORLD_CAMERA_H__
+#ifndef __BADENGINE_CAMERA_H__
+#define __BADENGINE_CAMERA_H__
 
-namespace BlockWorld {
+namespace BadEngine {
 	class Camera {
 		protected:
 			Camera() { }
@@ -16,4 +16,4 @@ namespace BlockWorld {
 	};
 };
 
-#endif // __BLOCKWORLD_CAMERA_H__
+#endif // __BADENGINE_CAMERA_H__

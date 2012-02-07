@@ -1,5 +1,5 @@
-#ifndef __EVENTTYPE_H__
-#define __EVENTTYPE_H__
+#ifndef __BADENGINE_EVENTTYPE_H__
+#define __BADENGINE_EVENTTYPE_H__
 
 namespace BadEngine {
 	enum EventType {
@@ -13,4 +13,4 @@ namespace BadEngine {
 	};
 };
 
-#endif // __EVENTTYPE_H__
+#endif // __BADENGINE_EVENTTYPE_H__

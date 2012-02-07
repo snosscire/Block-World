@@ -1,5 +1,5 @@
-#ifndef __KEYBOARDBUTTON_H__
-#define __KEYBOARDBUTTON_H__
+#ifndef __BADENGINE_KEYBOARDBUTTON_H__
+#define __BADENGINE_KEYBOARDBUTTON_H__
 
 namespace BadEngine {
 	enum KeyboardButton {
@@ -259,4 +259,4 @@ namespace BadEngine {
 	};
 };
 
-#endif // __KEYBOARDBUTTON_H__
+#endif // __BADENGINE_KEYBOARDBUTTON_H__

@@ -1,5 +1,5 @@
-#ifndef __KEYBOARDBUTTONEVENT_H__
-#define __KEYBOARDBUTTONEVENT_H__
+#ifndef __BADENGINE_KEYBOARDBUTTONEVENT_H__
+#define __BADENGINE_KEYBOARDBUTTONEVENT_H__
 
 #include "KeyboardButton.h"
 
@@ -14,4 +14,4 @@ namespace BadEngine {
 	};
 };
 
-#endif // __KEYBOARDBUTTONEVENT_H__
+#endif // __BADENGINE_KEYBOARDBUTTONEVENT_H__

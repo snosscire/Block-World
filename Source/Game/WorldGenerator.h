@@ -1,7 +1,7 @@
-#ifndef __WORLDGENERATOR_H__
-#define __WORLDGENERATOR_H__
+#ifndef __BLOCKWORLD_WORLDGENERATOR_H__
+#define __BLOCKWORLD_WORLDGENERATOR_H__
 
-#include "Engine/Engine.h"
+#include "../Engine/Engine.h"
 
 using namespace BadEngine;
 
@@ -16,4 +16,4 @@ namespace BlockWorld {
 	};
 };
 
-#endif // __WORLDGENERATOR_H__
+#endif // __BLOCKWORLD_WORLDGENERATOR_H__

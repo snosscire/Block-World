@@ -1,28 +1,33 @@
-#ifndef __TESTMODE_H__
-#define __TESTMODE_H__
+#ifndef __BLOCKWORLD_TESTMODE_H__
+#define __BLOCKWORLD_TESTMODE_H__
 
-#include "GameMode.h"
+#include "../Engine/GameMode.h"
+#include "../Engine/EventObserver.h"
+#include "../Engine/Camera.h"
+
 #include "World.h"
-#include "Engine/EventObserver.h"
 
 using namespace BadEngine;
 
-class TestMode : public GameMode, public EventObserver {
-	private:
-		BlockWorld::World* m_world;
-		BlockWorld::Camera* m_camera;
-	
-	private:
-		TestMode();
-		void performStart();
-		void performStop();
-		void performUpdate();
-		void performDraw();
+namespace BlockWorld {
+	class World;
+	class TestMode : public GameMode, public EventObserver {
+		private:
+			World* m_world;
+			Camera* m_camera;
 		
-	public:
-		TestMode(Game* game);
-		~TestMode();
-		void onKeyboardButtonDown(KeyboardButtonEvent& event);
+		private:
+			TestMode();
+			void performStart();
+			void performStop();
+			void performUpdate();
+			void performDraw();
+			
+		public:
+			TestMode(Game* game);
+			~TestMode();
+			void onKeyboardButtonDown(KeyboardButtonEvent& event);
+	};
 };
 
-#endif //  __TESTMODE_H__
+#endif //  __BLOCKWORLD_TESTMODE_H__

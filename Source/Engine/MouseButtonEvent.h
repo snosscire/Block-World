@@ -1,5 +1,5 @@
-#ifndef __MOUSEBUTTONEVENT_H__
-#define __MOUSEBUTTONEVENT_H__
+#ifndef __BADENGINE_MOUSEBUTTONEVENT_H__
+#define __BADENGINE_MOUSEBUTTONEVENT_H__
 
 #include "MouseButton.h"
 
@@ -16,4 +16,4 @@ namespace BadEngine {
 	};
 };
 
-#endif // __MOUSEBUTTONEVENT_H__
+#endif // __BADENGINE_MOUSEBUTTONEVENT_H__

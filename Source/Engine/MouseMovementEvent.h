@@ -1,5 +1,5 @@
-#ifndef __MOUSEMOVEMENTEVENT_H__
-#define __MOUSEMOVEMENTEVENT_H__
+#ifndef __BADENGINE_MOUSEMOVEMENTEVENT_H__
+#define __BADENGINE_MOUSEMOVEMENTEVENT_H__
 
 namespace BadEngine {
 	class MouseMovementEvent {
@@ -15,4 +15,4 @@ namespace BadEngine {
 	};
 };
 
-#endif // __MOUSEMOVEMENTEVENT_H__
+#endif // __BADENGINE_MOUSEMOVEMENTEVENT_H__

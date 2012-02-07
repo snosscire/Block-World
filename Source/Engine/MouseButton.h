@@ -1,5 +1,5 @@
-#ifndef __MOUSEBUTTON_H__
-#define __MOUSEBUTTON_H__
+#ifndef __BADENGINE_MOUSEBUTTON_H__
+#define __BADENGINE_MOUSEBUTTON_H__
 
 namespace BadEngine {
 	enum MouseButton {
@@ -13,4 +13,4 @@ namespace BadEngine {
 	};
 };
 
-#endif // __MOUSEBUTTON_H__
+#endif // __BADENGINE_MOUSEBUTTON_H__

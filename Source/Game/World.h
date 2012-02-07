@@ -1,8 +1,8 @@
 #ifndef __BLOCKWORLD_WORLD_H__
 #define __BLOCKWORLD_WORLD_H__
 
-#include "Engine/Engine.h"
-#include "Engine/Position.h"
+#include "../Engine/Engine.h"
+#include "../Engine/Position.h"
 
 using namespace BadEngine;
 
