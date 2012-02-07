@@ -3,7 +3,6 @@
 
 namespace BlockWorld {
 	enum BlockType {
-		BLOCK_TYPE_NONE = 1,
 		BLOCK_TYPE_DIRT,
 		BLOCK_TYPE_STONE
 	};

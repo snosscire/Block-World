@@ -59,6 +59,9 @@
     <Compile Include="Source\Engine\Position.cpp" />
     <Compile Include="Source\Engine\Rectangle.cpp" />
     <Compile Include="Source\MouseScrollCamera.cpp" />
+    <Compile Include="Source\Game\Blocks\Default\StoneBlock.cpp" />
+    <Compile Include="Source\Game\Blocks\Default\DirtBlock.cpp" />
+    <Compile Include="Source\Game\DefaultBlockFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Source\" />
@@ -66,6 +69,7 @@
     <Folder Include="Source\Engine\SDL\" />
     <Folder Include="Source\Game\" />
     <Folder Include="Source\Game\Blocks\" />
+    <Folder Include="Source\Game\Blocks\Default\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Source\Game.h" />
@@ -93,5 +97,9 @@
     <None Include="Source\Engine\Position.h" />
     <None Include="Source\Engine\Rectangle.h" />
     <None Include="Source\MouseScrollCamera.h" />
+    <None Include="Source\Game\Blocks\Default\DirtBlock.h" />
+    <None Include="Source\Game\Blocks\Default\StoneBlock.h" />
+    <None Include="Source\Game\BlockFactory.h" />
+    <None Include="Source\Game\DefaultBlockFactory.h" />
   </ItemGroup>
 </Project>

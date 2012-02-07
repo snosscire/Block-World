@@ -11,17 +11,17 @@ namespace BlockWorld {
 	class World;
 	class Camera;
 	class Block {
-		private:
+		protected:
 			BlockType m_type;
 			Position m_position;
 			World* m_world;
 		
-		private:
+		protected:
 			Block();
+			Block(World& world, unsigned int x, unsigned int y);
 		
 		public:
-			Block(World& world, unsigned int x, unsigned int y);
-			~Block();
+			virtual ~Block();
 			BlockType getType();
 			void setPosition(unsigned int x, unsigned int y);
 			virtual void update();

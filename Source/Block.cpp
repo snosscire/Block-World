@@ -10,14 +10,14 @@
 
 namespace BlockWorld {
 	Block::Block() :
-		m_type(BLOCK_TYPE_NONE),
+		m_type(BLOCK_TYPE_DIRT),
 		m_position(),
 		m_world(NULL)
 	{
 	}
 	
 	Block::Block(World& world, unsigned int x, unsigned int y) :
-		m_type(BLOCK_TYPE_NONE),
+		m_type(BLOCK_TYPE_DIRT),
 		m_position(x, y),
 		m_world(&world)
 	{

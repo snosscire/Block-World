@@ -2,6 +2,7 @@
 #include "Game.h"
 #include "MouseScrollCamera.h"
 #include "WorldGenerator.h"
+#include "DefaultBlockFactory.h"
 
 #include <iostream>
 
@@ -26,10 +27,12 @@ TestMode::~TestMode()
 void TestMode::performStart()
 {
 	WorldGenerator* worldGenerator = new WorldGenerator();
+	BlockFactory* blockFactory = new DefaultBlockFactory();
 	Engine* engine = m_game->getEngine();
 	engine->registerEventObserver(EVENT_KEYBOARD_BUTTON_DOWN, this);
-	m_world = worldGenerator->createWorld(*engine, 60, 30);
+	m_world = worldGenerator->createWorld(*engine, *blockFactory, 60, 30);
 	m_camera = new MouseScrollCamera(*m_world, *engine);
+	delete blockFactory;
 	delete worldGenerator;
 }
 
