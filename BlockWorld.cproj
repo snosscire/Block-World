@@ -44,24 +44,24 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Source\main.cpp" />
-    <Compile Include="Source\Game.cpp" />
-    <Compile Include="Source\GameMode.cpp" />
-    <Compile Include="Source\BlockWorld.cpp" />
-    <Compile Include="Source\TestMode.cpp" />
+    <Compile Include="Source\Engine\Game.cpp" />
+    <Compile Include="Source\Engine\GameMode.cpp" />
+    <Compile Include="Source\Game\BlockWorld.cpp" />
+    <Compile Include="Source\Game\TestMode.cpp" />
     <Compile Include="Source\Engine\SDL\SDLEngine.cpp" />
     <Compile Include="Source\Engine\SDL\SDLKeyboardButtonEvent.cpp" />
     <Compile Include="Source\Engine\Engine.cpp" />
     <Compile Include="Source\Engine\SDL\SDLMouseButtonEvent.cpp" />
     <Compile Include="Source\Engine\SDL\SDLMouseMovementEvent.cpp" />
-    <Compile Include="Source\World.cpp" />
-    <Compile Include="Source\Block.cpp" />
-    <Compile Include="Source\WorldGenerator.cpp" />
+    <Compile Include="Source\Game\World.cpp" />
+    <Compile Include="Source\Game\WorldGenerator.cpp" />
     <Compile Include="Source\Engine\Position.cpp" />
     <Compile Include="Source\Engine\Rectangle.cpp" />
-    <Compile Include="Source\MouseScrollCamera.cpp" />
+    <Compile Include="Source\Game\MouseScrollCamera.cpp" />
     <Compile Include="Source\Game\Blocks\Default\StoneBlock.cpp" />
     <Compile Include="Source\Game\Blocks\Default\DirtBlock.cpp" />
     <Compile Include="Source\Game\DefaultBlockFactory.cpp" />
+    <Compile Include="Source\Game\Block.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Source\" />
@@ -72,11 +72,11 @@
     <Folder Include="Source\Game\Blocks\Default\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Source\Game.h" />
+    <None Include="Source\Engine\Game.h" />
     <None Include="Source\Include.h" />
-    <None Include="Source\GameMode.h" />
-    <None Include="Source\BlockWorld.h" />
-    <None Include="Source\TestMode.h" />
+    <None Include="Source\Engine\GameMode.h" />
+    <None Include="Source\Game\BlockWorld.h" />
+    <None Include="Source\Game\TestMode.h" />
     <None Include="Source\Engine\Engine.h" />
     <None Include="Source\Engine\KeyboardButtonEvent.h" />
     <None Include="Source\Engine\KeyboardButton.h" />
@@ -89,14 +89,14 @@
     <None Include="Source\Engine\SDL\SDLEngine.h" />
     <None Include="Source\Engine\SDL\SDLMouseButtonEvent.h" />
     <None Include="Source\Engine\SDL\SDLMouseMovementEvent.h" />
-    <None Include="Source\World.h" />
-    <None Include="Source\Block.h" />
-    <None Include="Source\Camera.h" />
-    <None Include="Source\BlockType.h" />
-    <None Include="Source\WorldGenerator.h" />
+    <None Include="Source\Game\World.h" />
+    <None Include="Source\Game\Block.h" />
+    <None Include="Source\Engine\Camera.h" />
+    <None Include="Source\Game\BlockType.h" />
+    <None Include="Source\Game\WorldGenerator.h" />
     <None Include="Source\Engine\Position.h" />
     <None Include="Source\Engine\Rectangle.h" />
-    <None Include="Source\MouseScrollCamera.h" />
+    <None Include="Source\Game\MouseScrollCamera.h" />
     <None Include="Source\Game\Blocks\Default\DirtBlock.h" />
     <None Include="Source\Game\Blocks\Default\StoneBlock.h" />
     <None Include="Source\Game\BlockFactory.h" />
