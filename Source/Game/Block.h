@@ -1,15 +1,16 @@
 #ifndef ___BLOCKWORLD_BLOCK_H__
 #define ___BLOCKWORLD_BLOCK_H__
 
-#include "Engine/Engine.h"
-#include "Engine/Position.h"
+#include "../Engine/Engine.h"
+#include "../Engine/Position.h"
+#include "../Engine/Camera.h"
+
 #include "BlockType.h"
 
 using namespace BadEngine;
 
 namespace BlockWorld {
 	class World;
-	class Camera;
 	class Block {
 		protected:
 			BlockType m_type;

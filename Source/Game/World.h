@@ -3,12 +3,12 @@
 
 #include "../Engine/Engine.h"
 #include "../Engine/Position.h"
+#include "../Engine/Camera.h"
 
 using namespace BadEngine;
 
 namespace BlockWorld {
 	class Block;
-	class Camera;
 	class World {
 		private:
 			unsigned int m_width;

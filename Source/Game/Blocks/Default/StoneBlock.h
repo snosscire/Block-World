@@ -1,7 +1,7 @@
 #ifndef __BLOCKWORLD_STONEBLOCK_H__
 #define __BLOCKWORLD_STONEBLOCK_H__
 
-#include "../../../Block.h"
+#include "../../Block.h"
 
 namespace BlockWorld {
 	class StoneBlock : public Block {

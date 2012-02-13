@@ -62,6 +62,7 @@
     <Compile Include="Source\Game\Blocks\Default\DirtBlock.cpp" />
     <Compile Include="Source\Game\DefaultBlockFactory.cpp" />
     <Compile Include="Source\Game\Block.cpp" />
+    <Compile Include="Source\Engine\GameObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Source\" />
@@ -70,6 +71,7 @@
     <Folder Include="Source\Game\" />
     <Folder Include="Source\Game\Blocks\" />
     <Folder Include="Source\Game\Blocks\Default\" />
+    <Folder Include="Source\Engine\ObjectBehaviors\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Source\Engine\Game.h" />
@@ -100,5 +102,7 @@
     <None Include="Source\Game\Blocks\Default\StoneBlock.h" />
     <None Include="Source\Game\BlockFactory.h" />
     <None Include="Source\Game\DefaultBlockFactory.h" />
+    <None Include="Source\Engine\GameObject.h" />
+    <None Include="Source\Engine\ObjectBehavior.h" />
   </ItemGroup>
 </Project>

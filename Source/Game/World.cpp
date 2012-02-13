@@ -1,9 +1,9 @@
 #include "World.h"
 #include "BlockWorld.h"
 #include "Block.h"
-#include "Camera.h"
 
-#include "Engine/Rectangle.h"
+#include "../Engine/Camera.h"
+#include "../Engine/Rectangle.h"
 
 #include <iostream>
 

@@ -1,8 +1,8 @@
 #include "DefaultBlockFactory.h"
 #include "BlockType.h"
 #include "World.h"
-#include "Game/Blocks/Default/StoneBlock.h"
-#include "Game/Blocks/Default/DirtBlock.h"
+#include "Blocks/Default/StoneBlock.h"
+#include "Blocks/Default/DirtBlock.h"
 
 #include <iostream>
 

@@ -1,10 +1,10 @@
 #include "Block.h"
 #include "BlockWorld.h"
 #include "World.h"
-#include "Camera.h"
 
-#include "Engine/Engine.h"
-#include "Engine/Rectangle.h"
+#include "../Engine/Camera.h"
+#include "../Engine/Engine.h"
+#include "../Engine/Rectangle.h"
 
 #include <iostream>
 
