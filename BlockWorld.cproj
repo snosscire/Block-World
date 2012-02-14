@@ -44,8 +44,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Source\main.cpp" />
-    <Compile Include="Source\Engine\Game.cpp" />
-    <Compile Include="Source\Engine\GameMode.cpp" />
+    <Compile Include="Source\Game\Game.cpp" />
+    <Compile Include="Source\Game\GameMode.cpp" />
     <Compile Include="Source\Game\BlockWorld.cpp" />
     <Compile Include="Source\Game\TestMode.cpp" />
     <Compile Include="Source\Engine\SDL\SDLEngine.cpp" />
@@ -62,7 +62,8 @@
     <Compile Include="Source\Game\Blocks\Default\DirtBlock.cpp" />
     <Compile Include="Source\Game\DefaultBlockFactory.cpp" />
     <Compile Include="Source\Game\Block.cpp" />
-    <Compile Include="Source\Engine\GameObject.cpp" />
+    <Compile Include="Source\Game\GameObject.cpp" />
+    <Compile Include="Source\Game\ObjectBehaviors\DefaultCollidingBehavior.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Source\" />
@@ -71,11 +72,11 @@
     <Folder Include="Source\Game\" />
     <Folder Include="Source\Game\Blocks\" />
     <Folder Include="Source\Game\Blocks\Default\" />
-    <Folder Include="Source\Engine\ObjectBehaviors\" />
+    <Folder Include="Source\Game\ObjectBehaviors\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Source\Engine\Game.h" />
-    <None Include="Source\Engine\GameMode.h" />
+    <None Include="Source\Game\Game.h" />
+    <None Include="Source\Game\GameMode.h" />
     <None Include="Source\Game\BlockWorld.h" />
     <None Include="Source\Game\TestMode.h" />
     <None Include="Source\Engine\Engine.h" />
@@ -92,7 +93,7 @@
     <None Include="Source\Engine\SDL\SDLMouseMovementEvent.h" />
     <None Include="Source\Game\World.h" />
     <None Include="Source\Game\Block.h" />
-    <None Include="Source\Engine\Camera.h" />
+    <None Include="Source\Game\Camera.h" />
     <None Include="Source\Game\BlockType.h" />
     <None Include="Source\Game\WorldGenerator.h" />
     <None Include="Source\Engine\Position.h" />
@@ -102,7 +103,11 @@
     <None Include="Source\Game\Blocks\Default\StoneBlock.h" />
     <None Include="Source\Game\BlockFactory.h" />
     <None Include="Source\Game\DefaultBlockFactory.h" />
-    <None Include="Source\Engine\GameObject.h" />
-    <None Include="Source\Engine\ObjectBehavior.h" />
+    <None Include="Source\Game\GameObject.h" />
+    <None Include="Source\Game\ObjectBehavior.h" />
+    <None Include="Source\Game\ObjectBehaviors\DefaultCollidingBehavior.h" />
+    <None Include="Source\Game\ObjectBehaviors\DefaultMovingBehavior.h" />
+    <None Include="Source\Game\ObjectBehaviors\DefaultJumpingBehavior.h" />
+    <None Include="Source\Game\ObjectBehaviors\DefaultFallingBehavior.h" />
   </ItemGroup>
 </Project>
