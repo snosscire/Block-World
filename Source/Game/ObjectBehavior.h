@@ -1,7 +1,7 @@
-#ifndef __BADENGINE_OBJECTBEHAVIOR_H__
-#define __BADENGINE_OBJECTBEHAVIOR_H__
+#ifndef __BLOCKWORLD_OBJECTBEHAVIOR_H__
+#define __BLOCKWORLD_OBJECTBEHAVIOR_H__
 
-namespace BadEngine {
+namespace BlockWorld {
 	class GameObject;
 	class ObjectBehavior {
 		protected:
@@ -13,4 +13,4 @@ namespace BadEngine {
 	};
 };
 
-#endif // __BADENGINE_OBJECTBEHAVIOR_H__
+#endif // __BLOCKWORLD_OBJECTBEHAVIOR_H__

@@ -1,9 +1,9 @@
 #include "DefaultCollidingBehavior.h"
 
 #include "../GameObject.h"
-#include "../../Game/World.h"
+#include "../World.h"
 
-namespace BadEngine {
+namespace BlockWorld {
 	DefaultCollidingBehavior::DefaultCollidingBehavior() :
 		ObjectBehavior()
 	{

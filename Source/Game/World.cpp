@@ -1,8 +1,8 @@
 #include "World.h"
 #include "BlockWorld.h"
 #include "Block.h"
+#include "Camera.h"
 
-#include "../Engine/Camera.h"
 #include "../Engine/Rectangle.h"
 
 #include <iostream>
@@ -102,9 +102,73 @@ namespace BlockWorld {
 		
 	}
 	
+	bool World::_haveCollision(Rectangle& a, Rectangle& b)
+	{
+		int aLeft = a.getX();
+		int aRight = a.getX() + a.getWidth();
+		int aTop = a.getY();
+		int aBottom = a.getY() + a.getHeight();
+		int bLeft = b.getX();
+		int bRight = b.getX() + b.getWidth();
+		int bTop = b.getY();
+		int bBottom = b.getY() + b.getHeight();
+		if (aBottom <= bTop) {
+			return false;
+		}
+		if ( aTop >= bBottom) {
+			return false;
+		}
+		if (aRight <= bLeft) {
+			return false;
+		}
+		if( aLeft >= bRight ) {
+			return false;
+		}
+		return true;
+	}
+	
 	bool World::haveCollision(unsigned int x, unsigned int y, unsigned int width, unsigned int height)
 	{
-		return false;
+		bool haveCollision = false;
+		list<Block*> blocks;
+		
+		for (unsigned int i = x; i <= (x + width); i++) {
+			unsigned int blockX = i / BlockWorld::BLOCK_WIDTH;
+			
+			for (unsigned int j = y; j <= (y + height); j++) {
+				unsigned int blockY = j / BlockWorld::BLOCK_HEIGHT;
+				
+				//printf("block_x: %d\n", block_x);
+				//printf("block_y: %d\n", block_y);
+				
+				Block *block = getBlock(blockX, blockY);
+				
+				if (block) {
+					//printf("Found block\n");
+					blocks.push_back(block);
+				}
+			}
+		}
+		
+		Rectangle objectRectangle(x, y, width, height);
+		
+		list<Block*>::iterator it = blocks.begin();
+		
+		for ( ; it != blocks.end(); it++) {
+			Block* block = *it;
+			Rectangle blockRectangle;
+			blockRectangle.setX(block->getX() * BlockWorld::BLOCK_WIDTH);
+			blockRectangle.setY(block->getY() * BlockWorld::BLOCK_HEIGHT);
+			blockRectangle.setWidth(BlockWorld::BLOCK_WIDTH);
+			blockRectangle.setHeight(BlockWorld::BLOCK_HEIGHT);
+			
+			if (_haveCollision(objectRectangle, blockRectangle)) {
+				haveCollision = true;
+				break;
+			}
+		}
+				
+		return haveCollision;
 	}
 	
 	void World::getWorldPositionFromScreenPosition(Camera& camera, Position& screenPosition, Position& worldPosition)

@@ -1,8 +1,8 @@
 #include "Block.h"
 #include "BlockWorld.h"
 #include "World.h"
+#include "Camera.h"
 
-#include "../Engine/Camera.h"
 #include "../Engine/Engine.h"
 #include "../Engine/Rectangle.h"
 
@@ -30,6 +30,16 @@ namespace BlockWorld {
 	BlockType Block::getType()
 	{
 		return m_type;
+	}
+	
+	unsigned int Block::getX()
+	{
+		return m_position.getX();
+	}
+	
+	unsigned int Block::getY()
+	{
+		return m_position.getY();
 	}
 	
 	void Block::setPosition(unsigned int x, unsigned int y)

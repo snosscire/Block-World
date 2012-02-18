@@ -1,10 +1,33 @@
 #include "GameObject.h"
+#include "World.h"
 #include "ObjectBehavior.h"
+#include "Camera.h"
+
+#include "../Engine/Rectangle.h"
 
 #include <iostream>
 
-namespace BadEngine {
+namespace BlockWorld {
 	GameObject::GameObject() :
+		m_world(NULL),
+		m_x(0.0),
+		m_y(0.0),
+		m_velocityX(0.0),
+		m_velocityY(0.0),
+		m_moveLeft(false),
+		m_moveRight(false),
+		m_jump(false),
+		m_jumping(false),
+		m_touchingGround(false),
+		m_movingBehavior(NULL),
+		m_jumpingBehavior(NULL),
+		m_fallingBehavior(NULL),
+		m_collidingBehavior(NULL)
+	{
+	}
+
+	GameObject::GameObject(World& world) :
+		m_world(&world),
 		m_x(0.0),
 		m_y(0.0),
 		m_velocityX(0.0),
@@ -37,6 +60,11 @@ namespace BadEngine {
 		}
 	}
 	
+	World* GameObject::getWorld()
+	{
+		return m_world;
+	}
+	
 	double GameObject::getX()
 	{
 		return m_x;
@@ -65,6 +93,31 @@ namespace BadEngine {
 	unsigned int GameObject::getSpriteHeight()
 	{
 		return 32;
+	}
+	
+	bool GameObject::isJumping()
+	{
+		return m_jumping;
+	}
+	
+	bool GameObject::isTouchingGround()
+	{
+		return m_touchingGround;
+	}
+	
+	bool GameObject::wantToMoveLeft()
+	{
+		return m_moveLeft;
+	}
+	
+	bool GameObject::wantToMoveRight()
+	{
+		return m_moveRight;
+	}
+	
+	bool GameObject::wantToJump()
+	{
+		return m_jump;
 	}
 	
 	void GameObject::setX(double x)
@@ -97,11 +150,42 @@ namespace BadEngine {
 		m_moveRight = move;
 	}
 	
+	void GameObject::setTouchingGround(bool touching)
+	{
+		m_touchingGround = touching;
+	}
+	
+	void GameObject::setJump(bool jump)
+	{
+		m_jump = jump;
+	}
+	
+	void GameObject::setJumping(bool jumping)
+	{
+		m_jumping = jumping;
+	}
+	
 	void GameObject::update(unsigned int deltaTime)
 	{
+		if (m_movingBehavior) {
+			m_movingBehavior->perform(*this, deltaTime);
+		}
+		if (m_jumpingBehavior) {
+			m_jumpingBehavior->perform(*this, deltaTime);
+		}
+		if (m_fallingBehavior) {
+			m_fallingBehavior->perform(*this, deltaTime);
+		}
+		if (m_collidingBehavior) {
+			m_collidingBehavior->perform(*this, deltaTime);
+		}
 	}
 	
 	void GameObject::draw(Engine& engine, Camera& camera)
 	{
+		unsigned int x = (m_x) - camera.getLeft();
+		unsigned int y = (m_y) - camera.getTop();
+		Rectangle rectangle(x, y, 32, 32);
+		engine.drawRectangle(rectangle, 255, 255, 0);
 	}
 };

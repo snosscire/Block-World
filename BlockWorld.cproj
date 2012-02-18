@@ -64,6 +64,10 @@
     <Compile Include="Source\Game\Block.cpp" />
     <Compile Include="Source\Game\GameObject.cpp" />
     <Compile Include="Source\Game\ObjectBehaviors\DefaultCollidingBehavior.cpp" />
+    <Compile Include="Source\Game\ObjectBehaviors\DefaultFallingBehavior.cpp" />
+    <Compile Include="Source\Game\ObjectBehaviors\DefaultJumpingBehavior.cpp" />
+    <Compile Include="Source\Game\ObjectBehaviors\DefaultMovingBehavior.cpp" />
+    <Compile Include="Source\Game\Objects\Player.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Source\" />
@@ -73,6 +77,7 @@
     <Folder Include="Source\Game\Blocks\" />
     <Folder Include="Source\Game\Blocks\Default\" />
     <Folder Include="Source\Game\ObjectBehaviors\" />
+    <Folder Include="Source\Game\Objects\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Source\Game\Game.h" />
@@ -109,5 +114,6 @@
     <None Include="Source\Game\ObjectBehaviors\DefaultMovingBehavior.h" />
     <None Include="Source\Game\ObjectBehaviors\DefaultJumpingBehavior.h" />
     <None Include="Source\Game\ObjectBehaviors\DefaultFallingBehavior.h" />
+    <None Include="Source\Game\Objects\Player.h" />
   </ItemGroup>
 </Project>

@@ -20,6 +20,26 @@ namespace BadEngine {
 	{
 	}
 	
+	void Rectangle::setX(unsigned int x)
+	{
+		m_position.setX(x);
+	}
+	
+	void Rectangle::setY(unsigned int y)
+	{
+		m_position.setY(y);
+	}
+	
+	void Rectangle::setWidth(unsigned int width)
+	{
+		m_width = width;
+	}
+	
+	void Rectangle::setHeight(unsigned int height)
+	{
+		m_height = height;
+	}
+	
 	unsigned int Rectangle::getX()
 	{
 		return m_position.getX();

@@ -106,4 +106,9 @@ namespace BadEngine
 	{
 		return m_videoSurface->h;
 	}
+	
+	unsigned int SDLEngine::getCurrentTime()
+	{
+		return SDL_GetTicks();
+	}
 };

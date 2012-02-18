@@ -14,6 +14,10 @@ namespace BadEngine {
 			Rectangle();
 			Rectangle(unsigned int x, unsigned int y, unsigned int width, unsigned int height);
 			~Rectangle();
+			void setX(unsigned int x);
+			void setY(unsigned int y);
+			void setWidth(unsigned int width);
+			void setHeight(unsigned int height);
 			unsigned int getX();
 			unsigned int getY();
 			unsigned int getWidth();

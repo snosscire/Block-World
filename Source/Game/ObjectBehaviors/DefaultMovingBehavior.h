@@ -1,9 +1,9 @@
-#ifndef __BADENGINE_DEFAULTMOVINGBEHAVIOR_H__
-#define __BADENGINE_DEFAULTMOVINGBEHAVIOR_H__
+#ifndef __BLOCKWORLD_DEFAULTMOVINGBEHAVIOR_H__
+#define __BLOCKWORLD_DEFAULTMOVINGBEHAVIOR_H__
 
 #include "../ObjectBehavior.h"
 
-namespace BadEngine {
+namespace BlockWorld {
 	class GameObject;
 	class DefaultMovingBehavior : public ObjectBehavior {
 		public:
@@ -13,4 +13,4 @@ namespace BadEngine {
 	};
 };
 
-#endif // __BADENGINE_DEFAULTMOVINGBEHAVIOR_H__
+#endif // __BLOCKWORLD_DEFAULTMOVINGBEHAVIOR_H__

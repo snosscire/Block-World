@@ -3,12 +3,13 @@
 
 #include "../Engine/Engine.h"
 #include "../Engine/Position.h"
-#include "../Engine/Camera.h"
+#include "../Engine/Rectangle.h"
 
 using namespace BadEngine;
 
 namespace BlockWorld {
 	class Block;
+	class Camera;
 	class World {
 		private:
 			unsigned int m_width;
@@ -17,7 +18,8 @@ namespace BlockWorld {
 		
 		private:
 			World();
-		
+			bool _haveCollision(Rectangle& a, Rectangle& b);
+			
 		public:
 			World(unsigned int width, unsigned int height);
 			~World();

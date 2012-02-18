@@ -1,9 +1,9 @@
-#ifndef __BADENGINE_DEFAULTCOLLIDINGBEHAVIOR_H__
-#define __BADENGINE_DEFAULTCOLLIDINGBEHAVIOR_H__
+#ifndef __BLOCKWORLD_DEFAULTCOLLIDINGBEHAVIOR_H__
+#define __BLOCKWORLD_DEFAULTCOLLIDINGBEHAVIOR_H__
 
 #include "../ObjectBehavior.h"
 
-namespace BadEngine {
+namespace BlockWorld {
 	class GameObject;
 	class DefaultCollidingBehavior : public ObjectBehavior {
 		public:
@@ -13,4 +13,4 @@ namespace BadEngine {
 	};
 };
 
-#endif // __BADENGINE_DEFAULTCOLLIDINGBEHAVIOR_H__
+#endif // __BLOCKWORLD_DEFAULTCOLLIDINGBEHAVIOR_H__

@@ -1,14 +1,16 @@
-#ifndef __BADENGINE_GAME_H__
-#define __BADENGINE_GAME_H__
+#ifndef __BLOCKWORLD_GAME_H__
+#define __BLOCKWORLD_GAME_H__
 
 #include <map>
 #include <string>
 
-#include "Engine.h"
+#include "../Engine/Engine.h"
+#include "../Engine/EventObserver.h"
 
 using namespace std;
+using namespace BadEngine;
 
-namespace BadEngine {
+namespace BlockWorld {
 	class GameMode;
 	class Game : public EventObserver {
 		private:
@@ -32,4 +34,4 @@ namespace BadEngine {
 	};
 };
 
-#endif // __BADENGINE_GAME_H__
+#endif // __BLOCKWORLD_GAME_H__

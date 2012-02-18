@@ -1,7 +1,7 @@
 #include "GameMode.h"
 #include "Game.h"
 
-namespace BadEngine {
+namespace BlockWorld {
 	GameMode::GameMode() :
 		m_started(false),
 		m_game(0)
@@ -34,10 +34,10 @@ namespace BadEngine {
 		}
 	}
 	
-	void GameMode::update()
+	void GameMode::update(unsigned int deltaTime)
 	{
 		if (m_started) {
-			performUpdate();
+			performUpdate(deltaTime);
 		}
 	}
 	

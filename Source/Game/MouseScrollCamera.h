@@ -5,7 +5,8 @@
 #include "../Engine/EventObserver.h"
 #include "../Engine/MouseButtonEvent.h"
 #include "../Engine/MouseMovementEvent.h"
-#include "../Engine/Camera.h"
+
+#include "Camera.h"
 
 using namespace BadEngine;
 

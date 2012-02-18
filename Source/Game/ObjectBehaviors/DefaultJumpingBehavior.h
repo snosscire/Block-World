@@ -1,9 +1,9 @@
-#ifndef __BADENGINE_DEFAULTJUMPINGBEHAVIOR_H__
-#define __BADENGINE_DEFAULTJUMPINGBEHAVIOR_H__
+#ifndef __BLOCKWORLD_DEFAULTJUMPINGBEHAVIOR_H__
+#define __BLOCKWORLD_DEFAULTJUMPINGBEHAVIOR_H__
 
 #include "../ObjectBehavior.h"
 
-namespace BadEngine {
+namespace BlockWorld {
 	class GameObject;
 	class DefaultJumpingBehavior : public ObjectBehavior {
 		public:
@@ -13,4 +13,4 @@ namespace BadEngine {
 	};
 };
 
-#endif // __BADENGINE_DEFAULTJUMPINGGBEHAVIOR_H__
+#endif // __BLOCKWORLD_DEFAULTJUMPINGGBEHAVIOR_H__

@@ -28,6 +28,7 @@ namespace BadEngine {
 			virtual int getRandomNumber(int min, int max) = 0;
 			virtual unsigned int getScreenWidth() = 0;
 			virtual unsigned int getScreenHeight() = 0;
+			virtual unsigned int getCurrentTime() = 0;
 	};
 };
 

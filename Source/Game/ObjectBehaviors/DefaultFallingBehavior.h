@@ -1,9 +1,9 @@
-#ifndef __BADENGINE_DEFAULTFALLINGBEHAVIOR_H__
-#define __BADENGINE_DEFAULTFALLINGBEHAVIOR_H__
+#ifndef __BLOCKWORLD_DEFAULTFALLINGBEHAVIOR_H__
+#define __BLOCKWORLD_DEFAULTFALLINGBEHAVIOR_H__
 
 #include "../ObjectBehavior.h"
 
-namespace BadEngine {
+namespace BlockWorld {
 	class GameObject;
 	class DefaultFallingBehavior : public ObjectBehavior {
 		public:
@@ -13,4 +13,4 @@ namespace BadEngine {
 	};
 };
 
-#endif // __BADENGINE_DEFAULTFALLINGBEHAVIOR_H__
+#endif // __BLOCKWORLD_DEFAULTFALLINGBEHAVIOR_H__

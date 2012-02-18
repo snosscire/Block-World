@@ -1,7 +1,7 @@
-#ifndef __BADENGINE_GAMEMODE_H__
-#define __BADENGINE_GAMEMODE_H__
+#ifndef __BLOCKWORLD_GAMEMODE_H__
+#define __BLOCKWORLD_GAMEMODE_H__
 
-namespace BadEngine {
+namespace BlockWorld {
 	class Game;
 	class GameMode {
 		private:
@@ -13,7 +13,7 @@ namespace BadEngine {
 		private:
 			virtual void performStart() = 0;
 			virtual void performStop() = 0;
-			virtual void performUpdate() = 0;
+			virtual void performUpdate(unsigned int deltaTime) = 0;
 			virtual void performDraw() = 0;
 		
 		protected:
@@ -24,9 +24,9 @@ namespace BadEngine {
 			~GameMode();
 			void start();
 			void stop();
-			void update();
+			void update(unsigned int deltaTime);
 			void draw();
 	};
 };
 
-#endif // __BADENGINE_GAMEMODE_H__
+#endif // __BLOCKWORLD_GAMEMODE_H__

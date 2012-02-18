@@ -3,8 +3,8 @@
 
 #include "../Engine/Engine.h"
 #include "../Engine/Position.h"
-#include "../Engine/Camera.h"
 
+#include "Camera.h"
 #include "BlockType.h"
 
 using namespace BadEngine;
@@ -24,6 +24,8 @@ namespace BlockWorld {
 		public:
 			virtual ~Block();
 			BlockType getType();
+			unsigned int getX();
+			unsigned int getY();
 			void setPosition(unsigned int x, unsigned int y);
 			virtual void update();
 			virtual void draw(Engine& engine, Camera& camera);

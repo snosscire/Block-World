@@ -1,13 +1,18 @@
-#ifndef __BADENGINE_GAMEOBJECT_H__
-#define __BADENGINE_GAMEOBJECT_H__
+#ifndef __BLOCKWORLD_GAMEOBJECT_H__
+#define __BLOCKWORLD_GAMEOBJECT_H__
 
-namespace BadEngine {
+#include "../Engine/Engine.h"
+#include "../Engine/Position.h"
+
+using namespace BadEngine;
+
+namespace BlockWorld {
 	class Camera;
-	class Engine;
 	class ObjectBehavior;
-	class Position;
+	class World;
 	class GameObject {
-		private:
+		protected:
+			World* m_world;
 			double m_x;
 			double m_y;
 			double m_velocityX;
@@ -22,9 +27,14 @@ namespace BadEngine {
 			ObjectBehavior* m_fallingBehavior;
 			ObjectBehavior* m_collidingBehavior;
 		
-		public:
+		private:
 			GameObject();
+		
+		public:
+			GameObject(World& world);
 			virtual ~GameObject();
+			
+			World* getWorld();
 			
 			double getX();
 			double getY();
@@ -33,16 +43,26 @@ namespace BadEngine {
 			unsigned int getSpriteWidth();
 			unsigned int getSpriteHeight();
 			
+			bool isJumping();
+			bool isTouchingGround();
+			
+			bool wantToMoveLeft();
+			bool wantToMoveRight();
+			bool wantToJump();
+			
 			void setX(double x);
 			void setY(double y);
 			void setVelocityX(double velocity);
 			void setVelocityY(double velocity);
 			void setMoveLeft(bool move);
 			void setMoveRight(bool move);
+			void setTouchingGround(bool touching);
+			void setJump(bool jump);
+			void setJumping(bool jumping);
 			
 			void update(unsigned int deltaTime);
 			void draw(Engine& engine, Camera& camera);
 	};
 };
 
-#endif // __BADENGINE_GAMEOBJECT_H__
+#endif // __BLOCKWORLD_GAMEOBJECT_H__
