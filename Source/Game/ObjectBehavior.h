@@ -9,7 +9,7 @@ namespace BlockWorld {
 		
 		public:
 			virtual ~ObjectBehavior() { }
-			virtual void perform(GameObject& object, unsigned int deltaTime) = 0;
+			virtual void perform(GameObject& object, double deltaTime) = 0;
 	};
 };
 

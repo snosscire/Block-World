@@ -9,7 +9,7 @@ namespace BlockWorld {
 		public:
 			DefaultCollidingBehavior();
 			virtual ~DefaultCollidingBehavior();
-			void perform(GameObject& object, unsigned int deltaTime);
+			void perform(GameObject& object, double deltaTime);
 	};
 };
 

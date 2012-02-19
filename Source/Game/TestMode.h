@@ -22,7 +22,7 @@ namespace BlockWorld {
 			TestMode();
 			void performStart();
 			void performStop();
-			void performUpdate(unsigned int deltaTime);
+			void performUpdate(double deltaTime);
 			void performDraw();
 			
 		public:

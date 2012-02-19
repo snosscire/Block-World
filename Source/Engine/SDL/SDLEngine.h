@@ -22,7 +22,7 @@ namespace BadEngine {
 			int getRandomNumber(int min, int max);
 			int getScreenWidth();
 			int getScreenHeight();
-			int getCurrentTime();
+			double getCurrentTime();
 	};
 };
 

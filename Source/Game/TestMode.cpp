@@ -49,7 +49,7 @@ namespace BlockWorld {
 		m_camera = NULL;
 	}
 	
-	void TestMode::performUpdate(unsigned int deltaTime)
+	void TestMode::performUpdate(double deltaTime)
 	{
 		m_player->update(deltaTime);
 	}

@@ -49,9 +49,9 @@ namespace BlockWorld {
 	
 	void Game::run(const string& mode)
 	{
-		unsigned int currentTime = 0;
-		unsigned int lastTime = 0;
-		unsigned int deltaTime = 0;
+		double currentTime = 0.0;
+		double lastTime = 0.0;
+		double deltaTime = 0.0;
 		
 		m_engine->start();
 		m_engine->registerEventObserver(EVENT_QUIT, this);

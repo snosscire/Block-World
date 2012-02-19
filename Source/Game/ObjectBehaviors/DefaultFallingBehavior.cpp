@@ -13,7 +13,7 @@ namespace BlockWorld {
 	{
 	}
 	
-	void DefaultFallingBehavior::perform(GameObject& object, unsigned int deltaTime)
+	void DefaultFallingBehavior::perform(GameObject& object, double deltaTime)
 	{
 		if (object.isJumping()) {
 			if (!object.isTouchingGround()) {

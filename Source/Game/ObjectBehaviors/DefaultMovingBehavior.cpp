@@ -12,7 +12,7 @@ namespace BlockWorld {
 	{
 	}
 	
-	void DefaultMovingBehavior::perform(GameObject& object, unsigned int deltaTime)
+	void DefaultMovingBehavior::perform(GameObject& object, double deltaTime)
 	{
 		object.setVelocityX(0.0);
 		

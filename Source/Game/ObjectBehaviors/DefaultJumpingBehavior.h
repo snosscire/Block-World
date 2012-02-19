@@ -9,7 +9,7 @@ namespace BlockWorld {
 		public:
 			DefaultJumpingBehavior();
 			virtual ~DefaultJumpingBehavior();
-			void perform(GameObject& object, unsigned int deltaTime);
+			void perform(GameObject& object, double deltaTime);
 	};
 };
 

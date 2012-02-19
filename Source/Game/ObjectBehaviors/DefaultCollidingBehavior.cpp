@@ -15,7 +15,7 @@ namespace BlockWorld {
 	{
 	}
 	
-	void DefaultCollidingBehavior::perform(GameObject& object, unsigned int deltaTime)
+	void DefaultCollidingBehavior::perform(GameObject& object, double deltaTime)
 	{
 		int objectWidth = object.getSpriteWidth();
 		int objectHeight = object.getSpriteHeight();

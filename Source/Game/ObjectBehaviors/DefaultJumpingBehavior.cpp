@@ -12,7 +12,7 @@ namespace BlockWorld {
 	{
 	}
 	
-	void DefaultJumpingBehavior::perform(GameObject& object, unsigned int deltaTime)
+	void DefaultJumpingBehavior::perform(GameObject& object, double deltaTime)
 	{
 		if (object.wantToJump()) {
 			object.setJump(false);

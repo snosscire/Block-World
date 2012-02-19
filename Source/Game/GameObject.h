@@ -60,7 +60,7 @@ namespace BlockWorld {
 			void setJump(bool jump);
 			void setJumping(bool jumping);
 			
-			void update(unsigned int deltaTime);
+			void update(double deltaTime);
 			void draw(Engine& engine, Camera& camera);
 	};
 };

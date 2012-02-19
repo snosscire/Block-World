@@ -165,7 +165,7 @@ namespace BlockWorld {
 		m_jumping = jumping;
 	}
 	
-	void GameObject::update(unsigned int deltaTime)
+	void GameObject::update(double deltaTime)
 	{
 		if (m_movingBehavior) {
 			m_movingBehavior->perform(*this, deltaTime);

@@ -107,7 +107,7 @@ namespace BadEngine
 		return m_videoSurface->h;
 	}
 	
-	int SDLEngine::getCurrentTime()
+	double SDLEngine::getCurrentTime()
 	{
 		return SDL_GetTicks();
 	}

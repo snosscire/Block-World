@@ -34,7 +34,7 @@ namespace BlockWorld {
 		}
 	}
 	
-	void GameMode::update(unsigned int deltaTime)
+	void GameMode::update(double deltaTime)
 	{
 		if (m_started) {
 			performUpdate(deltaTime);
