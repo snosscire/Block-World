@@ -24,4 +24,4 @@ namespace BlockWorld {
 		}
 		return NULL;
 	}
-}
+};
