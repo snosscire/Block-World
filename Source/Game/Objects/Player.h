@@ -6,7 +6,7 @@
 namespace BlockWorld {
 	class Player : public GameObject {
 		public:
-			Player(World& world, unsigned int x, unsigned int y);
+			Player(World& world, int x, int y);
 			virtual ~Player();
 	};
 };

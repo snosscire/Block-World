@@ -26,10 +26,10 @@ namespace BlockWorld {
 		public:
 			MouseScrollCamera(World& world, Engine& engine);
 			~MouseScrollCamera();
-			unsigned int getLeft();
-			unsigned int getRight();
-			unsigned int getTop();
-			unsigned int getBottom(); 
+			int getLeft();
+			int getRight();
+			int getTop();
+			int getBottom();
 			void onMouseButtonDown(MouseButtonEvent& event);
 			void onMouseButtonUp(MouseButtonEvent& event);
 			void onMouseMovement(MouseMovementEvent& event);

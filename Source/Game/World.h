@@ -12,8 +12,8 @@ namespace BlockWorld {
 	class Camera;
 	class World {
 		private:
-			unsigned int m_width;
-			unsigned int m_height;
+			int m_width;
+			int m_height;
 			Block*** m_blocks;
 		
 		private:
@@ -21,16 +21,16 @@ namespace BlockWorld {
 			bool _haveCollision(Rectangle& a, Rectangle& b);
 			
 		public:
-			World(unsigned int width, unsigned int height);
+			World(int width, int height);
 			~World();
-			unsigned int getWidth();
-			unsigned int getHeight();
-			void setBlock(unsigned int x, unsigned int y, Block* block);
-			Block* getBlock(unsigned int x, unsigned int y);
+			int getWidth();
+			int getHeight();
+			void setBlock(int x, int y, Block* block);
+			Block* getBlock(int x, int y);
 			void draw(Engine& engine, Camera& camera);
-			bool haveCollision(unsigned int x, unsigned int y, unsigned int width, unsigned int height);
+			bool haveCollision(int x, int y, int width, int height);
 			void getWorldPositionFromScreenPosition(Camera& camera, Position& screenPosition, Position& worldPosition);
-			Block* takeBlock(unsigned int x, unsigned int y);
+			Block* takeBlock(int x, int y);
 	};
 };
 

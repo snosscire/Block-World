@@ -34,22 +34,22 @@ namespace BlockWorld {
 	{
 	}
 	
-	unsigned int MouseScrollCamera::getLeft()
+	int MouseScrollCamera::getLeft()
 	{
 		return m_left;
 	}
 	
-	unsigned int MouseScrollCamera::getRight()
+	int MouseScrollCamera::getRight()
 	{
 		return m_left + m_engine->getScreenWidth();
 	}
 	
-	unsigned int MouseScrollCamera::getTop()
+	int MouseScrollCamera::getTop()
 	{
 		return m_top;
 	}
 	
-	unsigned int MouseScrollCamera::getBottom()
+	int MouseScrollCamera::getBottom()
 	{
 		return m_top + m_engine->getScreenHeight();
 	}

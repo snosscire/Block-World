@@ -8,7 +8,7 @@
 #include "../ObjectBehaviors/DefaultCollidingBehavior.h"
 
 namespace BlockWorld {
-	Player::Player(World& world, unsigned int x, unsigned int y) :
+	Player::Player(World& world, int x, int y) :
 		GameObject(world)
 	{
 		m_x = x;

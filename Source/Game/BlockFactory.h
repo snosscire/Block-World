@@ -10,7 +10,7 @@ namespace BlockWorld {
 		public:
 			BlockFactory() { }
 			virtual ~BlockFactory() { }
-			virtual Block* createBlock(BlockType type, World& world, unsigned int x, unsigned int y) = 0;
+			virtual Block* createBlock(BlockType type, World& world, int x, int y) = 0;
 	};
 };
 

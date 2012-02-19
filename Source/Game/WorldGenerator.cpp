@@ -18,13 +18,13 @@ namespace BlockWorld {
 	{
 		World* world = new World(width, height);
 		
-		unsigned int limitUp = world->getHeight() * 0.65;
-		unsigned int limitDown = world->getHeight() * 0.45;
+		int limitUp = world->getHeight() * 0.65;
+		int limitDown = world->getHeight() * 0.45;
 		
-		unsigned int x = 0;
-		unsigned int y = engine.getRandomNumber(limitDown, limitUp);
+		int x = 0;
+		int y = engine.getRandomNumber(limitDown, limitUp);
 				
-		unsigned int lastY = y;
+		int lastY = y;
 		int blocksInRow = 0;
 				
 		world->setBlock(x, y, blockFactory.createBlock(BLOCK_TYPE_DIRT, *world, x, y));
@@ -62,10 +62,10 @@ namespace BlockWorld {
 				
 		bool foundGroundStart = false;
 				
-		for (unsigned int x = 0; x < world->getWidth(); x++) {
+		for (int x = 0; x < world->getWidth(); x++) {
 			foundGroundStart = false;
 			
-			for (unsigned int y = 0; y < world->getHeight(); y++) {				
+			for (int y = 0; y < world->getHeight(); y++) {				
 				if (!foundGroundStart) {
 					Block *block = world->getBlock(x, y);
 					if( block && block->getType() == BLOCK_TYPE_DIRT)

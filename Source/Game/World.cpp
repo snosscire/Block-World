@@ -15,19 +15,17 @@ namespace BlockWorld {
 	{
 	}
 	
-	World::World(unsigned int width, unsigned int height) :
+	World::World(int width, int height) :
 		m_width(width),
 		m_height(height),
 		m_blocks(NULL)
 	{
-		//m_blocks = malloc(sizeof(Block*) * m_width);
 		m_blocks = new Block**[m_width];
 		
-		for (unsigned int x = 0; x < m_width; x++) {
-			//m_blocks[x] = malloc(sizeof(Block*) * m_height);
+		for (int x = 0; x < m_width; x++) {
 			m_blocks[x] = new Block*[m_height];
 			
-			for (unsigned int y = 0; y < m_height; y++) {
+			for (int y = 0; y < m_height; y++) {
 				m_blocks[x][y] = NULL;
 			}
 			
@@ -36,29 +34,26 @@ namespace BlockWorld {
 	
 	World::~World()
 	{
-		for (unsigned int x = 0; x < m_width; x++) {
-			for(unsigned int y = 0; y < m_height; y++ ) {
-				//free(m_blocks[x][y]);
+		for (int x = 0; x < m_width; x++) {
+			for(int y = 0; y < m_height; y++ ) {
 				delete m_blocks[x][y];
 			}
-			//free(m_blocks[x]);
 			delete[] m_blocks[x];
 		}
-		//free(m_blocks);
 		delete[] m_blocks;
 	}
 	
-	unsigned int World::getWidth()
+	int World::getWidth()
 	{
 		return m_width;
 	}
 	
-	unsigned int World::getHeight()
+	int World::getHeight()
 	{
 		return m_height;
 	}
 	
-	void World::setBlock(unsigned int x, unsigned int y, Block* newBlock)
+	void World::setBlock(int x, int y, Block* newBlock)
 	{
 		if (x >= 0 && x < m_width && y >= 0 && y < m_height) {
 			Block* oldBlock = getBlock(x, y);
@@ -69,7 +64,7 @@ namespace BlockWorld {
 		}
 	}
 	
-	Block* World::getBlock(unsigned int x, unsigned int y)
+	Block* World::getBlock(int x, int y)
 	{
 		if (x >= 0 && x < m_width && y >= 0 && y < m_height)
 		{
@@ -82,17 +77,17 @@ namespace BlockWorld {
 	{
 		Rectangle backgroundRectangle(0, 0, engine.getScreenWidth(), engine.getScreenHeight());
 		
-		unsigned int left = camera.getLeft() / BlockWorld::BLOCK_WIDTH;
-		unsigned int right = camera.getRight() / BlockWorld::BLOCK_WIDTH;
-		unsigned int top = camera.getTop() / BlockWorld::BLOCK_HEIGHT;
-		unsigned int bottom = camera.getBottom() / BlockWorld::BLOCK_HEIGHT;
+		int left = camera.getLeft() / BlockWorld::BLOCK_WIDTH;
+		int right = camera.getRight() / BlockWorld::BLOCK_WIDTH;
+		int top = camera.getTop() / BlockWorld::BLOCK_HEIGHT;
+		int bottom = camera.getBottom() / BlockWorld::BLOCK_HEIGHT;
 				
 		Block *block = NULL;
 						
 		engine.drawRectangle(backgroundRectangle, 50, 150, 200);
 		
-		for (unsigned int x = left; x <= right; x++) {
-			for (unsigned int y = top; y <= bottom; y++) {
+		for (int x = left; x <= right; x++) {
+			for (int y = top; y <= bottom; y++) {
 				block = getBlock(x, y);
 				if (block) {
 					block->draw(engine, camera);
@@ -127,24 +122,24 @@ namespace BlockWorld {
 		return true;
 	}
 	
-	bool World::haveCollision(unsigned int x, unsigned int y, unsigned int width, unsigned int height)
+	bool World::haveCollision(int x, int y, int width, int height)
 	{
 		bool haveCollision = false;
 		list<Block*> blocks;
 		
-		for (unsigned int i = x; i <= (x + width); i++) {
-			unsigned int blockX = i / BlockWorld::BLOCK_WIDTH;
+		int iStart = x;
+		int iEnd = x + width;
+		
+		for (int i = iStart; i <= iEnd; i += BlockWorld::BLOCK_WIDTH) {
+			int blockX = i / BlockWorld::BLOCK_WIDTH;
 			
-			for (unsigned int j = y; j <= (y + height); j++) {
-				unsigned int blockY = j / BlockWorld::BLOCK_HEIGHT;
-				
-				//printf("block_x: %d\n", block_x);
-				//printf("block_y: %d\n", block_y);
-				
+			int jStart = y;
+			int jEnd = y + height;
+			
+			for (int j = jStart; j <= jEnd; j += BlockWorld::BLOCK_HEIGHT) {
+				int blockY = j / BlockWorld::BLOCK_HEIGHT;
 				Block *block = getBlock(blockX, blockY);
-				
 				if (block) {
-					//printf("Found block\n");
 					blocks.push_back(block);
 				}
 			}
@@ -156,6 +151,7 @@ namespace BlockWorld {
 		
 		for ( ; it != blocks.end(); it++) {
 			Block* block = *it;
+			
 			Rectangle blockRectangle;
 			blockRectangle.setX(block->getX() * BlockWorld::BLOCK_WIDTH);
 			blockRectangle.setY(block->getY() * BlockWorld::BLOCK_HEIGHT);
@@ -177,7 +173,7 @@ namespace BlockWorld {
 		worldPosition.setY((screenPosition.getY() + camera.getTop()) / BlockWorld::BLOCK_HEIGHT);
 	}
 	
-	Block* World::takeBlock(unsigned int x, unsigned int y)
+	Block* World::takeBlock(int x, int y)
 	{
 		Block* block = getBlock(x, y);
 		if (block) {

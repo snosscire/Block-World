@@ -79,7 +79,7 @@ namespace BadEngine
 		SDL_Flip(m_videoSurface);
 	}
 	
-	void SDLEngine::drawRectangle(Rectangle& rectangle, unsigned int red, unsigned int green, unsigned int blue)
+	void SDLEngine::drawRectangle(Rectangle& rectangle, int red, int green, int blue)
 	{
 		SDL_Rect rect;
 		rect.x = rectangle.getX();
@@ -97,17 +97,17 @@ namespace BadEngine
 		return (rand() % (max - min + 1) + min);
 	}
 	
-	unsigned int SDLEngine::getScreenWidth()
+	int SDLEngine::getScreenWidth()
 	{
 		return m_videoSurface->w;
 	}
 	
-	unsigned int SDLEngine::getScreenHeight()
+	int SDLEngine::getScreenHeight()
 	{
 		return m_videoSurface->h;
 	}
 	
-	unsigned int SDLEngine::getCurrentTime()
+	int SDLEngine::getCurrentTime()
 	{
 		return SDL_GetTicks();
 	}

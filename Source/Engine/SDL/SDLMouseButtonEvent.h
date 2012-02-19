@@ -16,8 +16,8 @@ namespace BadEngine {
 		public:
 			SDLMouseButtonEvent(SDL_Event* event);
 			~SDLMouseButtonEvent();
-			unsigned int getX();
-			unsigned int getY();
+			int getX();
+			int getY();
 			MouseButton getButton();
 	};
 };

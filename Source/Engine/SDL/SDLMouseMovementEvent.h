@@ -16,8 +16,8 @@ namespace BadEngine {
 		public:
 			SDLMouseMovementEvent(SDL_Event* event);
 			~SDLMouseMovementEvent();
-			unsigned int getX();
-			unsigned int getY();
+			int getX();
+			int getY();
 			int getRelativeX();
 			int getRelativeY();
 	};

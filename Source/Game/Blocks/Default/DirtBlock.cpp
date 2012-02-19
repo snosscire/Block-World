@@ -6,7 +6,7 @@ namespace BlockWorld {
 	{
 	}
 	
-	DirtBlock::DirtBlock(World& world, unsigned int x, unsigned int y) :
+	DirtBlock::DirtBlock(World& world, int x, int y) :
 		Block(world, x, y)
 	{
 		m_type = BLOCK_TYPE_DIRT;

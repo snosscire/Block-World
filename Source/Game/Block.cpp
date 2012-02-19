@@ -16,7 +16,7 @@ namespace BlockWorld {
 	{
 	}
 	
-	Block::Block(World& world, unsigned int x, unsigned int y) :
+	Block::Block(World& world, int x, int y) :
 		m_type(BLOCK_TYPE_DIRT),
 		m_position(x, y),
 		m_world(&world)
@@ -32,17 +32,17 @@ namespace BlockWorld {
 		return m_type;
 	}
 	
-	unsigned int Block::getX()
+	int Block::getX()
 	{
 		return m_position.getX();
 	}
 	
-	unsigned int Block::getY()
+	int Block::getY()
 	{
 		return m_position.getY();
 	}
 	
-	void Block::setPosition(unsigned int x, unsigned int y)
+	void Block::setPosition(int x, int y)
 	{
 		m_position.setX(x);
 		m_position.setY(y);
@@ -54,8 +54,8 @@ namespace BlockWorld {
 	
 	void Block::draw(Engine& engine, Camera& camera)
 	{
-		unsigned int x = (m_position.getX() * BlockWorld::BLOCK_WIDTH) - camera.getLeft();
-		unsigned int y = (m_position.getY() * BlockWorld::BLOCK_HEIGHT) - camera.getTop();
+		int x = (m_position.getX() * BlockWorld::BLOCK_WIDTH) - camera.getLeft();
+		int y = (m_position.getY() * BlockWorld::BLOCK_HEIGHT) - camera.getTop();
 		Rectangle rectangle(x, y, BLOCK_WIDTH, BLOCK_HEIGHT);
 		engine.drawRectangle(rectangle, 255, 255, 255);
 	}

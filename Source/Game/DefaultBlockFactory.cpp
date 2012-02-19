@@ -16,7 +16,7 @@ namespace BlockWorld {
 	{
 	}
 	
-	Block* DefaultBlockFactory::createBlock(BlockType type, World& world, unsigned int x, unsigned int y)
+	Block* DefaultBlockFactory::createBlock(BlockType type, World& world, int x, int y)
 	{
 		switch (type) {
 			case BLOCK_TYPE_STONE: return new StoneBlock(world, x, y);

@@ -36,7 +36,7 @@ namespace BlockWorld {
 		engine->registerEventObserver(EVENT_KEYBOARD_BUTTON_DOWN, this);
 		m_world = worldGenerator->createWorld(*engine, *blockFactory, 60, 30);
 		m_camera = new MouseScrollCamera(*m_world, *engine);
-		m_player = new Player(*m_world, 10, 10);
+		m_player = new Player(*m_world, 20, 20);
 		delete blockFactory;
 		delete worldGenerator;
 	}

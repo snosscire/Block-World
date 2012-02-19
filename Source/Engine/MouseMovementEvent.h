@@ -8,8 +8,8 @@ namespace BadEngine {
 			~MouseMovementEvent() { }
 		
 		public:
-			virtual unsigned int getX() = 0;
-			virtual unsigned int getY() = 0;
+			virtual int getX() = 0;
+			virtual int getY() = 0;
 			virtual int getRelativeX() = 0;
 			virtual int getRelativeY() = 0;
 	};

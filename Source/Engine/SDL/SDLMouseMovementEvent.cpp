@@ -17,12 +17,12 @@ namespace BadEngine {
 	{
 	}
 	
-	unsigned int SDLMouseMovementEvent::getX()
+	int SDLMouseMovementEvent::getX()
 	{
 		return m_event->motion.x;
 	}
 	
-	unsigned int SDLMouseMovementEvent::getY()
+	int SDLMouseMovementEvent::getY()
 	{
 		return m_event->motion.y;
 	}

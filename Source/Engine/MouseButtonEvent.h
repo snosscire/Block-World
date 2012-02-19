@@ -10,8 +10,8 @@ namespace BadEngine {
 			~MouseButtonEvent() { }
 		
 		public:
-			virtual unsigned int getX() = 0;
-			virtual unsigned int getY() = 0;
+			virtual int getX() = 0;
+			virtual int getY() = 0;
 			virtual MouseButton getButton() = 0;
 	};
 };

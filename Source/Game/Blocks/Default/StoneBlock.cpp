@@ -6,7 +6,7 @@ namespace BlockWorld {
 	{
 	}
 	
-	StoneBlock::StoneBlock(World& world, unsigned int x, unsigned int y) :
+	StoneBlock::StoneBlock(World& world, int x, int y) :
 		Block(world, x, y)
 	{
 		m_type = BLOCK_TYPE_STONE;

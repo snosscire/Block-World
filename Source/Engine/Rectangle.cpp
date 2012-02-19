@@ -9,7 +9,7 @@ namespace BadEngine {
 	{
 	}
 	
-	Rectangle::Rectangle(unsigned int x, unsigned int y, unsigned int width, unsigned int height) :
+	Rectangle::Rectangle(int x, int y, int width, int height) :
 		m_position(x, y),
 		m_width(width),
 		m_height(height)
@@ -20,42 +20,42 @@ namespace BadEngine {
 	{
 	}
 	
-	void Rectangle::setX(unsigned int x)
+	void Rectangle::setX(int x)
 	{
 		m_position.setX(x);
 	}
 	
-	void Rectangle::setY(unsigned int y)
+	void Rectangle::setY(int y)
 	{
 		m_position.setY(y);
 	}
 	
-	void Rectangle::setWidth(unsigned int width)
+	void Rectangle::setWidth(int width)
 	{
 		m_width = width;
 	}
 	
-	void Rectangle::setHeight(unsigned int height)
+	void Rectangle::setHeight(int height)
 	{
 		m_height = height;
 	}
 	
-	unsigned int Rectangle::getX()
+	int Rectangle::getX()
 	{
 		return m_position.getX();
 	}
 	
-	unsigned int Rectangle::getY()
+	int Rectangle::getY()
 	{
 		return m_position.getY();
 	}
 	
-	unsigned int Rectangle::getWidth()
+	int Rectangle::getWidth()
 	{
 		return m_width;
 	}
 	
-	unsigned int Rectangle::getHeight()
+	int Rectangle::getHeight()
 	{
 		return m_height;
 	}

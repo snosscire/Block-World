@@ -3,6 +3,8 @@
 #include "../GameObject.h"
 #include "../World.h"
 
+#include <iostream>
+
 namespace BlockWorld {
 	DefaultCollidingBehavior::DefaultCollidingBehavior() :
 		ObjectBehavior()
@@ -15,8 +17,8 @@ namespace BlockWorld {
 	
 	void DefaultCollidingBehavior::perform(GameObject& object, unsigned int deltaTime)
 	{
-		unsigned int objectWidth = object.getSpriteWidth();
-		unsigned int objectHeight = object.getSpriteHeight();
+		int objectWidth = object.getSpriteWidth();
+		int objectHeight = object.getSpriteHeight();
 		
 		double oldX = object.getX();
 		double oldY = object.getY();
@@ -26,12 +28,13 @@ namespace BlockWorld {
 		newX += (object.getVelocityX() * (deltaTime / 10.0));
 		newY += (object.getVelocityY() * (deltaTime / 10.0));
 		
-		unsigned int oldLeft = oldX - (objectWidth / 2);
-		unsigned int oldTop = oldY - (objectHeight / 2);
-		unsigned int newLeft = newX - (objectWidth / 2);
-		unsigned int newTop = newY - (objectHeight / 2);
+		double oldLeft = oldX - (objectWidth / 2);
+		double oldTop = oldY - (objectHeight / 2);
+		double newLeft = newX - (objectWidth / 2);
+		double newTop = newY - (objectHeight / 2);
 		
 		BlockWorld::World* world = object.getWorld();
+		
 		
 		if (!world->haveCollision(newLeft, newTop, objectWidth, objectHeight)) {
 			object.setX(newX);

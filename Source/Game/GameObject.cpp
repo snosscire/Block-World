@@ -85,12 +85,12 @@ namespace BlockWorld {
 		return m_velocityY;
 	}
 	
-	unsigned int GameObject::getSpriteWidth()
+	int GameObject::getSpriteWidth()
 	{
 		return 32;
 	}
 	
-	unsigned int GameObject::getSpriteHeight()
+	int GameObject::getSpriteHeight()
 	{
 		return 32;
 	}
@@ -183,8 +183,8 @@ namespace BlockWorld {
 	
 	void GameObject::draw(Engine& engine, Camera& camera)
 	{
-		unsigned int x = (m_x) - camera.getLeft();
-		unsigned int y = (m_y) - camera.getTop();
+		int x = (m_x) - camera.getLeft() - (getSpriteWidth() / 2);
+		int y = (m_y) - camera.getTop() - (getSpriteHeight() / 2);
 		Rectangle rectangle(x, y, 32, 32);
 		engine.drawRectangle(rectangle, 255, 255, 0);
 	}

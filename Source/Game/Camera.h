@@ -9,10 +9,10 @@ namespace BlockWorld {
 		public:
 			~Camera() { }
 			virtual void update() { }
-			virtual unsigned int getLeft() = 0;
-			virtual unsigned int getRight() = 0;
-			virtual unsigned int getTop() = 0;
-			virtual unsigned int getBottom() = 0; 
+			virtual int getLeft() = 0;
+			virtual int getRight() = 0;
+			virtual int getTop() = 0;
+			virtual int getBottom() = 0; 
 	};
 };
 

@@ -9,7 +9,7 @@ namespace BlockWorld {
 			StoneBlock();
 		
 		public:
-			StoneBlock(World& world, unsigned int x, unsigned int y);
+			StoneBlock(World& world, int x, int y);
 			virtual ~StoneBlock();
 	};
 };

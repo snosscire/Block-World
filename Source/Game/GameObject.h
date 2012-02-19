@@ -40,8 +40,8 @@ namespace BlockWorld {
 			double getY();
 			double getVelocityX();
 			double getVelocityY();
-			unsigned int getSpriteWidth();
-			unsigned int getSpriteHeight();
+			int getSpriteWidth();
+			int getSpriteHeight();
 			
 			bool isJumping();
 			bool isTouchingGround();

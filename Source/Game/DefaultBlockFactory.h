@@ -8,7 +8,7 @@ namespace BlockWorld {
 		public:
 			DefaultBlockFactory();
 			virtual ~DefaultBlockFactory();
-			Block* createBlock(BlockType type, World& world, unsigned int x, unsigned int y);
+			Block* createBlock(BlockType type, World& world, int x, int y);
 	};
 };
 

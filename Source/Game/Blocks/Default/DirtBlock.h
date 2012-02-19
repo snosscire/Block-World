@@ -9,7 +9,7 @@ namespace BlockWorld {
 			DirtBlock();
 		
 		public:
-			DirtBlock(World&, unsigned int x, unsigned int y);
+			DirtBlock(World&, int x, int y);
 			virtual ~DirtBlock();
 	};
 };

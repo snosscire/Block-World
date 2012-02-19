@@ -19,14 +19,14 @@ namespace BlockWorld {
 		
 		protected:
 			Block();
-			Block(World& world, unsigned int x, unsigned int y);
+			Block(World& world, int x, int y);
 		
 		public:
 			virtual ~Block();
 			BlockType getType();
-			unsigned int getX();
-			unsigned int getY();
-			void setPosition(unsigned int x, unsigned int y);
+			int getX();
+			int getY();
+			void setPosition(int x, int y);
 			virtual void update();
 			virtual void draw(Engine& engine, Camera& camera);
 	};

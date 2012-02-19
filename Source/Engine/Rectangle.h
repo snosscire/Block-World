@@ -7,21 +7,21 @@ namespace BadEngine {
 	class Rectangle {
 		private:
 			Position m_position;
-			unsigned int m_width;
-			unsigned int m_height;
+			int m_width;
+			int m_height;
 		
 		public:
 			Rectangle();
-			Rectangle(unsigned int x, unsigned int y, unsigned int width, unsigned int height);
+			Rectangle(int x, int y, int width, int height);
 			~Rectangle();
-			void setX(unsigned int x);
-			void setY(unsigned int y);
-			void setWidth(unsigned int width);
-			void setHeight(unsigned int height);
-			unsigned int getX();
-			unsigned int getY();
-			unsigned int getWidth();
-			unsigned int getHeight();
+			void setX(int x);
+			void setY(int y);
+			void setWidth(int width);
+			void setHeight(int height);
+			int getX();
+			int getY();
+			int getWidth();
+			int getHeight();
 	};
 };
 

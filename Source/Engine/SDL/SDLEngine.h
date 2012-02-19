@@ -1,5 +1,5 @@
-#ifndef __SDLENGINE_H__
-#define __SDLENGINE_H__
+#ifndef __BADENGINE_SDLENGINE_H__
+#define __BADENGINE_SDLENGINE_H__
 
 #include <SDL/SDL.h>
 
@@ -18,12 +18,12 @@ namespace BadEngine {
 			void notifyEventObservers();
 			void clearScreen();
 			void updateScreen();
-			void drawRectangle(Rectangle& rectangle, unsigned int red, unsigned int green, unsigned int blue);
+			void drawRectangle(Rectangle& rectangle, int red, int green, int blue);
 			int getRandomNumber(int min, int max);
-			unsigned int getScreenWidth();
-			unsigned int getScreenHeight();
-			unsigned int getCurrentTime();
+			int getScreenWidth();
+			int getScreenHeight();
+			int getCurrentTime();
 	};
 };
 
-#endif // __SDLENGINE_H__
+#endif // __BADENGINE_SDLENGINE_H__
