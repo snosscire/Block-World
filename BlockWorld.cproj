@@ -69,6 +69,7 @@
     <Compile Include="Source\Game\ObjectBehaviors\DefaultMovingBehavior.cpp" />
     <Compile Include="Source\Game\Objects\Player.cpp" />
     <Compile Include="Source\Game\PlayerController.cpp" />
+    <Compile Include="Source\Game\FollowObjectCamera.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Source\" />
@@ -118,5 +119,6 @@
     <None Include="Source\Game\Objects\Player.h" />
     <None Include="Source\Game\ObjectController.h" />
     <None Include="Source\Game\PlayerController.h" />
+    <None Include="Source\Game\FollowObjectCamera.h" />
   </ItemGroup>
 </Project>

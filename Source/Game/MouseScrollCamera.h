@@ -25,7 +25,7 @@ namespace BlockWorld {
 		
 		public:
 			MouseScrollCamera(World& world, Engine& engine);
-			~MouseScrollCamera();
+			virtual ~MouseScrollCamera();
 			int getLeft();
 			int getRight();
 			int getTop();

@@ -1,6 +1,7 @@
 #include "TestMode.h"
 #include "Game.h"
 #include "MouseScrollCamera.h"
+#include "FollowObjectCamera.h"
 #include "WorldGenerator.h"
 #include "DefaultBlockFactory.h"
 #include "Objects/Player.h"
@@ -36,9 +37,9 @@ namespace BlockWorld {
 		Engine* engine = m_game->getEngine();
 		engine->registerEventObserver(EVENT_KEYBOARD_BUTTON_DOWN, this);
 		m_world = worldGenerator->createWorld(*engine, *blockFactory, 60, 30);
-		m_camera = new MouseScrollCamera(*m_world, *engine);
 		m_player = new Player(*m_world, 20, 20);
 		m_player->setController(new PlayerController(*m_player, *engine));
+		m_camera = new FollowObjectCamera(*m_world, *m_player, *engine);
 		delete blockFactory;
 		delete worldGenerator;
 	}
