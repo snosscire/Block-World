@@ -9,6 +9,7 @@ using namespace BadEngine;
 namespace BlockWorld {
 	class Camera;
 	class ObjectBehavior;
+	class ObjectController;
 	class World;
 	class GameObject {
 		protected:
@@ -26,6 +27,7 @@ namespace BlockWorld {
 			ObjectBehavior* m_jumpingBehavior;
 			ObjectBehavior* m_fallingBehavior;
 			ObjectBehavior* m_collidingBehavior;
+			ObjectController* m_controller;
 		
 		private:
 			GameObject();
@@ -49,6 +51,8 @@ namespace BlockWorld {
 			bool wantToMoveLeft();
 			bool wantToMoveRight();
 			bool wantToJump();
+			
+			void setController(ObjectController* controller);
 			
 			void setX(double x);
 			void setY(double y);

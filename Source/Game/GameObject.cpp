@@ -1,6 +1,7 @@
 #include "GameObject.h"
 #include "World.h"
 #include "ObjectBehavior.h"
+#include "ObjectController.h"
 #include "Camera.h"
 
 #include "../Engine/Rectangle.h"
@@ -22,7 +23,8 @@ namespace BlockWorld {
 		m_movingBehavior(NULL),
 		m_jumpingBehavior(NULL),
 		m_fallingBehavior(NULL),
-		m_collidingBehavior(NULL)
+		m_collidingBehavior(NULL),
+		m_controller(NULL)
 	{
 	}
 
@@ -40,7 +42,8 @@ namespace BlockWorld {
 		m_movingBehavior(NULL),
 		m_jumpingBehavior(NULL),
 		m_fallingBehavior(NULL),
-		m_collidingBehavior(NULL)
+		m_collidingBehavior(NULL),
+		m_controller(NULL)
 	{
 	}
 	
@@ -57,6 +60,9 @@ namespace BlockWorld {
 		}
 		if (m_collidingBehavior) {
 			delete m_collidingBehavior;
+		}
+		if (m_controller) {
+			delete m_controller;
 		}
 	}
 	
@@ -118,6 +124,15 @@ namespace BlockWorld {
 	bool GameObject::wantToJump()
 	{
 		return m_jump;
+	}
+	
+	void GameObject::setController(ObjectController* controller)
+	{
+		if (m_controller) {
+			delete m_controller;
+			m_controller = NULL;
+		}
+		m_controller = controller;
 	}
 	
 	void GameObject::setX(double x)
@@ -186,6 +201,6 @@ namespace BlockWorld {
 		int x = (m_x) - camera.getLeft() - (getSpriteWidth() / 2);
 		int y = (m_y) - camera.getTop() - (getSpriteHeight() / 2);
 		Rectangle rectangle(x, y, 32, 32);
-		engine.drawRectangle(rectangle, 255, 255, 0);
+		engine.drawRectangle(rectangle, 255, 0, 0);
 	}
 };

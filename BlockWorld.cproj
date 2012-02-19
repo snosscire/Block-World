@@ -68,6 +68,7 @@
     <Compile Include="Source\Game\ObjectBehaviors\DefaultJumpingBehavior.cpp" />
     <Compile Include="Source\Game\ObjectBehaviors\DefaultMovingBehavior.cpp" />
     <Compile Include="Source\Game\Objects\Player.cpp" />
+    <Compile Include="Source\Game\PlayerController.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Source\" />
@@ -115,5 +116,7 @@
     <None Include="Source\Game\ObjectBehaviors\DefaultJumpingBehavior.h" />
     <None Include="Source\Game\ObjectBehaviors\DefaultFallingBehavior.h" />
     <None Include="Source\Game\Objects\Player.h" />
+    <None Include="Source\Game\ObjectController.h" />
+    <None Include="Source\Game\PlayerController.h" />
   </ItemGroup>
 </Project>

@@ -4,6 +4,7 @@
 #include "WorldGenerator.h"
 #include "DefaultBlockFactory.h"
 #include "Objects/Player.h"
+#include "PlayerController.h"
 
 #include <iostream>
 
@@ -37,6 +38,7 @@ namespace BlockWorld {
 		m_world = worldGenerator->createWorld(*engine, *blockFactory, 60, 30);
 		m_camera = new MouseScrollCamera(*m_world, *engine);
 		m_player = new Player(*m_world, 20, 20);
+		m_player->setController(new PlayerController(*m_player, *engine));
 		delete blockFactory;
 		delete worldGenerator;
 	}

@@ -22,8 +22,13 @@ namespace BadEngine
 	
 	void SDLEngine::start()
 	{
+		Uint32 flags = 0;
 		SDL_Init(SDL_INIT_VIDEO);
-		m_videoSurface = SDL_SetVideoMode(640, 480, 0, 0);
+		flags |= SDL_HWPALETTE;
+		flags |= SDL_HWSURFACE;
+		flags |= SDL_HWACCEL;
+		flags |= SDL_DOUBLEBUF;
+		m_videoSurface = SDL_SetVideoMode(640, 480, 0, flags);
 		srand(time(NULL));
 	}
 	

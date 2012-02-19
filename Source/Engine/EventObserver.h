@@ -9,7 +9,7 @@ namespace BadEngine {
 	class EventObserver {
 		protected:
 			EventObserver() { }
-			~EventObserver() { }
+			virtual ~EventObserver() { }
 		
 		public:
 			virtual void onQuit() { }
