@@ -3,7 +3,13 @@
 
 #include "../Engine/Engine.h"
 #include "../Engine/Position.h"
+#include "../Engine/Rectangle.h"
+#include "../Engine/Sprite.h"
 
+#include <list>
+#include <string>
+
+using namespace std;
 using namespace BadEngine;
 
 namespace BlockWorld {
@@ -28,6 +34,8 @@ namespace BlockWorld {
 			ObjectBehavior* m_fallingBehavior;
 			ObjectBehavior* m_collidingBehavior;
 			ObjectController* m_controller;
+			Sprite* m_sprite;
+			list<Rectangle*> m_collisionRectangles;
 		
 		private:
 			GameObject();
@@ -63,9 +71,15 @@ namespace BlockWorld {
 			void setTouchingGround(bool touching);
 			void setJump(bool jump);
 			void setJumping(bool jumping);
-			
+						
 			void update(double deltaTime);
 			void draw(Engine& engine, Camera& camera);
+			
+			void clearCollisionRectangles();
+			void addCollisionRectangle(Rectangle* rectangle);
+			list<Rectangle*>& getCollisionRectangles();
+			
+			void setSpriteAnimation(const string& name);
 	};
 };
 

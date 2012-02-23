@@ -127,14 +127,14 @@ namespace BlockWorld {
 		bool haveCollision = false;
 		list<Block*> blocks;
 		
-		int iStart = x;
-		int iEnd = x + width;
+		int iStart = x - BlockWorld::BLOCK_WIDTH;
+		int iEnd = x + width + BlockWorld::BLOCK_WIDTH;
 		
 		for (int i = iStart; i <= iEnd; i += BlockWorld::BLOCK_WIDTH) {
 			int blockX = i / BlockWorld::BLOCK_WIDTH;
 			
-			int jStart = y;
-			int jEnd = y + height;
+			int jStart = y - BlockWorld::BLOCK_HEIGHT;
+			int jEnd = y + height + BlockWorld::BLOCK_HEIGHT;
 			
 			for (int j = jStart; j <= jEnd; j += BlockWorld::BLOCK_HEIGHT) {
 				int blockY = j / BlockWorld::BLOCK_HEIGHT;

@@ -17,42 +17,53 @@ namespace BlockWorld {
 	
 	void DefaultCollidingBehavior::perform(GameObject& object, double deltaTime)
 	{
-		int objectWidth = object.getSpriteWidth();
-		int objectHeight = object.getSpriteHeight();
+		BlockWorld::World* world = object.getWorld();
+		list<Rectangle*>& objectRectangles = object.getCollisionRectangles();
+		
+		bool haveCollisionOnX = false;
+		bool haveCollisionOnY = false;
+		bool objectIsTouchingGround = false;
 		
 		double oldX = object.getX();
 		double oldY = object.getY();
 		double newX = object.getX();
 		double newY = object.getY();
+		double xChange = 0.0;
+		double yChange = 0.0;
 		
 		newX += (object.getVelocityX() * (deltaTime / 10.0));
 		newY += (object.getVelocityY() * (deltaTime / 10.0));
 		
-		double oldLeft = oldX - (objectWidth / 2);
-		double oldTop = oldY - (objectHeight / 2);
-		double newLeft = newX - (objectWidth / 2);
-		double newTop = newY - (objectHeight / 2);
+		xChange = newX - oldX;
+		yChange = newY - oldY;
 		
-		BlockWorld::World* world = object.getWorld();
+		std::list<Rectangle*>::const_iterator it;
+		it = objectRectangles.begin();
 		
-		
-		if (!world->haveCollision(newLeft, newTop, objectWidth, objectHeight)) {
-			object.setX(newX);
-			object.setY(newY);
-			object.setTouchingGround(false);
-		} else {
-			if (!world->haveCollision(newLeft, oldTop, objectWidth, objectHeight)) {
-				object.setX(newX);
-				object.setTouchingGround(true);
-			} else {
-				if (!world->haveCollision(oldLeft, newTop, objectWidth, objectHeight)) {
-					object.setY(newY);
-					object.setTouchingGround(false);
-				} else {
-					object.setTouchingGround(true);
-				}
+		for ( ; it != objectRectangles.end(); it++) {
+			double oldLeft = (*it)->getX();
+			double oldTop = (*it)->getY();
+			double newLeft = oldLeft + xChange;
+			double newTop = oldTop + yChange;
+			
+			double width = (*it)->getWidth();
+			double height = (*it)->getHeight();
+			
+			if (world->haveCollision(newLeft, oldTop, width, height)) {
+				haveCollisionOnX = true;
+			}
+			if (world->haveCollision(oldLeft, newTop, width, height)) {
+				haveCollisionOnY = true;
+				objectIsTouchingGround = true;
 			}
 		}
 		
+		if (!haveCollisionOnX) {
+			object.setX(newX);
+		}
+		if (!haveCollisionOnY) {
+			object.setY(newY);
+		}
+		object.setTouchingGround(objectIsTouchingGround);
 	}
 };

@@ -24,7 +24,9 @@ namespace BlockWorld {
 		m_jumpingBehavior(NULL),
 		m_fallingBehavior(NULL),
 		m_collidingBehavior(NULL),
-		m_controller(NULL)
+		m_controller(NULL),
+		m_sprite(NULL),
+		m_collisionRectangles()
 	{
 	}
 
@@ -43,7 +45,9 @@ namespace BlockWorld {
 		m_jumpingBehavior(NULL),
 		m_fallingBehavior(NULL),
 		m_collidingBehavior(NULL),
-		m_controller(NULL)
+		m_controller(NULL),
+		m_sprite(NULL),
+		m_collisionRectangles()
 	{
 	}
 	
@@ -64,6 +68,10 @@ namespace BlockWorld {
 		if (m_controller) {
 			delete m_controller;
 		}
+		if (m_sprite) {
+			delete m_sprite;
+		}
+		clearCollisionRectangles();
 	}
 	
 	World* GameObject::getWorld()
@@ -93,12 +101,12 @@ namespace BlockWorld {
 	
 	int GameObject::getSpriteWidth()
 	{
-		return 32;
+		return m_sprite->getWidth();
 	}
 	
 	int GameObject::getSpriteHeight()
 	{
-		return 32;
+		return m_sprite->getHeight();
 	}
 	
 	bool GameObject::isJumping()
@@ -137,12 +145,26 @@ namespace BlockWorld {
 	
 	void GameObject::setX(double x)
 	{
+		double change = x - m_x;
 		m_x = x;
+		
+		list<Rectangle*>::iterator it;
+		it = m_collisionRectangles.begin();
+		for ( ; it != m_collisionRectangles.end(); it++) {
+			(*it)->setX((*it)->getX() + change);
+		}
 	}
 	
 	void GameObject::setY(double y)
 	{
+		double change = y - m_y;
 		m_y = y;
+		
+		list<Rectangle*>::iterator it;
+		it = m_collisionRectangles.begin();
+		for ( ; it != m_collisionRectangles.end(); it++) {
+			(*it)->setY((*it)->getY() + change);
+		}
 	}
 	
 	void GameObject::setVelocityX(double velocity)
@@ -194,13 +216,69 @@ namespace BlockWorld {
 		if (m_collidingBehavior) {
 			m_collidingBehavior->perform(*this, deltaTime);
 		}
+		
+		if (m_jumping && !m_touchingGround) {
+			m_sprite->playAnimation("jump");
+		} else {
+			if (m_velocityX < 0.0) {
+				m_sprite->playAnimation("run");
+			} else if (m_velocityX > 0.0) {
+				m_sprite->playAnimation("run");
+			} else {
+				if (m_sprite->getCurrentAnimationName() == "run") {
+					m_sprite->stopCurrentAnimation();
+				} else {
+					m_sprite->playAnimation("default");
+				}
+			}
+		}
+		
+		m_sprite->update(deltaTime);
 	}
 	
 	void GameObject::draw(Engine& engine, Camera& camera)
 	{
 		int x = (m_x) - camera.getLeft() - (getSpriteWidth() / 2);
 		int y = (m_y) - camera.getTop() - (getSpriteHeight() / 2);
+		/*
 		Rectangle rectangle(x, y, 32, 32);
 		engine.drawRectangle(rectangle, 255, 0, 0);
+		*/
+		if (m_sprite) {
+			m_sprite->draw(engine, x, y);
+		}
+		/*
+		list<Rectangle*>::iterator it = m_collisionRectangles.begin();
+		for ( ; it != m_collisionRectangles.end(); it++) {
+			double rectX = (*it)->getX() - camera.getLeft();
+			double rectY = (*it)->getY() - camera.getTop();
+			Rectangle rectangle(rectX, rectY, (*it)->getWidth(), (*it)->getHeight());
+			engine.drawRectangle(rectangle, 255, 0, 0);
+		}
+		*/
+	}
+	
+	void GameObject::clearCollisionRectangles()
+	{
+		list<Rectangle*>::iterator it = m_collisionRectangles.begin();
+		for ( ; it != m_collisionRectangles.end(); it++) {
+			Rectangle* rectangle = *it;
+			delete rectangle;
+		}
+	}
+	
+	void GameObject::addCollisionRectangle(Rectangle* rectangle)
+	{
+		m_collisionRectangles.push_back(rectangle);
+	}
+	
+	list<Rectangle*>& GameObject::getCollisionRectangles()
+	{
+		return m_collisionRectangles;
+	}
+	
+	void GameObject::setSpriteAnimation(const string& name)
+	{
+		m_sprite->playAnimation(name);
 	}
 };

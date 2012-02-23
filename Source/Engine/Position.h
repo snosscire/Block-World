@@ -4,17 +4,17 @@
 namespace BadEngine {
 	class Position {
 		private:
-			int m_x;
-			int m_y;
+			double m_x;
+			double m_y;
 		
 		public:
 			Position();
-			Position(int x, int y);
+			Position(double x, double y);
 			~Position();
-			void setX(int x);
-			void setY(int y);
-			int getX();
-			int getY();
+			void setX(double x);
+			void setY(double y);
+			double getX();
+			double getY();
 	};
 };
 

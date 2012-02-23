@@ -3,10 +3,14 @@
 
 #include "../GameObject.h"
 
+#include "../../Engine/Engine.h"
+
+using namespace BadEngine;
+
 namespace BlockWorld {
 	class Player : public GameObject {
 		public:
-			Player(World& world, int x, int y);
+			Player(Engine& engine, World& world, int x, int y);
 			virtual ~Player();
 	};
 };

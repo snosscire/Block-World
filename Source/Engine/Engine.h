@@ -1,6 +1,7 @@
 #ifndef __BADENGINE_ENGINE_H__
 #define __BADENGINE_ENGINE_H__
 
+#include <string>
 #include <map>
 #include <list>
 
@@ -11,13 +12,14 @@ using namespace std;
 
 namespace BadEngine {
 	class Rectangle;
+	class Image;
 	class Engine {
 		protected:
 			map<EventType, list<EventObserver*> > m_eventObservers;
 			Engine();
 		
 		public:
-			~Engine();
+			virtual ~Engine();
 			void registerEventObserver(EventType, EventObserver* observer);
 			virtual void start() = 0;
 			virtual void stop() = 0;
@@ -29,6 +31,7 @@ namespace BadEngine {
 			virtual int getScreenWidth() = 0;
 			virtual int getScreenHeight() = 0;
 			virtual double getCurrentTime() = 0;
+			virtual Image* loadImage(string filename) = 0;
 	};
 };
 

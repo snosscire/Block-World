@@ -7,7 +7,7 @@ namespace BadEngine {
 	{
 	}
 	
-	Position::Position(int x, int y) :
+	Position::Position(double x, double y) :
 		m_x(x),
 		m_y(y)
 	{
@@ -17,22 +17,22 @@ namespace BadEngine {
 	{
 	}
 	
-	void Position::setX(int x)
+	void Position::setX(double x)
 	{
 		m_x = x;
 	}
 	
-	void Position::setY(int y)
+	void Position::setY(double y)
 	{
 		m_y = y;
 	}
 	
-	int Position::getX()
+	double Position::getX()
 	{
 		return m_x;
 	}
 	
-	int Position::getY()
+	double Position::getY()
 	{
 		return m_y;
 	}

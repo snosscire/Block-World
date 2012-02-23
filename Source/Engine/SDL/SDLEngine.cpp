@@ -2,11 +2,14 @@
 #include "SDLKeyboardButtonEvent.h"
 #include "SDLMouseMovementEvent.h"
 #include "SDLMouseButtonEvent.h"
+#include "SDLImage.h"
 
 #include "../Rectangle.h"
 
 #include <stdlib.h>
 #include <time.h>
+
+#include <SDL/SDL_image.h>
 
 namespace BadEngine
 {
@@ -115,5 +118,27 @@ namespace BadEngine
 	double SDLEngine::getCurrentTime()
 	{
 		return SDL_GetTicks();
+	}
+	
+	Image* SDLEngine::loadImage(string filename)
+	{
+		SDL_Surface* surface = IMG_Load(filename.c_str());
+		if (surface) {
+			SDL_Surface* newSurface = SDL_DisplayFormatAlpha(surface);
+			if (newSurface) {
+				SDL_FreeSurface(surface);
+				surface = newSurface;
+			}
+			return new SDLImage(surface, *this);
+		}
+		return NULL;
+	}
+	
+	void SDLEngine::drawSurface(SDL_Surface* surface, int x, int y)
+	{
+		SDL_Rect dst;
+		dst.x = x;
+		dst.y = y;
+		SDL_BlitSurface(surface, NULL, m_videoSurface, &dst);
 	}
 };

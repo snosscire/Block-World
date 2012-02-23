@@ -6,13 +6,14 @@
 #include "../Engine.h"
 
 namespace BadEngine {
+	class Image;
 	class SDLEngine : public Engine {
 		private:
 			SDL_Surface* m_videoSurface;
 		
 		public:
 			SDLEngine();
-			~SDLEngine();
+			virtual ~SDLEngine();
 			void start();
 			void stop();
 			void notifyEventObservers();
@@ -23,6 +24,8 @@ namespace BadEngine {
 			int getScreenWidth();
 			int getScreenHeight();
 			double getCurrentTime();
+			Image* loadImage(string filename);
+			void drawSurface(SDL_Surface* surface, int x, int y);
 	};
 };
 

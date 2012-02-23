@@ -23,6 +23,7 @@
     <Libs>
       <Libs>
         <Lib>SDL</Lib>
+        <Lib>SDL_image</Lib>
       </Libs>
     </Libs>
     <WarningLevel>All</WarningLevel>
@@ -70,6 +71,10 @@
     <Compile Include="Source\Game\Objects\Player.cpp" />
     <Compile Include="Source\Game\PlayerController.cpp" />
     <Compile Include="Source\Game\FollowObjectCamera.cpp" />
+    <Compile Include="Source\Engine\SDL\SDLImage.cpp" />
+    <Compile Include="Source\Engine\Sprite.cpp" />
+    <Compile Include="Source\Engine\Animation.cpp" />
+    <Compile Include="Source\Engine\AnimationFrame.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Source\" />
@@ -80,6 +85,7 @@
     <Folder Include="Source\Game\Blocks\Default\" />
     <Folder Include="Source\Game\ObjectBehaviors\" />
     <Folder Include="Source\Game\Objects\" />
+    <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Source\Game\Game.h" />
@@ -120,5 +126,11 @@
     <None Include="Source\Game\ObjectController.h" />
     <None Include="Source\Game\PlayerController.h" />
     <None Include="Source\Game\FollowObjectCamera.h" />
+    <None Include="Resources\test-player.png" />
+    <None Include="Source\Engine\Image.h" />
+    <None Include="Source\Engine\SDL\SDLImage.h" />
+    <None Include="Source\Engine\Sprite.h" />
+    <None Include="Source\Engine\Animation.h" />
+    <None Include="Source\Engine\AnimationFrame.h" />
   </ItemGroup>
 </Project>
