@@ -24,6 +24,7 @@
       <Libs>
         <Lib>SDL</Lib>
         <Lib>SDL_image</Lib>
+        <Lib>SDL_gfx</Lib>
       </Libs>
     </Libs>
     <WarningLevel>All</WarningLevel>
@@ -75,6 +76,7 @@
     <Compile Include="Source\Engine\Sprite.cpp" />
     <Compile Include="Source\Engine\Animation.cpp" />
     <Compile Include="Source\Engine\AnimationFrame.cpp" />
+    <Compile Include="Source\Game\Crosshair.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Source\" />
@@ -132,5 +134,17 @@
     <None Include="Source\Engine\Sprite.h" />
     <None Include="Source\Engine\Animation.h" />
     <None Include="Source\Engine\AnimationFrame.h" />
+    <None Include="Source\Game\Crosshair.h" />
+    <None Include="Resources\blockworld-character-run\blockworld-character-run-00.png" />
+    <None Include="Resources\blockworld-character-run\blockworld-character-run-01.png" />
+    <None Include="Resources\blockworld-character-run\blockworld-character-run-02.png" />
+    <None Include="Resources\blockworld-character-run\blockworld-character-run-03.png" />
+    <None Include="Resources\blockworld-character-run\blockworld-character-run-04.png" />
+    <None Include="Resources\blockworld-character-run\blockworld-character-run-05.png" />
+    <None Include="Resources\blockworld-character-run\blockworld-character-run-06.png" />
+    <None Include="Resources\blockworld-character-run\blockworld-character-run-07.png" />
+    <None Include="Resources\blockworld-character-run\blockworld-character-run-08.png" />
+    <None Include="Resources\crosshair.png" />
+    <None Include="Resources\test-player-jump.png" />
   </ItemGroup>
 </Project>

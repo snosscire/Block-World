@@ -1,6 +1,8 @@
 #include "SDLImage.h"
 #include "SDLEngine.h"
 
+#include <SDL/SDL_rotozoom.h>
+
 #include <iostream>
 
 namespace BadEngine {
@@ -43,5 +45,12 @@ namespace BadEngine {
 	int SDLImage::getHeight()
 	{
 		return m_surface->h;
+	}
+	
+	void SDLImage::flip()
+	{
+		SDL_Surface* newSurface = zoomSurface(m_surface, -1.0, 1.0, 0);
+		SDL_FreeSurface(m_surface);
+		m_surface = newSurface;
 	}
 };

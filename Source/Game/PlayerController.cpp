@@ -12,10 +12,12 @@ namespace BlockWorld {
 	
 	PlayerController::PlayerController(GameObject& object, Engine& engine) :
 		ObjectController(&object),
-		EventObserver()
+		EventObserver(),
+		m_engine(&engine)
 	{
 		engine.registerEventObserver(EVENT_KEYBOARD_BUTTON_DOWN, this);
 		engine.registerEventObserver(EVENT_KEYBOARD_BUTTON_UP, this);
+		engine.registerEventObserver(EVENT_MOUSE_MOVEMENT, this);
 	}
 	
 	PlayerController::~PlayerController()
@@ -40,5 +42,5 @@ namespace BlockWorld {
 		} else if (event.getButton() == KEYBOARD_BUTTON_D) {
 			m_object->setMoveRight(false);
 		}
-	}
+	}	
 };

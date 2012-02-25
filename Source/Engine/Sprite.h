@@ -14,6 +14,7 @@ namespace BadEngine {
 			map<const string, Animation*> m_animations;
 			Animation* m_currentAnimation;
 			const string* m_currentAnimationName;
+			bool leftFlipped;
 		
 		public:
 			Sprite();
@@ -26,6 +27,7 @@ namespace BadEngine {
 			void draw(Engine& engine, int x, int y);
 			int getWidth();
 			int getHeight();
+			void flipImages(bool flipLeft);
 	};
 };
 

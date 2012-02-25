@@ -59,6 +59,13 @@ namespace BadEngine {
 		return 0;
 	}
 	
+	void AnimationFrame::flipImage()
+	{
+		if (m_image) {
+			m_image->flip();
+		}
+	}
+	
 	void AnimationFrame::draw(Engine& engine, int x, int y)
 	{
 		if (m_image) {

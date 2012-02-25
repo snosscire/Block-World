@@ -8,7 +8,8 @@ namespace BadEngine {
 	Sprite::Sprite() :
 		m_animations(),
 		m_currentAnimation(NULL),
-		m_currentAnimationName()
+		m_currentAnimationName(NULL),
+		leftFlipped(false)
 	{
 	}
 	
@@ -80,5 +81,18 @@ namespace BadEngine {
 			return m_currentAnimation->getHeight();
 		}
 		return 0;
+	}
+	
+	void Sprite::flipImages(bool flipLeft)
+	{
+		if ((!leftFlipped && flipLeft) || (leftFlipped && !flipLeft)) {
+			leftFlipped = flipLeft;
+			map<const string, Animation*>::iterator it;
+			it = m_animations.begin();
+			for ( ; it != m_animations.end(); it++) {
+				Animation* animation = it->second;
+				animation->flipImages();
+			}
+		}
 	}
 };

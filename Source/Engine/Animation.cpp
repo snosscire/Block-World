@@ -83,4 +83,14 @@ namespace BadEngine {
 		}
 		return 0;
 	}
+	
+	void Animation::flipImages()
+	{
+		vector<AnimationFrame*>::iterator it;
+		it = m_frames.begin();
+		for ( ; it != m_frames.end(); it++) {
+			AnimationFrame* frame = *it;
+			frame->flipImage();
+		}
+	}
 };

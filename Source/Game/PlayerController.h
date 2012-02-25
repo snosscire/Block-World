@@ -11,6 +11,9 @@ using namespace BadEngine;
 namespace BlockWorld {
 	class PlayerController : public ObjectController, public EventObserver {
 		private:
+			Engine* m_engine;
+		
+		private:
 			PlayerController();
 		
 		public:

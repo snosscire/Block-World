@@ -221,8 +221,10 @@ namespace BlockWorld {
 			m_sprite->playAnimation("jump");
 		} else {
 			if (m_velocityX < 0.0) {
+				m_sprite->flipImages(true);
 				m_sprite->playAnimation("run");
 			} else if (m_velocityX > 0.0) {
+				m_sprite->flipImages(false);
 				m_sprite->playAnimation("run");
 			} else {
 				if (m_sprite->getCurrentAnimationName() == "run") {

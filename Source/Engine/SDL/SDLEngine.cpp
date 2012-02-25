@@ -33,6 +33,7 @@ namespace BadEngine
 		flags |= SDL_DOUBLEBUF;
 		m_videoSurface = SDL_SetVideoMode(640, 480, 0, flags);
 		srand(time(NULL));
+		SDL_ShowCursor(SDL_DISABLE);
 	}
 	
 	void SDLEngine::stop()

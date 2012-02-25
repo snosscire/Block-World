@@ -20,6 +20,7 @@ namespace BadEngine {
 			bool finishedPlaying();
 			int getWidth();
 			int getHeight();
+			void flipImage();
 			void update(double deltaTime);
 			void draw(Engine& engine, int x, int y);
 	};

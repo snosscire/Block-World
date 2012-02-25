@@ -12,11 +12,13 @@ namespace BlockWorld {
 	class Camera;
 	class World;
 	class Player;
+	class Crosshair;
 	class TestMode : public GameMode, public EventObserver {
 		private:
 			World* m_world;
 			Camera* m_camera;
 			Player* m_player;
+			Crosshair* m_crosshair;
 		
 		private:
 			TestMode();

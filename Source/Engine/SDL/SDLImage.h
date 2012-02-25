@@ -22,6 +22,7 @@ namespace BadEngine {
 			void draw(int x, int y);
 			int getWidth();
 			int getHeight();
+			void flip();
 	};
 };
 

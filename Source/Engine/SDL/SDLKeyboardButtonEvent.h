@@ -1,5 +1,5 @@
-#ifndef __SDLKEYBOARDBUTTONEVENT_H__
-#define __SDLKEYBOARDBUTTONEVENT_H__
+#ifndef __BADENGINE_SDLKEYBOARDBUTTONEVENT_H__
+#define __BADENGINE_SDLKEYBOARDBUTTONEVENT_H__
 
 #include <SDL/SDL.h>
 
@@ -15,9 +15,9 @@ namespace BadEngine {
 		
 		public:
 			SDLKeyboardButtonEvent(SDL_Event* event);
-			~SDLKeyboardButtonEvent();
+			virtual ~SDLKeyboardButtonEvent();
 			KeyboardButton getButton();
 	};
 };
 
-#endif // __SDLKEYBOARDBUTTONEVENT_H__
+#endif // __BADENGINE_SDLKEYBOARDBUTTONEVENT_H__
