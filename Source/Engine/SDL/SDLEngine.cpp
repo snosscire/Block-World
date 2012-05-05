@@ -9,6 +9,8 @@
 #include <stdlib.h>
 #include <time.h>
 
+#include <iostream>
+
 #include <SDL/SDL_image.h>
 
 namespace BadEngine
@@ -131,6 +133,8 @@ namespace BadEngine
 				surface = newSurface;
 			}
 			return new SDLImage(surface, *this);
+		} else {
+			std::cout << "Failed to load image: " << filename << std::endl;
 		}
 		return NULL;
 	}
@@ -141,5 +145,15 @@ namespace BadEngine
 		dst.x = x;
 		dst.y = y;
 		SDL_BlitSurface(surface, NULL, m_videoSurface, &dst);
+	}
+	
+	void SDLEngine::grabInput()
+	{
+		SDL_WM_GrabInput(SDL_GRAB_ON);
+	}
+	
+	void SDLEngine::releaseInput()
+	{
+		SDL_WM_GrabInput(SDL_GRAB_OFF);
 	}
 };

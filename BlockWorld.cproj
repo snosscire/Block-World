@@ -77,6 +77,7 @@
     <Compile Include="Source\Engine\Animation.cpp" />
     <Compile Include="Source\Engine\AnimationFrame.cpp" />
     <Compile Include="Source\Game\Crosshair.cpp" />
+    <Compile Include="Source\Engine\Vector2d.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Source\" />
@@ -146,5 +147,6 @@
     <None Include="Resources\blockworld-character-run\blockworld-character-run-08.png" />
     <None Include="Resources\crosshair.png" />
     <None Include="Resources\test-player-jump.png" />
+    <None Include="Source\Engine\Vector2d.h" />
   </ItemGroup>
 </Project>

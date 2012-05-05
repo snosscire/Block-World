@@ -1,7 +1,12 @@
 #include "Crosshair.h"
 #include "GameObject.h"
+#include "BlockWorld.h"
+
+#include <math.h>
 
 #include <iostream>
+
+#include <SDL/SDL.h>
 
 namespace BlockWorld {
 	Crosshair::Crosshair() :
@@ -26,6 +31,7 @@ namespace BlockWorld {
 		m_y = engine.getScreenHeight() / 2;
 		
 		engine.registerEventObserver(EVENT_MOUSE_MOVEMENT, this);
+		engine.grabInput();
 	}
 	
 	Crosshair::~Crosshair()
@@ -49,7 +55,32 @@ namespace BlockWorld {
 	
 	void Crosshair::onMouseMovement(MouseMovementEvent& event)
 	{
-		m_x = event.getX() - (m_image->getWidth() / 2);
-		m_y = event.getY() - (m_image->getHeight() / 2);
+		double newX = m_x + event.getRelativeX();
+		double newY = m_y + event.getRelativeY();
+		
+		double originX = m_object->getScreenX();
+		double originY = m_object->getScreenY();
+		
+		double x = newX - originX;
+		double y = newY - originY;
+		double length = sqrt(x * x + y * y);
+		
+		if (length > BlockWorld::MAX_CROSSHAIR_DISTANCE) {
+			double modifiedX = newX - originX;
+			double modifiedY = newY - originY;
+			double magnitude = sqrt((modifiedX * modifiedX) + (modifiedY * modifiedY));
+
+			double normalizedX = modifiedX / magnitude;
+			double normalizedY = modifiedY / magnitude;
+
+			newX = (normalizedX * BlockWorld::MAX_CROSSHAIR_DISTANCE);
+			newY = (normalizedY * BlockWorld::MAX_CROSSHAIR_DISTANCE);
+			
+			newX += originX;
+			newY += originY;
+		}
+		
+		m_x = newX;
+		m_y = newY;
 	}
 };

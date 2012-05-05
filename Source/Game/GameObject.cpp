@@ -13,6 +13,8 @@ namespace BlockWorld {
 		m_world(NULL),
 		m_x(0.0),
 		m_y(0.0),
+		m_screenX(0.0),
+		m_screenY(0.0),
 		m_velocityX(0.0),
 		m_velocityY(0.0),
 		m_moveLeft(false),
@@ -34,6 +36,8 @@ namespace BlockWorld {
 		m_world(&world),
 		m_x(0.0),
 		m_y(0.0),
+		m_screenX(0.0),
+		m_screenY(0.0),
 		m_velocityX(0.0),
 		m_velocityY(0.0),
 		m_moveLeft(false),
@@ -87,6 +91,26 @@ namespace BlockWorld {
 	double GameObject::getY()
 	{
 		return m_y;
+	}
+	
+	double GameObject::getWorldX()
+	{
+		return m_x;
+	}
+	
+	double GameObject::getWorldY()
+	{
+		return m_y;
+	}
+	
+	double GameObject::getScreenX()
+	{
+		return m_screenX;
+	}
+	
+	double GameObject::getScreenY()
+	{
+		return m_screenY;
 	}
 	
 	double GameObject::getVelocityX()
@@ -258,6 +282,8 @@ namespace BlockWorld {
 			engine.drawRectangle(rectangle, 255, 0, 0);
 		}
 		*/
+		m_screenX = x;
+		m_screenY = y;
 	}
 	
 	void GameObject::clearCollisionRectangles()

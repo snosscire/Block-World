@@ -22,6 +22,8 @@ namespace BlockWorld {
 			World* m_world;
 			double m_x;
 			double m_y;
+			double m_screenX;
+			double m_screenY;
 			double m_velocityX;
 			double m_velocityY;
 			bool m_moveLeft;
@@ -48,6 +50,10 @@ namespace BlockWorld {
 			
 			double getX();
 			double getY();
+			double getWorldX();
+			double getWorldY();
+			double getScreenX();
+			double getScreenY();
 			double getVelocityX();
 			double getVelocityY();
 			int getSpriteWidth();
