@@ -32,6 +32,8 @@ namespace BadEngine {
 			virtual int getScreenHeight() = 0;
 			virtual double getCurrentTime() = 0;
 			virtual Image* loadImage(string filename) = 0;
+			virtual void grabInput() = 0;
+			virtual void releaseInput() = 0;
 	};
 };
 

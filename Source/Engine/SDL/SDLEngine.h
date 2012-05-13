@@ -26,6 +26,8 @@ namespace BadEngine {
 			double getCurrentTime();
 			Image* loadImage(string filename);
 			void drawSurface(SDL_Surface* surface, int x, int y);
+			void grabInput();
+			void releaseInput();
 	};
 };
 

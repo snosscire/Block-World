@@ -87,6 +87,7 @@
     <Compile Include="Source\External\aphex\aphex_notify.c" />
     <Compile Include="Source\External\aphex\aphex_thread.c" />
     <Compile Include="Source\External\aphex\poll.c" />
+    <Compile Include="Source\Engine\Vector2d.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Source\" />
@@ -161,5 +162,6 @@
     <None Include="Source\Game\MapDirectory.h" />
     <None Include="Source\External\aphex\aphex.h" />
     <None Include="Source\External\aphex\poll.h" />
+    <None Include="Source\Engine\Vector2d.h" />
   </ItemGroup>
 </Project>
