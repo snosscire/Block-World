@@ -5,7 +5,6 @@
 
 #include <iostream>
 #include <cstring>
-#include <sstream>
 
 namespace BlockWorld {
 	MapLoader::MapLoader() :
@@ -23,6 +22,35 @@ namespace BlockWorld {
 		}
 	}
 	
+	MapDirectory* MapLoader::readMapDirectory(const ostringstream& directoryPath)
+	{
+		AphexDirectory* directory = aphex_directory_read((char*)directoryPath.str().c_str());
+		MapDirectory* mapDirectory = NULL;
+		if (directory) {
+			bool foundImage = false;
+			bool foundXML = false;
+			
+			for (unsigned int i = 0; i < directory->size; i++) {
+				if (strcmp(directory->contents[i], "map.png") == 0) {
+					foundImage = true;
+				} else if (strcmp(directory->contents[i], "map.xml") == 0) {
+					foundXML = true;
+				}
+			}
+			
+			if (foundImage) {
+				//MapDirectory* mapDirectory = new MapDirectory(
+				if (foundXML) {
+					
+				}
+			}
+			
+			aphex_directory_delete(directory);
+			directory = NULL;
+		}
+		return mapDirectory;
+	}
+	
 	void MapLoader::loadDirectory(string path)
 	{
 		AphexDirectory* baseDirectory = aphex_directory_read((char*)path.c_str());
@@ -36,31 +64,10 @@ namespace BlockWorld {
 				directoryPath << directoryName;
 				
 				cout << "Map directory: " << directoryPath.str() << endl;
-				
-				AphexDirectory* directory = aphex_directory_read((char*)directoryPath.str().c_str());
-				if (directory) {
-					bool foundImage = false;
-					bool foundXML = false;
-					
-					for (unsigned int j = 0; j < directory->size; j++) {
-						if (strcmp(directory->contents[i], "map.png") == 0) {
-							foundImage = true;
-						} else if (strcmp(directory->contents[j], "map.xml") == 0) {
-							foundXML = true;
-						}
-					}
-					
-					if (foundImage) {
-						//MapDirectory* mapDirectory = new MapDirectory(
-						if (foundXML) {
-							
-						}
-					}
-					
-					aphex_directory_delete(directory);
-					directory = NULL;
+				MapDirectory* mapDirectory = readMapDirectory(directoryPath);
+				if (mapDirectory) {
+					m_maps.push_back(mapDirectory);
 				}
-				
 			}
 			
 			aphex_directory_delete(baseDirectory);

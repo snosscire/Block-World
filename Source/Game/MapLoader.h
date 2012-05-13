@@ -3,6 +3,7 @@
 
 #include <list>
 #include <string>
+#include <sstream>
 
 using namespace std;
 
@@ -11,6 +12,9 @@ namespace BlockWorld {
 	class MapLoader {
 		private:
 			list<MapDirectory*> m_maps;
+		
+		private:
+			MapDirectory* readMapDirectory(const ostringstream& directoryPath);
 		
 		public:
 			MapLoader();
