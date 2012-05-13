@@ -16,6 +16,7 @@ namespace BadEngine {
 			virtual ~SDLEngine();
 			void start();
 			void stop();
+			void setVideoMode(int width, int height);
 			void notifyEventObservers();
 			void clearScreen();
 			void updateScreen();

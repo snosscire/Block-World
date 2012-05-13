@@ -1,6 +1,7 @@
 #ifndef __BADENGINE_EVENTOBSERVER_H__
 #define __BADENGINE_EVENTOBSERVER_H__
 
+#include "VideoResizeEvent.h"
 #include "KeyboardButtonEvent.h"
 #include "MouseMovementEvent.h"
 #include "MouseButtonEvent.h"
@@ -13,6 +14,7 @@ namespace BadEngine {
 		
 		public:
 			virtual void onQuit() { }
+			virtual void onVideoResize(VideoResizeEvent& event) { }
 			virtual void onKeyboardButtonDown(KeyboardButtonEvent& event) { }
 			virtual void onKeyboardButtonUp(KeyboardButtonEvent& event) { }
 			virtual void onMouseButtonDown(MouseButtonEvent& event) { }

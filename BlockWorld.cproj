@@ -27,8 +27,6 @@
         <Lib>SDL_gfx</Lib>
       </Libs>
     </Libs>
-    <WarningLevel>All</WarningLevel>
-    <WarningsAsErrors>true</WarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>bin\Release</OutputPath>
@@ -90,6 +88,8 @@
     <Compile Include="Source\Engine\Vector2d.cpp" />
     <Compile Include="Source\Game\Blocks\DefaultBlock.cpp" />
     <Compile Include="Source\External\tinyxml2\tinyxml2.cpp" />
+    <Compile Include="Source\Game\WorldBackground.cpp" />
+    <Compile Include="Source\Engine\SDL\SDLVideoResizeEvent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Source\" />
@@ -170,5 +170,8 @@
     <None Include="Source\Engine\Vector2d.h" />
     <None Include="Source\Game\Blocks\DefaultBlock.h" />
     <None Include="Source\External\tinyxml2\tinyxml2.h" />
+    <None Include="Source\Game\WorldBackground.h" />
+    <None Include="Source\Engine\VideoResizeEvent.h" />
+    <None Include="Source\Engine\SDL\SDLVideoResizeEvent.h" />
   </ItemGroup>
 </Project>

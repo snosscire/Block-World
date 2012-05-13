@@ -29,12 +29,17 @@ namespace BlockWorld {
 	int FollowObjectCamera::getLeft()
 	{
 		int left = m_object->getX() - (m_engine->getScreenWidth() / 2);
-		int maxLeft = (m_world->getWidth() * BlockWorld::BLOCK_WIDTH) - m_engine->getScreenWidth();
+		int worldPixelWidth = m_world->getWidth() * BlockWorld::BLOCK_WIDTH;
 		
-		if (left < 0) {
+		if (m_engine->getScreenWidth() > worldPixelWidth) {
 			left = 0;
-		} else if (left > maxLeft) {
-			left = maxLeft;
+		} else {
+			int maxLeft = worldPixelWidth - m_engine->getScreenWidth();
+			if (left < 0) {
+				left = 0;
+			} else if (left > maxLeft) {
+				left = maxLeft;
+			}
 		}
 		
 		return left;
@@ -48,17 +53,23 @@ namespace BlockWorld {
 	int FollowObjectCamera::getTop()
 	{
 		int top = m_object->getY() - (m_engine->getScreenHeight() / 2);
-		int maxTop = (m_world->getHeight() * BlockWorld::BLOCK_HEIGHT) - m_engine->getScreenHeight();
+		int worldPixelHeight = m_world->getHeight() * BlockWorld::BLOCK_HEIGHT;
 		
-		if (top < 0) {
+		if (m_engine->getScreenHeight() > worldPixelHeight) {
 			top = 0;
-		} else if (top > maxTop) {
-			top = maxTop;
+		} else {
+			int maxTop = worldPixelHeight - m_engine->getScreenHeight();
+			
+			if (top < 0) {
+				top = 0;
+			} else if (top > maxTop) {
+				top = maxTop;
+			}
 		}
 		
 		return top;
 	}
-	
+	ddddd
 	int FollowObjectCamera::getBottom()
 	{
 		return getTop() + m_engine->getScreenHeight();

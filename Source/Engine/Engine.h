@@ -23,6 +23,7 @@ namespace BadEngine {
 			void registerEventObserver(EventType, EventObserver* observer);
 			virtual void start() = 0;
 			virtual void stop() = 0;
+			virtual void setVideoMode(int width, int height) = 0;
 			virtual void notifyEventObservers() = 0;
 			virtual void clearScreen() = 0;
 			virtual void updateScreen() = 0;

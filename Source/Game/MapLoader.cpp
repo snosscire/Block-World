@@ -22,9 +22,10 @@ namespace BlockWorld {
 		}
 	}
 	
-	MapDirectory* MapLoader::readMapDirectory(const ostringstream& directoryPath)
+	MapDirectory* MapLoader::readMapDirectory(string directoryName, const ostringstream& directoryPath)
 	{
-		AphexDirectory* directory = aphex_directory_read((char*)directoryPath.str().c_str());
+		string path = directoryPath.str();
+		AphexDirectory* directory = aphex_directory_read((char*)path.c_str());
 		MapDirectory* mapDirectory = NULL;
 		if (directory) {
 			bool foundImage = false;
@@ -39,9 +40,13 @@ namespace BlockWorld {
 			}
 			
 			if (foundImage) {
-				//MapDirectory* mapDirectory = new MapDirectory(
+				ostringstream imagePath;
+				imagePath << path << "/map.png";
+				mapDirectory = new MapDirectory(path, directoryName, imagePath.str());
 				if (foundXML) {
-					
+					ostringstream xmlPath;
+					xmlPath << path << "/map.xml";
+					mapDirectory->setXMLPath(xmlPath.str());
 				}
 			}
 			
@@ -59,12 +64,10 @@ namespace BlockWorld {
 				string directoryName = baseDirectory->contents[i];
 				
 				ostringstream directoryPath;
-				directoryPath << path;
-				directoryPath << "/";
-				directoryPath << directoryName;
+				directoryPath << path << "/" << directoryName;
 				
 				cout << "Map directory: " << directoryPath.str() << endl;
-				MapDirectory* mapDirectory = readMapDirectory(directoryPath);
+				MapDirectory* mapDirectory = readMapDirectory(directoryName, directoryPath);
 				if (mapDirectory) {
 					m_maps.push_back(mapDirectory);
 				}
@@ -72,6 +75,12 @@ namespace BlockWorld {
 			
 			aphex_directory_delete(baseDirectory);
 			baseDirectory = NULL;
+		}
+		
+		list<MapDirectory*>::iterator it = m_maps.begin();
+		for ( ; it != m_maps.end(); it++) {
+			MapDirectory* directory = *it;
+			cout << "Loaded map: " << directory->getName() << endl;
 		}
 	}
 	

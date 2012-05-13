@@ -19,6 +19,7 @@ namespace BlockWorld {
 		m_name(),
 		m_description()
 	{
+		m_name = directoryName;
 	}
 	
 	MapDirectory::~MapDirectory()

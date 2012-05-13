@@ -1,4 +1,5 @@
 #include "SDLEngine.h"
+#include "SDLVideoResizeEvent.h"
 #include "SDLKeyboardButtonEvent.h"
 #include "SDLMouseMovementEvent.h"
 #include "SDLMouseButtonEvent.h"
@@ -27,13 +28,8 @@ namespace BadEngine
 	
 	void SDLEngine::start()
 	{
-		Uint32 flags = 0;
 		SDL_Init(SDL_INIT_VIDEO);
-		flags |= SDL_HWPALETTE;
-		flags |= SDL_HWSURFACE;
-		flags |= SDL_HWACCEL;
-		flags |= SDL_DOUBLEBUF;
-		m_videoSurface = SDL_SetVideoMode(640, 480, 0, flags);
+		setVideoMode(640, 480);
 		srand(time(NULL));
 		SDL_ShowCursor(SDL_DISABLE);
 	}
@@ -43,10 +39,22 @@ namespace BadEngine
 		SDL_Quit();
 	}
 	
+	void SDLEngine::setVideoMode(int width, int height)
+	{
+		Uint32 flags = 0;
+		flags |= SDL_HWPALETTE;
+		flags |= SDL_HWSURFACE;
+		flags |= SDL_HWACCEL;
+		flags |= SDL_DOUBLEBUF;
+		flags |= SDL_RESIZABLE;
+		m_videoSurface = SDL_SetVideoMode(width, height, 0, flags);
+	}
+	
 	void SDLEngine::notifyEventObservers()
 	{
 		SDL_Event event;
 		EventType type;
+		SDLVideoResizeEvent videoResizeEvent(&event);
 		SDLKeyboardButtonEvent keyboardButtonEvent(&event);
 		SDLMouseButtonEvent mouseButtonEvent(&event);
 		SDLMouseMovementEvent mouseMovementEvent(&event);
@@ -55,6 +63,7 @@ namespace BadEngine
 		while (SDL_PollEvent(&event)) {
 			switch (event.type) {
 				case SDL_QUIT:            type = EVENT_QUIT; break;
+				case SDL_VIDEORESIZE:     type = EVENT_VIDEO_RESIZE; break;
 				case SDL_KEYDOWN:         type = EVENT_KEYBOARD_BUTTON_DOWN; break;
 				case SDL_KEYUP:           type = EVENT_KEYBOARD_BUTTON_UP; break;
 				case SDL_MOUSEBUTTONDOWN: type = EVENT_MOUSE_BUTTON_DOWN; break;
@@ -67,6 +76,7 @@ namespace BadEngine
 			for ( ; it != m_eventObservers[type].end(); it++) {
 				switch (type) {
 					case EVENT_QUIT:                 (*it)->onQuit(); break;
+					case EVENT_VIDEO_RESIZE:         (*it)->onVideoResize(videoResizeEvent); break;
 					case EVENT_KEYBOARD_BUTTON_DOWN: (*it)->onKeyboardButtonDown(keyboardButtonEvent); break;
 					case EVENT_KEYBOARD_BUTTON_UP:   (*it)->onKeyboardButtonUp(keyboardButtonEvent); break;
 					case EVENT_MOUSE_BUTTON_DOWN:    (*it)->onMouseButtonDown(mouseButtonEvent); break;

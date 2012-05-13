@@ -1,4 +1,5 @@
 #include "World.h"
+#include "WorldBackground.h"
 #include "BlockWorld.h"
 #include "Block.h"
 #include "Camera.h"
@@ -7,10 +8,20 @@
 
 #include <iostream>
 
+
 namespace BlockWorld {
+	bool compareWorldBackgroundLayers(WorldBackground* first, WorldBackground* second)
+	{
+		if (first->getLayer() < second->getLayer()) {
+			return true;
+		}
+		return false;
+	}
+	
 	World::World() :
 		m_width(0),
 		m_height(0),
+		m_backgrounds(),
 		m_blocks(NULL)
 	{
 	}
@@ -18,6 +29,7 @@ namespace BlockWorld {
 	World::World(int width, int height) :
 		m_width(width),
 		m_height(height),
+		m_backgrounds(),
 		m_blocks(NULL)
 	{
 		m_blocks = new Block**[m_width];
@@ -33,7 +45,7 @@ namespace BlockWorld {
 	}
 	
 	World::~World()
-	{
+	{		
 		for (int x = 0; x < m_width; x++) {
 			for(int y = 0; y < m_height; y++ ) {
 				delete m_blocks[x][y];
@@ -41,6 +53,14 @@ namespace BlockWorld {
 			delete[] m_blocks[x];
 		}
 		delete[] m_blocks;
+
+		list<WorldBackground*>::iterator it;
+		it = m_backgrounds.begin();
+		for ( ; it != m_backgrounds.end(); it++) {
+			WorldBackground* background = *it;
+			delete background;
+		}
+
 	}
 	
 	int World::getWidth()
@@ -51,6 +71,12 @@ namespace BlockWorld {
 	int World::getHeight()
 	{
 		return m_height;
+	}
+	
+	void World::addBackground(WorldBackground* background)
+	{
+		m_backgrounds.push_back(background);
+		m_backgrounds.sort(BlockWorld::compareWorldBackgroundLayers);
 	}
 	
 	void World::setBlock(int x, int y, Block* newBlock)
@@ -75,16 +101,24 @@ namespace BlockWorld {
 	
 	void World::draw(Engine& engine, Camera& camera)
 	{
-		Rectangle backgroundRectangle(0, 0, engine.getScreenWidth(), engine.getScreenHeight());
+		//Rectangle backgroundRectangle(0, 0, engine.getScreenWidth(), engine.getScreenHeight());
 		
 		int left = camera.getLeft() / BlockWorld::BLOCK_WIDTH;
 		int right = camera.getRight() / BlockWorld::BLOCK_WIDTH;
 		int top = camera.getTop() / BlockWorld::BLOCK_HEIGHT;
 		int bottom = camera.getBottom() / BlockWorld::BLOCK_HEIGHT;
+		
+		WorldBackground* background = NULL;
+		
+		list<WorldBackground*>::iterator it = m_backgrounds.begin();
+		for ( ; it != m_backgrounds.end(); it++) {
+			background = *it;
+			background->draw(engine, camera);
+		}
 				
 		Block *block = NULL;
 						
-		engine.drawRectangle(backgroundRectangle, 50, 150, 200);
+		//engine.drawRectangle(backgroundRectangle, 50, 150, 200);
 		
 		for (int x = left; x <= right; x++) {
 			for (int y = top; y <= bottom; y++) {
@@ -180,5 +214,18 @@ namespace BlockWorld {
 			m_blocks[x][y] = NULL;
 		}
 		return block;
+	}
+	
+	Position* World::getRandomOpenPosition(Engine& engine, int width, int height)
+	{
+		int x = 0;
+		int y = 0;
+		do {
+			x = engine.getRandomNumber(0, m_width * BlockWorld::BLOCK_WIDTH);
+			y = engine.getRandomNumber(0, m_height * BlockWorld::BLOCK_HEIGHT);
+		} while (haveCollision(x, y, width, height));
+		
+		Position* position = new Position(x, y);
+		return position;
 	}
 };

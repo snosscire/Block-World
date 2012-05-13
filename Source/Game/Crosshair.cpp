@@ -31,7 +31,7 @@ namespace BlockWorld {
 		m_y = engine.getScreenHeight() / 2;
 		
 		engine.registerEventObserver(EVENT_MOUSE_MOVEMENT, this);
-		engine.grabInput();
+		//engine.grabInput();
 	}
 	
 	Crosshair::~Crosshair()

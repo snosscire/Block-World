@@ -4,6 +4,7 @@
 namespace BlockWorld {
 	enum BlockType {
 		BLOCK_TYPE_DIRT,
+		BLOCK_TYPE_GRASS,
 		BLOCK_TYPE_STONE
 	};
 };

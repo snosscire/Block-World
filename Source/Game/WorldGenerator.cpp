@@ -76,7 +76,7 @@ namespace BlockWorld {
 					continue;
 				}
 				
-				world->setBlock(x, y, blockFactory.createBlock(BLOCK_TYPE_DIRT, *world, x, y));				
+				world->setBlock(x, y, blockFactory.createBlock(BLOCK_TYPE_DIRT, *world, x, y));
 			}
 		}
 		

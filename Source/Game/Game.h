@@ -31,6 +31,7 @@ namespace BlockWorld {
 			void run(const string& mode);
 			void quit();
 			void onQuit();
+			void onVideoResize(VideoResizeEvent& event);
 	};
 };
 

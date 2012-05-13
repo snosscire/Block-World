@@ -14,7 +14,7 @@ namespace BlockWorld {
 			list<MapDirectory*> m_maps;
 		
 		private:
-			MapDirectory* readMapDirectory(const ostringstream& directoryPath);
+			MapDirectory* readMapDirectory(string directoryName, const ostringstream& directoryPath);
 		
 		public:
 			MapLoader();
