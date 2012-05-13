@@ -97,7 +97,6 @@ namespace BlockWorld {
 	
 	void Game::onVideoResize(VideoResizeEvent& event)
 	{
-		std::cout << "onVideoResize: " << event.getWidth() << ", " << event.getHeight() << std::endl;
 		m_engine->setVideoMode(event.getWidth(), event.getHeight());
 	}
 };

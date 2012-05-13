@@ -39,37 +39,24 @@ namespace BlockWorld {
 	
 	void TestMode::performStart()
 	{
-		//WorldGenerator* worldGenerator = new WorldGenerator();
-		//BlockFactory* blockFactory = new DefaultBlockFactory();
 		Engine* engine = m_game->getEngine();
 		engine->registerEventObserver(EVENT_KEYBOARD_BUTTON_DOWN, this);
-		
-		//m_world = worldGenerator->createWorld(*engine, *blockFactory, 60, 30);
-		
+				
 		//MapLoader* mapLoader = new MapLoader();
 		//mapLoader->loadDirectory("Resources/Maps");
 		
 		MapDirectory* mapDirectory = new MapDirectory("Resources/Maps/test1", "test1", "Resources/Maps/test1/map.png");
+		mapDirectory->setXMLPath("Resources/Maps/test1/map.xml");
 		
 		ImageMapWorldCreator* worldCreator = new ImageMapWorldCreator();
-		m_world = worldCreator->createWorld(*engine, mapDirectory->getImagePath(), mapDirectory->getXMLPath());
-		
-		Image* backgroundImage = NULL;
-		backgroundImage = engine->loadImage("Resources/Maps/test1/background1.png");
-		m_world->addBackground(new WorldBackground(0, 0, 0, 0.0, *backgroundImage));
-		backgroundImage = engine->loadImage("Resources/Maps/test1/background2.png");
-		m_world->addBackground(new WorldBackground(1, 0, 0, 0.5, *backgroundImage));
-		
+		m_world = worldCreator->createWorld(*engine, *mapDirectory);
 		
 		Position* spawnPosition = m_world->getRandomOpenPosition(*engine, 64, 64);
 		
-		m_player = new Player(*engine, *m_world, spawnPosition->getX(), spawnPosition->getY());
+		m_player = new Player(*engine, *m_world, spawnPosition->getX() + 32, spawnPosition->getY() + 32);
 		m_player->setController(new PlayerController(*m_player, *engine));
 		m_camera = new FollowObjectCamera(*m_world, *m_player, *engine);
 		m_crosshair = new Crosshair(engine->loadImage("Resources/crosshair.png"), *m_player, *engine);
-		
-		//delete blockFactory;
-		//delete worldGenerator;
 		
 		delete spawnPosition;
 		delete mapDirectory;

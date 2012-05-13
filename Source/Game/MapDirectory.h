@@ -21,6 +21,7 @@ namespace BlockWorld {
 		public:
 			MapDirectory(string directoryPath, string directoryName, string imagePath);
 			virtual ~MapDirectory();
+			string& getPath();
 			string& getImagePath();
 			string& getXMLPath();
 			string& getName();

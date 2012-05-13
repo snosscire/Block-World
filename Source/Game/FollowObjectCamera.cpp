@@ -69,7 +69,7 @@ namespace BlockWorld {
 		
 		return top;
 	}
-	ddddd
+	
 	int FollowObjectCamera::getBottom()
 	{
 		return getTop() + m_engine->getScreenHeight();

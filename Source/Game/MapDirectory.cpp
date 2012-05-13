@@ -26,6 +26,11 @@ namespace BlockWorld {
 	{
 	}
 	
+	string& MapDirectory::getPath()
+	{
+		return m_directoryPath;
+	}
+	
 	string& MapDirectory::getImagePath()
 	{
 		return m_imagePath;
