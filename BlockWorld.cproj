@@ -15,7 +15,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\Debug</OutputPath>
-    <DefineSymbols>DEBUG MONODEVELOP</DefineSymbols>
+    <DefineSymbols>DEBUG MONODEVELOP APHEX_AS_COMPONENT</DefineSymbols>
     <SourceDirectory>.</SourceDirectory>
     <CompileTarget>Bin</CompileTarget>
     <Externalconsole>true</Externalconsole>
@@ -77,6 +77,16 @@
     <Compile Include="Source\Engine\Animation.cpp" />
     <Compile Include="Source\Engine\AnimationFrame.cpp" />
     <Compile Include="Source\Game\Crosshair.cpp" />
+    <Compile Include="Source\Game\ImageMapWorldCreator.cpp" />
+    <Compile Include="Source\Game\MapLoader.cpp" />
+    <Compile Include="Source\Game\MapDirectory.cpp" />
+    <Compile Include="Source\External\aphex\aphex_config.c" />
+    <Compile Include="Source\External\aphex\aphex_directory.c" />
+    <Compile Include="Source\External\aphex\aphex_file.c" />
+    <Compile Include="Source\External\aphex\aphex_match.c" />
+    <Compile Include="Source\External\aphex\aphex_notify.c" />
+    <Compile Include="Source\External\aphex\aphex_thread.c" />
+    <Compile Include="Source\External\aphex\poll.c" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Source\" />
@@ -146,5 +156,10 @@
     <None Include="Resources\blockworld-character-run\blockworld-character-run-08.png" />
     <None Include="Resources\crosshair.png" />
     <None Include="Resources\test-player-jump.png" />
+    <None Include="Source\Game\ImageMapWorldCreator.h" />
+    <None Include="Source\Game\MapLoader.h" />
+    <None Include="Source\Game\MapDirectory.h" />
+    <None Include="Source\External\aphex\aphex.h" />
+    <None Include="Source\External\aphex\poll.h" />
   </ItemGroup>
 </Project>

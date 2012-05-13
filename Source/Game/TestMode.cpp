@@ -7,6 +7,7 @@
 #include "Objects/Player.h"
 #include "PlayerController.h"
 #include "Crosshair.h"
+#include "MapLoader.h"
 
 #include <iostream>
 
@@ -46,6 +47,14 @@ namespace BlockWorld {
 		m_crosshair = new Crosshair(engine->loadImage("Resources/crosshair.png"), *m_player, *engine);
 		delete blockFactory;
 		delete worldGenerator;
+		
+		cout << "-> MapLoader" << endl;
+		
+		MapLoader* mapLoader = new MapLoader();
+		mapLoader->loadDirectory("./Resources/Maps");
+		delete mapLoader;
+		
+		cout << "<- Map Loader" << endl;
 	}
 	
 	void TestMode::performStop()
