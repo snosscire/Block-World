@@ -7,6 +7,7 @@ using namespace std;
 
 namespace BlockWorld {
 	const string TEST_MODE = "Test";
+	const string NETWORK_TEST_MODE = "NetworkTest";
 	const int BLOCK_WIDTH = 16;
 	const int BLOCK_HEIGHT = 16;
 	const double DEFAULT_GRAVITY = 4.0;

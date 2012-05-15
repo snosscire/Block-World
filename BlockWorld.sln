@@ -5,6 +5,8 @@ Project("{2857B73E-F847-4B02-9238-064979017E93}") = "BlockWorld", "BlockWorld.cp
 EndProject
 Project("{9344bdbb-3e7f-41fc-a0dd-8665d75ee146}") = "Packages", "Packages.mdproj", "{82D0E11B-CB0B-4ABE-B3C3-A97586955CA2}"
 EndProject
+Project("{2857B73E-F847-4B02-9238-064979017E93}") = "Server", "Server\Server.cproj", "{CCB2A952-7665-490C-B884-31C5EB2D852F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,6 +19,10 @@ Global
 		{AF74527B-B5F6-4C33-91C0-67F3D49C0118}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AF74527B-B5F6-4C33-91C0-67F3D49C0118}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AF74527B-B5F6-4C33-91C0-67F3D49C0118}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CCB2A952-7665-490C-B884-31C5EB2D852F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CCB2A952-7665-490C-B884-31C5EB2D852F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CCB2A952-7665-490C-B884-31C5EB2D852F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CCB2A952-7665-490C-B884-31C5EB2D852F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = BlockWorld.cproj

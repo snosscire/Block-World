@@ -9,8 +9,12 @@ using namespace BadEngine;
 
 namespace BlockWorld {
 	class Player : public GameObject {
+		private:
+			void initialize(Engine& engine, double x, double y);
+		
 		public:
-			Player(Engine& engine, World& world, int x, int y);
+			Player(Engine& engine, World& world, double x, double y);
+			Player(int networkID, Engine& engine, World& world, double x, double y);
 			virtual ~Player();
 	};
 };

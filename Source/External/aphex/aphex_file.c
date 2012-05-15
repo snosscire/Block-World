@@ -114,7 +114,9 @@ char *aphex_file_to_string( char *file )
         data = (char *) aphex_malloc( in.st_size + 2 );
 		memset( data, '\0', in.st_size + 2 );
         
-		if( fread( data, sizeof(char), in.st_size, f ) != -1 )
+        fread( data, sizeof(char), in.st_size, f );
+        
+		if( ferror(f) == 0 )
         {
             fclose( f );
             return data;

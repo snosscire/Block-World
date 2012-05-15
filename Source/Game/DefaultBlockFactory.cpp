@@ -21,6 +21,7 @@ namespace BlockWorld {
 		switch (type) {
 			case BLOCK_TYPE_STONE: return new StoneBlock(world, x, y);
 			case BLOCK_TYPE_DIRT:  return new DirtBlock(world, x, y);
+			case BLOCK_TYPE_GRASS: return NULL;
 		}
 		return NULL;
 	}

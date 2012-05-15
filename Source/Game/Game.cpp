@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "GameMode.h"
+#include "GameNetworkClient.h"
 
 #include <iostream>
 
@@ -9,7 +10,8 @@ namespace BlockWorld {
 		m_running(false),
 		m_engine(NULL),
 		m_gameModes(),
-		m_currentMode(NULL)
+		m_currentMode(NULL),
+		m_network(NULL)
 	{
 	}
 	
@@ -18,17 +20,26 @@ namespace BlockWorld {
 		m_running(false),
 		m_engine(engine),
 		m_gameModes(),
-		m_currentMode(NULL)
+		m_currentMode(NULL),
+		m_network(NULL)
 	{
 	}
 	
 	Game::~Game()
 	{
+		if (m_network) {
+			delete m_network;
+		}
 	}
 	
 	Engine* Game::getEngine()
 	{
 		return m_engine;
+	}
+	
+	GameNetworkClient* Game::getNetwork()
+	{
+		return m_network;
 	}
 	
 	void Game::registerMode(const string& name, GameMode* mode)
@@ -44,6 +55,13 @@ namespace BlockWorld {
 		m_currentMode = m_gameModes[name];
 		if (m_currentMode) {
 			m_currentMode->start();
+		}
+	}
+	
+	void Game::activateNetwork()
+	{
+		if (!m_network) {
+			m_network = new GameNetworkClient();
 		}
 	}
 	
@@ -67,9 +85,12 @@ namespace BlockWorld {
 			currentTime = m_engine->getCurrentTime();
 			deltaTime = currentTime - lastTime;
 			lastTime = currentTime;
+			if (m_network) {
+				m_network->notifyObservers();
+			}
 			m_engine->notifyEventObservers();
 			if (m_currentMode) {
-				m_currentMode->update(deltaTime);
+				m_currentMode->update(currentTime, deltaTime);
 			}
 			m_engine->clearScreen();
 			if (m_currentMode) {

@@ -24,7 +24,7 @@ namespace BlockWorld {
 			TestMode();
 			void performStart();
 			void performStop();
-			void performUpdate(double deltaTime);
+			void performUpdate(double currentTime, double deltaTime);
 			void performDraw();
 			
 		public:

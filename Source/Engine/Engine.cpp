@@ -1,5 +1,6 @@
 #include "Engine.h"
 #include "EventObserver.h"
+#include "Network.h"
 
 namespace BadEngine {
 	Engine::Engine() :

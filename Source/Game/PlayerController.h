@@ -19,7 +19,6 @@ namespace BlockWorld {
 		public:
 			PlayerController(GameObject& object, Engine& engine);
 			virtual ~PlayerController();
-			virtual void onQuit() { }
 			void onKeyboardButtonDown(KeyboardButtonEvent& event);
 			void onKeyboardButtonUp(KeyboardButtonEvent& event);
 	};

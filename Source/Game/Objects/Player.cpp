@@ -13,12 +13,32 @@
 #include "../ObjectBehaviors/DefaultCollidingBehavior.h"
 
 namespace BlockWorld {
-	Player::Player(Engine& engine, World& world, int x, int y) :
+	Player::Player(Engine& engine, World& world, double x, double y) :
 		GameObject(world)
 	{
 		m_x = x;
 		m_y = y;
 		
+		initialize(engine, x, y);
+	}
+	
+	Player::Player(int networkID, Engine& engine, World& world, double x, double y) :
+		GameObject(world)
+	{
+		m_networkID = networkID;
+		
+		m_x = x;
+		m_y = y;
+		
+		initialize(engine, x, y);
+	}
+	
+	Player::~Player()
+	{
+	}
+	
+	void Player::initialize(Engine& engine, double x, double y)
+	{
 		m_movingBehavior = new DefaultMovingBehavior();
 		m_jumpingBehavior = new DefaultJumpingBehavior();
 		m_fallingBehavior = new DefaultFallingBehavior();
@@ -51,9 +71,5 @@ namespace BlockWorld {
 		m_sprite->addAnimation("jump", jumpAnimation);
 		
 		m_sprite->playAnimation("default");
-	}
-	
-	Player::~Player()
-	{
 	}
 };

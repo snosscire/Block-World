@@ -13,9 +13,11 @@ using namespace std;
 namespace BadEngine {
 	class Rectangle;
 	class Image;
-	class Engine {
+	class Engine {	
 		protected:
 			map<EventType, list<EventObserver*> > m_eventObservers;
+		
+		protected:
 			Engine();
 		
 		public:

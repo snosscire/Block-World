@@ -22,6 +22,7 @@ namespace BlockWorld {
 	
 	PlayerController::~PlayerController()
 	{
+		// TODO: Implement unregistering of event observers
 	}
 	
 	void PlayerController::onKeyboardButtonDown(KeyboardButtonEvent& event)

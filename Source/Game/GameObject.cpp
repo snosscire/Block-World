@@ -1,4 +1,5 @@
 #include "GameObject.h"
+#include "GameNetworkClient.h"
 #include "World.h"
 #include "ObjectBehavior.h"
 #include "ObjectController.h"
@@ -28,7 +29,9 @@ namespace BlockWorld {
 		m_collidingBehavior(NULL),
 		m_controller(NULL),
 		m_sprite(NULL),
-		m_collisionRectangles()
+		m_collisionRectangles(),
+		m_nextNetworkUpdate(0.0),
+		m_networkID(0)
 	{
 	}
 
@@ -51,7 +54,9 @@ namespace BlockWorld {
 		m_collidingBehavior(NULL),
 		m_controller(NULL),
 		m_sprite(NULL),
-		m_collisionRectangles()
+		m_collisionRectangles(),
+		m_nextNetworkUpdate(0.0),
+		m_networkID(0)
 	{
 	}
 	
@@ -81,6 +86,11 @@ namespace BlockWorld {
 	World* GameObject::getWorld()
 	{
 		return m_world;
+	}
+	
+	int GameObject::getNetworkID()
+	{
+		return m_networkID;
 	}
 	
 	double GameObject::getX()
@@ -226,21 +236,8 @@ namespace BlockWorld {
 		m_jumping = jumping;
 	}
 	
-	void GameObject::update(double deltaTime)
+	void GameObject::spriteUpdate(double currentTime, double deltaTime)
 	{
-		if (m_movingBehavior) {
-			m_movingBehavior->perform(*this, deltaTime);
-		}
-		if (m_jumpingBehavior) {
-			m_jumpingBehavior->perform(*this, deltaTime);
-		}
-		if (m_fallingBehavior) {
-			m_fallingBehavior->perform(*this, deltaTime);
-		}
-		if (m_collidingBehavior) {
-			m_collidingBehavior->perform(*this, deltaTime);
-		}
-		
 		if (m_jumping && !m_touchingGround) {
 			m_sprite->playAnimation("jump");
 		} else {
@@ -260,6 +257,44 @@ namespace BlockWorld {
 		}
 		
 		m_sprite->update(deltaTime);
+	}
+	
+	void GameObject::update(double currentTime, double deltaTime, GameNetworkClient* network)
+	{
+		/*
+		bool moveLeft = m_moveLeft;
+		bool moveRight = m_moveRight;
+		bool jump = m_jump;
+		*/
+		
+		if (m_movingBehavior) {
+			m_movingBehavior->perform(*this, deltaTime);
+		}
+		if (m_jumpingBehavior) {
+			m_jumpingBehavior->perform(*this, deltaTime);
+		}
+		if (m_fallingBehavior) {
+			m_fallingBehavior->perform(*this, deltaTime);
+		}
+		if (m_collidingBehavior) {
+			m_collidingBehavior->perform(*this, deltaTime);
+		}
+		
+		spriteUpdate(currentTime, deltaTime);
+		
+		if (network) {
+			if (currentTime >= m_nextNetworkUpdate /* || moveLeft || moveRight || jump */) {
+				network->sendUpdate(*this /* , moveLeft, moveRight, jump */ );
+				//std::cout << "Current time: " << currentTime << std::endl;
+				//std::cout << "Next update:  " << m_nextNetworkUpdate << std::endl;
+				double overflow = (m_nextNetworkUpdate > 0 ? currentTime - m_nextNetworkUpdate : 0);
+				m_nextNetworkUpdate = currentTime + (33 - overflow);
+				//std::cout << "Overflow:     " << overflow << std::endl;
+				//std::cout << "Next update:  " << m_nextNetworkUpdate << std::endl;
+			} else {
+				//std::cout << "Not yet time to send update. (" << currentTime << ") (" << m_nextNetworkUpdate << ")" << std::endl;
+			}
+		}
 	}
 	
 	void GameObject::draw(Engine& engine, Camera& camera)
@@ -308,5 +343,10 @@ namespace BlockWorld {
 	void GameObject::setSpriteAnimation(const string& name)
 	{
 		m_sprite->playAnimation(name);
+	}
+	
+	const string& GameObject::getCurrentSpriteAnimation()
+	{
+		return m_sprite->getCurrentAnimationName();
 	}
 };

@@ -1,0 +1,9 @@
+all:
+	g++-4.4 -g -Wall -o server.x86_64 -lenet \
+		Source/Server/main.cpp \
+		Source/Engine/Network.cpp \
+		Source/Engine/NetworkServer.cpp \
+		Source/Game/GameNetworkServer.cpp \
+		Source/Game/ServerClient.cpp \
+		Source/Game/Network/*.cpp
+

@@ -13,6 +13,7 @@ using namespace std;
 using namespace BadEngine;
 
 namespace BlockWorld {
+	class GameNetworkClient;
 	class Camera;
 	class ObjectBehavior;
 	class ObjectController;
@@ -38,6 +39,8 @@ namespace BlockWorld {
 			ObjectController* m_controller;
 			Sprite* m_sprite;
 			list<Rectangle*> m_collisionRectangles;
+			double m_nextNetworkUpdate;
+			int m_networkID;
 		
 		private:
 			GameObject();
@@ -47,6 +50,8 @@ namespace BlockWorld {
 			virtual ~GameObject();
 			
 			World* getWorld();
+			
+			int getNetworkID();
 			
 			double getX();
 			double getY();
@@ -77,8 +82,10 @@ namespace BlockWorld {
 			void setTouchingGround(bool touching);
 			void setJump(bool jump);
 			void setJumping(bool jumping);
-						
-			void update(double deltaTime);
+			
+			void spriteUpdate(double currentTime, double deltaTime);
+			
+			void update(double currentTime, double deltaTime, GameNetworkClient* network);
 			void draw(Engine& engine, Camera& camera);
 			
 			void clearCollisionRectangles();
@@ -86,6 +93,7 @@ namespace BlockWorld {
 			list<Rectangle*>& getCollisionRectangles();
 			
 			void setSpriteAnimation(const string& name);
+			const string& getCurrentSpriteAnimation();
 	};
 };
 

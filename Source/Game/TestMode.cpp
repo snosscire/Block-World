@@ -76,9 +76,9 @@ namespace BlockWorld {
 		m_crosshair = NULL;
 	}
 	
-	void TestMode::performUpdate(double deltaTime)
+	void TestMode::performUpdate(double currentTime, double deltaTime)
 	{
-		m_player->update(deltaTime);
+		m_player->update(currentTime, deltaTime, NULL);
 		m_crosshair->update();
 	}
 	
@@ -92,9 +92,9 @@ namespace BlockWorld {
 	
 	void TestMode::onKeyboardButtonDown(KeyboardButtonEvent& event)
 	{
-		if( event.getButton() == KEYBOARD_BUTTON_ESCAPE )
-		{
+		if (event.getButton() == KEYBOARD_BUTTON_ESCAPE) {
 			m_game->quit();
 		}
 	}
 };
+

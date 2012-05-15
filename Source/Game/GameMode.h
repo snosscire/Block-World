@@ -13,7 +13,7 @@ namespace BlockWorld {
 		private:
 			virtual void performStart() = 0;
 			virtual void performStop() = 0;
-			virtual void performUpdate(double deltaTime) = 0;
+			virtual void performUpdate(double currentTime, double deltaTime) = 0;
 			virtual void performDraw() = 0;
 		
 		protected:
@@ -24,7 +24,7 @@ namespace BlockWorld {
 			~GameMode();
 			void start();
 			void stop();
-			void update(double deltaTime);
+			void update(double currentTime, double deltaTime);
 			void draw();
 	};
 };

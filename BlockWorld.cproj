@@ -25,6 +25,7 @@
         <Lib>SDL</Lib>
         <Lib>SDL_image</Lib>
         <Lib>SDL_gfx</Lib>
+        <Lib>enet</Lib>
       </Libs>
     </Libs>
   </PropertyGroup>
@@ -90,6 +91,19 @@
     <Compile Include="Source\External\tinyxml2\tinyxml2.cpp" />
     <Compile Include="Source\Game\WorldBackground.cpp" />
     <Compile Include="Source\Engine\SDL\SDLVideoResizeEvent.cpp" />
+    <Compile Include="Source\Game\NetworkTestMode.cpp" />
+    <Compile Include="Source\Engine\Network.cpp" />
+    <Compile Include="Source\Game\GameNetwork.cpp" />
+    <Compile Include="Source\Engine\NetworkClient.cpp" />
+    <Compile Include="Source\Game\GameNetworkClient.cpp" />
+    <Compile Include="Source\Engine\NetworkServer.cpp" />
+    <Compile Include="Source\Game\GameNetworkServer.cpp" />
+    <Compile Include="Source\Game\Network\UpdateMessage.cpp" />
+    <Compile Include="Source\Game\ServerClient.cpp" />
+    <Compile Include="Source\Game\Network\LeaveMessage.cpp" />
+    <Compile Include="Source\Game\Network\ConnectMessage.cpp" />
+    <Compile Include="Source\Game\Network\ConnectResponseMessage.cpp" />
+    <Compile Include="Source\Game\Network\JoinMessage.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Source\" />
@@ -104,6 +118,7 @@
     <Folder Include="Source\External\" />
     <Folder Include="Source\External\tinyxml2\" />
     <Folder Include="Resources\Maps\" />
+    <Folder Include="Source\Game\Network\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Source\Game\Game.h" />
@@ -173,5 +188,21 @@
     <None Include="Source\Game\WorldBackground.h" />
     <None Include="Source\Engine\VideoResizeEvent.h" />
     <None Include="Source\Engine\SDL\SDLVideoResizeEvent.h" />
+    <None Include="Source\Game\NetworkTestMode.h" />
+    <None Include="Source\Engine\NetworkObserver.h" />
+    <None Include="Source\Engine\Network.h" />
+    <None Include="Source\Game\GameNetwork.h" />
+    <None Include="Source\Game\Network\NetworkMessage.h" />
+    <None Include="Source\Engine\NetworkClient.h" />
+    <None Include="Source\Game\GameNetworkClient.h" />
+    <None Include="Source\Engine\NetworkServer.h" />
+    <None Include="Source\Game\GameNetworkServer.h" />
+    <None Include="Source\Game\Network\UpdateMessage.h" />
+    <None Include="Source\Game\ServerClient.h" />
+    <None Include="Source\Game\Network\LeaveMessage.h" />
+    <None Include="Source\Game\Network\ConnectMessage.h" />
+    <None Include="Source\Game\Network\ConnectResponseMessage.h" />
+    <None Include="Source\Game\Network\JoinMessage.h" />
+    <None Include="Source\Game\MessageObserver.h" />
   </ItemGroup>
 </Project>
