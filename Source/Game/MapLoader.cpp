@@ -32,7 +32,7 @@ namespace BlockWorld {
 			bool foundImage = false;
 			bool foundXML = false;
 			
-			for (unsigned int i = 0; i < directory->size; i++) {
+			for (int i = 0; i < directory->size; i++) {
 				cout << "File: " << directory->contents[i] << endl;
 				if (strcmp(directory->contents[i], "map.png") == 0) {
 					foundImage = true;
@@ -64,7 +64,7 @@ namespace BlockWorld {
 	{
 		AphexDirectory* baseDirectory = aphex_directory_read((char*)path.c_str());
 		if (baseDirectory) {
-			for (unsigned int i = 0; i < baseDirectory->size; i++) {
+			for (int i = 0; i < baseDirectory->size; i++) {
 				string directoryName = baseDirectory->contents[i];
 				
 				ostringstream directoryPath;
