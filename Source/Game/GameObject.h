@@ -3,7 +3,7 @@
 
 #include "../Engine/Engine.h"
 #include "../Engine/Position.h"
-#include "../Engine/Rectangle.h"
+#include "../Engine/Square.h"
 #include "../Engine/Sprite.h"
 
 #include <list>
@@ -38,7 +38,7 @@ namespace BlockWorld {
 			ObjectBehavior* m_collidingBehavior;
 			ObjectController* m_controller;
 			Sprite* m_sprite;
-			list<Rectangle*> m_collisionRectangles;
+			list<Square*> m_collisionRectangles;
 			double m_nextNetworkUpdate;
 			int m_networkID;
 		
@@ -89,8 +89,8 @@ namespace BlockWorld {
 			void draw(Engine& engine, Camera& camera);
 			
 			void clearCollisionRectangles();
-			void addCollisionRectangle(Rectangle* rectangle);
-			list<Rectangle*>& getCollisionRectangles();
+			void addCollisionRectangle(Square* rectangle);
+			list<Square*>& getCollisionRectangles();
 			
 			void setSpriteAnimation(const string& name);
 			const string& getCurrentSpriteAnimation();

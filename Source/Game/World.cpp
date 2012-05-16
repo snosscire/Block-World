@@ -4,10 +4,9 @@
 #include "Block.h"
 #include "Camera.h"
 
-#include "../Engine/Rectangle.h"
+#include "../Engine/Square.h"
 
 #include <iostream>
-
 
 namespace BlockWorld {
 	bool compareWorldBackgroundLayers(WorldBackground* first, WorldBackground* second)
@@ -101,7 +100,7 @@ namespace BlockWorld {
 	
 	void World::draw(Engine& engine, Camera& camera)
 	{
-		//Rectangle backgroundRectangle(0, 0, engine.getScreenWidth(), engine.getScreenHeight());
+		//Square backgroundRectangle(0, 0, engine.getScreenWidth(), engine.getScreenHeight());
 		
 		int left = camera.getLeft() / BlockWorld::BLOCK_WIDTH;
 		int right = camera.getRight() / BlockWorld::BLOCK_WIDTH;
@@ -118,7 +117,7 @@ namespace BlockWorld {
 				
 		Block *block = NULL;
 						
-		//engine.drawRectangle(backgroundRectangle, 50, 150, 200);
+		//engine.drawSquare(backgroundRectangle, 50, 150, 200);
 		
 		for (int x = left; x <= right; x++) {
 			for (int y = top; y <= bottom; y++) {
@@ -131,7 +130,7 @@ namespace BlockWorld {
 		
 	}
 	
-	bool World::_haveCollision(Rectangle& a, Rectangle& b)
+	bool World::_haveCollision(Square& a, Square& b)
 	{
 		int aLeft = a.getX();
 		int aRight = a.getX() + a.getWidth();
@@ -179,14 +178,14 @@ namespace BlockWorld {
 			}
 		}
 		
-		Rectangle objectRectangle(x, y, width, height);
+		Square objectRectangle(x, y, width, height);
 		
 		list<Block*>::iterator it = blocks.begin();
 		
 		for ( ; it != blocks.end(); it++) {
 			Block* block = *it;
 			
-			Rectangle blockRectangle;
+			Square blockRectangle;
 			blockRectangle.setX(block->getX() * BlockWorld::BLOCK_WIDTH);
 			blockRectangle.setY(block->getY() * BlockWorld::BLOCK_HEIGHT);
 			blockRectangle.setWidth(BlockWorld::BLOCK_WIDTH);

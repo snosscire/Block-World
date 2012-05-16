@@ -20,7 +20,7 @@ namespace BadEngine {
 			void notifyEventObservers();
 			void clearScreen();
 			void updateScreen();
-			void drawRectangle(Rectangle& rectangle, int red, int green, int blue);
+			void drawSquare(Square& rectangle, int red, int green, int blue);
 			int getRandomNumber(int min, int max);
 			int getScreenWidth();
 			int getScreenHeight();

@@ -1,61 +1,61 @@
-#include "Rectangle.h"
+#include "Square.h"
 #include "Position.h"
 
 namespace BadEngine {
-	Rectangle::Rectangle() :
+	Square::Square() :
 		m_position(),
 		m_width(0),
 		m_height(0)
 	{
 	}
 	
-	Rectangle::Rectangle(double x, double y, double width, double height) :
+	Square::Square(double x, double y, double width, double height) :
 		m_position(x, y),
 		m_width(width),
 		m_height(height)
 	{
 	}
 	
-	Rectangle::~Rectangle()
+	Square::~Square()
 	{
 	}
 	
-	void Rectangle::setX(double x)
+	void Square::setX(double x)
 	{
 		m_position.setX(x);
 	}
 	
-	void Rectangle::setY(double y)
+	void Square::setY(double y)
 	{
 		m_position.setY(y);
 	}
 	
-	void Rectangle::setWidth(double width)
+	void Square::setWidth(double width)
 	{
 		m_width = width;
 	}
 	
-	void Rectangle::setHeight(double height)
+	void Square::setHeight(double height)
 	{
 		m_height = height;
 	}
 	
-	double Rectangle::getX()
+	double Square::getX()
 	{
 		return m_position.getX();
 	}
 	
-	double Rectangle::getY()
+	double Square::getY()
 	{
 		return m_position.getY();
 	}
 	
-	double Rectangle::getWidth()
+	double Square::getWidth()
 	{
 		return m_width;
 	}
 	
-	double Rectangle::getHeight()
+	double Square::getHeight()
 	{
 		return m_height;
 	}

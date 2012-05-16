@@ -1,19 +1,19 @@
-#ifndef __BADENGINE_RECTANGLE_H__
-#define __BADENGINE_RECTANGLE_H__
+#ifndef __BADENGINE_SQUARE_H__
+#define __BADENGINE_SQUARE_H__
 
 #include "Position.h"
 
 namespace BadEngine {
-	class Rectangle {
+	class Square {
 		private:
 			Position m_position;
 			double m_width;
 			double m_height;
 		
 		public:
-			Rectangle();
-			Rectangle(double x, double y, double width, double height);
-			~Rectangle();
+			Square();
+			Square(double x, double y, double width, double height);
+			~Square();
 			void setX(double x);
 			void setY(double y);
 			void setWidth(double width);
@@ -25,4 +25,4 @@ namespace BadEngine {
 	};
 };
 
-#endif // __BADENGINE_RECTANGLE_H__
+#endif // __BADENGINE_SQUARE_H__

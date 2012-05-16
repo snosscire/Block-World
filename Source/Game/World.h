@@ -3,7 +3,7 @@
 
 #include "../Engine/Engine.h"
 #include "../Engine/Position.h"
-#include "../Engine/Rectangle.h"
+#include "../Engine/Square.h"
 
 #include <list>
 
@@ -23,7 +23,7 @@ namespace BlockWorld {
 		
 		private:
 			World();
-			bool _haveCollision(Rectangle& a, Rectangle& b);
+			bool _haveCollision(Square& a, Square& b);
 			
 		public:
 			World(int width, int height);

@@ -11,7 +11,7 @@
 using namespace std;
 
 namespace BadEngine {
-	class Rectangle;
+	class Square;
 	class Image;
 	class BitmapFont;
 	class Engine {	
@@ -31,7 +31,7 @@ namespace BadEngine {
 			virtual void notifyEventObservers() = 0;
 			virtual void clearScreen() = 0;
 			virtual void updateScreen() = 0;
-			virtual void drawRectangle(Rectangle& rectangle, int red, int green, int blue) = 0;
+			virtual void drawSquare(Square& rectangle, int red, int green, int blue) = 0;
 			virtual int getRandomNumber(int min, int max) = 0;
 			virtual int getScreenWidth() = 0;
 			virtual int getScreenHeight() = 0;

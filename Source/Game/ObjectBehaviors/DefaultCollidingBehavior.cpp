@@ -18,7 +18,7 @@ namespace BlockWorld {
 	void DefaultCollidingBehavior::perform(GameObject& object, double deltaTime)
 	{
 		BlockWorld::World* world = object.getWorld();
-		list<Rectangle*>& objectRectangles = object.getCollisionRectangles();
+		list<Square*>& objectRectangles = object.getCollisionRectangles();
 		
 		bool haveCollisionOnX = false;
 		bool haveCollisionOnY = false;
@@ -37,7 +37,7 @@ namespace BlockWorld {
 		xChange = newX - oldX;
 		yChange = newY - oldY;
 		
-		std::list<Rectangle*>::const_iterator it;
+		std::list<Square*>::const_iterator it;
 		it = objectRectangles.begin();
 		
 		for ( ; it != objectRectangles.end(); it++) {

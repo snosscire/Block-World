@@ -92,10 +92,6 @@ typedef struct __aphex_thread
 # ifdef USE_PTHREAD
     pthread_t       thread;
     pthread_attr_t  attrs;
-# else
-#  ifdef WIN32
-    HANDLE          thread;
-#  endif
 # endif
     int             running;
 } AphexThread;

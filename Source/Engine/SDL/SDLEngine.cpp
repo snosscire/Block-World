@@ -5,7 +5,7 @@
 #include "SDLMouseButtonEvent.h"
 #include "SDLImage.h"
 
-#include "../Rectangle.h"
+#include "../Square.h"
 #include "../BitmapFont.h"
 
 #include <stdlib.h>
@@ -101,7 +101,7 @@ namespace BadEngine
 		SDL_Flip(m_videoSurface);
 	}
 	
-	void SDLEngine::drawRectangle(Rectangle& rectangle, int red, int green, int blue)
+	void SDLEngine::drawSquare(Square& rectangle, int red, int green, int blue)
 	{
 		SDL_Rect rect;
 		rect.x = rectangle.getX();

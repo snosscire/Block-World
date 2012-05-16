@@ -44,8 +44,8 @@ namespace BlockWorld {
 		m_fallingBehavior = new DefaultFallingBehavior();
 		m_collidingBehavior = new DefaultCollidingBehavior();
 
-		addCollisionRectangle(new Rectangle(x - 16.0, y - 15.0, 32.0, 32.0));
-		addCollisionRectangle(new Rectangle(x - 8.0, y + 17.0, 16.0, 4.0));
+		addCollisionRectangle(new Square(x - 16.0, y - 15.0, 32.0, 32.0));
+		addCollisionRectangle(new Square(x - 8.0, y + 17.0, 16.0, 4.0));
 		
 		m_sprite = new Sprite();
 		

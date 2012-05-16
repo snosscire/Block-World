@@ -4,7 +4,7 @@
 #include "Camera.h"
 
 #include "../Engine/Engine.h"
-#include "../Engine/Rectangle.h"
+#include "../Engine/Square.h"
 
 #include <iostream>
 
@@ -56,7 +56,7 @@ namespace BlockWorld {
 	{
 		int x = (m_position.getX() * BlockWorld::BLOCK_WIDTH) - camera.getLeft();
 		int y = (m_position.getY() * BlockWorld::BLOCK_HEIGHT) - camera.getTop();
-		Rectangle rectangle(x, y, BLOCK_WIDTH, BLOCK_HEIGHT);
-		engine.drawRectangle(rectangle, 255, 255, 255);
+		Square rectangle(x, y, BLOCK_WIDTH, BLOCK_HEIGHT);
+		engine.drawSquare(rectangle, 255, 255, 255);
 	}
 };

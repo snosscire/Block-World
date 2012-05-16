@@ -37,6 +37,7 @@
 #ifdef WIN32
 # include <windows.h>
 # include <direct.h>
+# include <ctype.h>
 #else
 # include <unistd.h>
 # include <dirent.h>
@@ -96,7 +97,7 @@ AphexDirectory  *aphex_directory_read( char *path )
 #ifndef WIN32
         while( (ent = readdir( dir )) )
 #else
-          while( dir != INVALID_HANDLE_VALUE && GetLastError() != ERROR_NO_MORE_FILES )
+          while( dir != INVALID_HANDLE_VALUE )
 #endif
           {
 #ifndef WIN32
@@ -114,7 +115,9 @@ AphexDirectory  *aphex_directory_read( char *path )
 #endif
                 }
 #ifdef WIN32
-              FindNextFile( dir, &FindFileData );
+              if( FindNextFile( dir, &FindFileData ) == 0) {
+			    break;
+			  }
 #endif
           }
 #ifndef WIN32
@@ -166,7 +169,7 @@ AphexDirectory  *aphex_directory_read_with_filter( char *path, char *filter )
                 {
                     if( __aphex_wild_match(
 #ifdef WIN32
-                                           FindFileData.cFileName
+                                           (unsigned char *) FindFileData.cFileName
 #else
                                            (unsigned char *) ent->d_name
 #endif

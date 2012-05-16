@@ -3,7 +3,7 @@
 #include "ConsoleCommand.h"
 #include "Engine.h"
 #include "BitmapFont.h"
-#include "Rectangle.h"
+#include "Square.h"
 #include "KeyboardButtonEvent.h"
 
 #include <iostream>
@@ -116,11 +116,11 @@ namespace BadEngine {
 		int width = engine.getScreenWidth();
 		int height = engine.getScreenHeight() / 2;
 		
-		Rectangle background(0, 0, width, height);
-		engine.drawRectangle(background, 0, 0, 0);
+		Square background(0, 0, width, height);
+		engine.drawSquare(background, 0, 0, 0);
 		
-		Rectangle border(0, height, width, 1);
-		engine.drawRectangle(border, 255, 255, 255);
+		Square border(0, height, width, 1);
+		engine.drawSquare(border, 255, 255, 255);
 		
 		int currentCommandY = height - m_font->getHeight() - 1;
 		ostringstream currentCommand;

@@ -5,7 +5,7 @@
 #include "ObjectController.h"
 #include "Camera.h"
 
-#include "../Engine/Rectangle.h"
+#include "../Engine/Square.h"
 
 #include <iostream>
 
@@ -182,7 +182,7 @@ namespace BlockWorld {
 		double change = x - m_x;
 		m_x = x;
 		
-		list<Rectangle*>::iterator it;
+		list<Square*>::iterator it;
 		it = m_collisionRectangles.begin();
 		for ( ; it != m_collisionRectangles.end(); it++) {
 			(*it)->setX((*it)->getX() + change);
@@ -194,7 +194,7 @@ namespace BlockWorld {
 		double change = y - m_y;
 		m_y = y;
 		
-		list<Rectangle*>::iterator it;
+		list<Square*>::iterator it;
 		it = m_collisionRectangles.begin();
 		for ( ; it != m_collisionRectangles.end(); it++) {
 			(*it)->setY((*it)->getY() + change);
@@ -302,19 +302,19 @@ namespace BlockWorld {
 		int x = (m_x) - camera.getLeft() - (getSpriteWidth() / 2);
 		int y = (m_y) - camera.getTop() - (getSpriteHeight() / 2);
 		/*
-		Rectangle rectangle(x, y, 32, 32);
-		engine.drawRectangle(rectangle, 255, 0, 0);
+		Square rectangle(x, y, 32, 32);
+		engine.drawSquare(rectangle, 255, 0, 0);
 		*/
 		if (m_sprite) {
 			m_sprite->draw(engine, x, y);
 		}
 		/*
-		list<Rectangle*>::iterator it = m_collisionRectangles.begin();
+		list<Square*>::iterator it = m_collisionRectangles.begin();
 		for ( ; it != m_collisionRectangles.end(); it++) {
 			double rectX = (*it)->getX() - camera.getLeft();
 			double rectY = (*it)->getY() - camera.getTop();
-			Rectangle rectangle(rectX, rectY, (*it)->getWidth(), (*it)->getHeight());
-			engine.drawRectangle(rectangle, 255, 0, 0);
+			Square rectangle(rectX, rectY, (*it)->getWidth(), (*it)->getHeight());
+			engine.drawSquare(rectangle, 255, 0, 0);
 		}
 		*/
 		m_screenX = x;
@@ -323,19 +323,19 @@ namespace BlockWorld {
 	
 	void GameObject::clearCollisionRectangles()
 	{
-		list<Rectangle*>::iterator it = m_collisionRectangles.begin();
+		list<Square*>::iterator it = m_collisionRectangles.begin();
 		for ( ; it != m_collisionRectangles.end(); it++) {
-			Rectangle* rectangle = *it;
+			Square* rectangle = *it;
 			delete rectangle;
 		}
 	}
 	
-	void GameObject::addCollisionRectangle(Rectangle* rectangle)
+	void GameObject::addCollisionRectangle(Square* rectangle)
 	{
 		m_collisionRectangles.push_back(rectangle);
 	}
 	
-	list<Rectangle*>& GameObject::getCollisionRectangles()
+	list<Square*>& GameObject::getCollisionRectangles()
 	{
 		return m_collisionRectangles;
 	}
