@@ -10,10 +10,10 @@ using namespace BadEngine;
 namespace BlockWorld {
 	class Gib : public GameObject {
 		private:
-			void initialize(Engine& engine, double x, double y, int type);
+			void initialize(Engine& engine, double x, double y);
 		
 		public:
-			Gib(Engine& engine, World& world, double x, double y, int type);
+			Gib(Engine& engine, World& world, double x, double y);
 			virtual ~Gib();
 	};
 };

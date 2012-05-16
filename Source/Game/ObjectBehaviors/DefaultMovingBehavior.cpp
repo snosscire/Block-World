@@ -1,5 +1,6 @@
 #include "DefaultMovingBehavior.h"
 
+#include "../Config.h"
 #include "../GameObject.h"
 
 namespace BlockWorld {
@@ -17,9 +18,9 @@ namespace BlockWorld {
 		object.setVelocityX(0.0);
 		
 		if (object.wantToMoveLeft()) {
-			object.setVelocityX(-2.0);
+			object.setVelocityX(-Config::PlayerMoveSpeed);
 		} else if (object.wantToMoveRight()) {
-			object.setVelocityX(2.0);
+			object.setVelocityX(Config::PlayerMoveSpeed);
 		}
 	}
 };

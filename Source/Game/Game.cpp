@@ -1,6 +1,7 @@
 #include "Game.h"
 #include "GameMode.h"
 #include "GameNetworkClient.h"
+#include "Config.h"
 
 #include "Console/QuitCommand.h"
 #include "Console/MapCommand.h"
@@ -91,6 +92,8 @@ namespace BlockWorld {
 		m_engine->registerEventObserver(EVENT_QUIT, this);
 		m_engine->registerEventObserver(EVENT_VIDEO_RESIZE, this);
 		m_engine->registerEventObserver(EVENT_KEYBOARD_BUTTON_DOWN, this);
+		
+		Config::loadFile("config.xml");
 		
 		setCurrentMode(mode);
 		

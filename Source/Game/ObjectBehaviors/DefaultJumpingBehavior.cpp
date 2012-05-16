@@ -1,5 +1,6 @@
 #include "DefaultJumpingBehavior.h"
 
+#include "../Config.h"
 #include "../GameObject.h"
 
 namespace BlockWorld {
@@ -17,7 +18,7 @@ namespace BlockWorld {
 		if (object.wantToJump()) {
 			object.setJump(false);
 			if (!object.isJumping() && object.isTouchingGround()) {
-				object.setVelocityY(-8.0);
+				object.setVelocityY(-Config::PlayerJumpSpeed);
 				object.setJumping(true);
 			}
 		} else if (object.isJumping()) {

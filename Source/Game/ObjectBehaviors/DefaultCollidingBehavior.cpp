@@ -54,7 +54,9 @@ namespace BlockWorld {
 			}
 			if (world->haveCollision(oldLeft, newTop, width, height)) {
 				haveCollisionOnY = true;
-				objectIsTouchingGround = true;
+				if (object.getVelocityY() > 0.0) {
+					objectIsTouchingGround = true;
+				}
 			}
 		}
 		

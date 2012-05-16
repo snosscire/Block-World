@@ -5,6 +5,7 @@
 #include "../../Engine/Animation.h"
 #include "../../Engine/AnimationFrame.h"
 
+#include "../Config.h"
 #include "../World.h"
 
 #include "../ObjectBehaviors/GibMovingBehavior.h"
@@ -32,8 +33,8 @@ namespace BlockWorld {
 	void Blood::initialize(Engine& engine, double x, double y)
 	{
 		m_jumping = true;
-		m_velocityX = engine.getRandomNumber(-4, 4);
-		m_velocityY = engine.getRandomNumber(-4, 4);
+		m_velocityX = engine.getRandomNumber(-Config::BloodMaxSpeedX, Config::BloodMaxSpeedX);
+		m_velocityY = engine.getRandomNumber(-Config::BloodMaxSpeedY, Config::BloodMaxSpeedY);
 		
 		m_movingBehavior = new GibMovingBehavior();
 		m_fallingBehavior = new DefaultFallingBehavior();
@@ -47,7 +48,7 @@ namespace BlockWorld {
 		
 		Image* image = NULL;
 		switch (type) {
-			case 2: image = engine.loadImage("Resources/Gibs/blood2.png"); break;
+			case 2:          image = engine.loadImage("Resources/Gibs/blood2.png"); break;
 			case 1: default: image = engine.loadImage("Resources/Gibs/blood1.png"); break;
 		}
 		

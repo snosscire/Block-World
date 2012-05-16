@@ -5,6 +5,7 @@
 #include "../../Engine/Animation.h"
 #include "../../Engine/AnimationFrame.h"
 
+#include "../Config.h"
 #include "../World.h"
 
 #include "../ObjectBehaviors/GibMovingBehavior.h"
@@ -16,24 +17,24 @@
 using namespace std;
 
 namespace BlockWorld {
-	Gib::Gib(Engine& engine, World& world, double x, double y, int type) :
+	Gib::Gib(Engine& engine, World& world, double x, double y) :
 		GameObject(world)
 	{
 		m_x = x;
 		m_y = y;
 		
-		initialize(engine, x, y, type);
+		initialize(engine, x, y);
 	}
 	
 	Gib::~Gib()
 	{
 	}
 	
-	void Gib::initialize(Engine& engine, double x, double y, int type)
+	void Gib::initialize(Engine& engine, double x, double y)
 	{
 		m_jumping = true;
-		m_velocityX = engine.getRandomNumber(-9, 9);
-		m_velocityY = engine.getRandomNumber(-9, 9);
+		m_velocityX = engine.getRandomNumber(-Config::GibMaxSpeedX, Config::GibMaxSpeedX);
+		m_velocityY = engine.getRandomNumber(-Config::GibMaxSpeedY, Config::GibMaxSpeedY);
 		
 		m_movingBehavior = new GibMovingBehavior();
 		m_fallingBehavior = new DefaultFallingBehavior();
@@ -43,10 +44,12 @@ namespace BlockWorld {
 		
 		m_sprite = new Sprite();
 		
+		int type = engine.getRandomNumber(1, 3);
+		
 		Image* image = NULL;
 		switch (type) {
-			case 3: image = engine.loadImage("Resources/Gibs/skull-gib-03.png"); break;
-			case 2: image = engine.loadImage("Resources/Gibs/skull-gib-02.png"); break;
+			case 3:          image = engine.loadImage("Resources/Gibs/skull-gib-03.png"); break;
+			case 2:          image = engine.loadImage("Resources/Gibs/skull-gib-02.png"); break;
 			case 1: default: image = engine.loadImage("Resources/Gibs/skull-gib-01.png"); break;
 		}
 		

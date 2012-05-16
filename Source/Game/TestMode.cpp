@@ -13,6 +13,7 @@
 #include "MapDirectory.h"
 #include "ImageMapWorldCreator.h"
 #include "WorldBackground.h"
+#include "Config.h"
 
 #include <iostream>
 
@@ -134,17 +135,17 @@ namespace BlockWorld {
 			if (m_player->isAlive() && m_player->takeDamage(9999)) {
 				Engine* engine = m_game->getEngine();
 				
-				Gib* gib = new Gib(*engine, *m_world, m_player->getX(), m_player->getY(), engine->getRandomNumber(1, 3));
+				Gib* gib = new Gib(*engine, *m_world, m_player->getX(), m_player->getY());
 				m_gibs.push_back(gib);
 				
-				for (int i = 0; i < 20; i++) {
-					double x = m_player->getX() - engine->getRandomNumber(-6, 6);
-					double y = m_player->getY() - engine->getRandomNumber(-6, 6);
+				for (int i = 0; i < Config::BloodParticles; i++) {
+					double x = m_player->getX() - engine->getRandomNumber(-Config::BloodParticlesSpread, Config::BloodParticlesSpread);
+					double y = m_player->getY() - engine->getRandomNumber(-Config::BloodParticlesSpread, Config::BloodParticlesSpread);
 					Blood* blood = new Blood(*engine, *m_world, x, y);
 					m_gibs.push_back(blood);
 				}
 				
-				while (m_gibs.size() > 500) {
+				while (m_gibs.size() > Config::MaxGibs) {
 					GameObject* object = m_gibs.front();
 					delete object;
 					m_gibs.pop_front();

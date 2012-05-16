@@ -1,6 +1,6 @@
 #include "DefaultFallingBehavior.h"
 
-#include "../BlockWorld.h"
+#include "../Config.h"
 #include "../GameObject.h"
 
 namespace BlockWorld {
@@ -18,15 +18,15 @@ namespace BlockWorld {
 		if (object.isJumping()) {
 			if (!object.isTouchingGround()) {
 				double velocity = object.getVelocityY();
-				double change = (BlockWorld::DEFAULT_GRAVITY * (deltaTime / 100.0));
+				double change = (Config::DefaultGravity * (deltaTime / 100.0));
 				velocity += change;
-				if (velocity > BlockWorld::DEFAULT_GRAVITY) {
-					velocity = BlockWorld::DEFAULT_GRAVITY;
+				if (velocity > Config::DefaultGravity ) {
+					velocity = Config::DefaultGravity ;
 				}
 				object.setVelocityY(velocity);
 			}	
 		} else {
-			object.setVelocityY(BlockWorld::DEFAULT_GRAVITY);
+			object.setVelocityY(Config::DefaultGravity );
 		}
 	}
 };
