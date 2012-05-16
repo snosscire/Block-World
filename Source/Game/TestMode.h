@@ -6,12 +6,16 @@
 #include "GameMode.h"
 #include "World.h"
 
+#include <deque>
+
 using namespace BadEngine;
+using namespace std;
 
 namespace BlockWorld {
 	class MapDirectory;
 	class Camera;
 	class World;
+	class GameObject;
 	class Player;
 	class Crosshair;
 	class TestMode : public GameMode, public EventObserver {
@@ -21,6 +25,7 @@ namespace BlockWorld {
 			Camera* m_camera;
 			Player* m_player;
 			Crosshair* m_crosshair;
+			deque<GameObject*> m_gibs;
 		
 		private:
 			TestMode();

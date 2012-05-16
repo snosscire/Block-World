@@ -161,7 +161,7 @@ namespace BlockWorld {
 		Position* spawnPosition = m_world->getRandomOpenPosition(*engine, 64, 64);
 
 		Player* player = new Player(message.getID(), *engine, *m_world, spawnPosition->getX() + 32, spawnPosition->getY() + 32);
-		player->setController(new PlayerController(*player, *engine));
+		player->setController(new PlayerController(*player, *engine, *m_world));
 		
 		m_players.push_back(player);
 		m_thisPlayer = player;

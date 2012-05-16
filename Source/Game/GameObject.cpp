@@ -23,6 +23,7 @@ namespace BlockWorld {
 		m_jump(false),
 		m_jumping(false),
 		m_touchingGround(false),
+		m_health(1),
 		m_movingBehavior(NULL),
 		m_jumpingBehavior(NULL),
 		m_fallingBehavior(NULL),
@@ -48,6 +49,7 @@ namespace BlockWorld {
 		m_jump(false),
 		m_jumping(false),
 		m_touchingGround(false),
+		m_health(1),
 		m_movingBehavior(NULL),
 		m_jumpingBehavior(NULL),
 		m_fallingBehavior(NULL),
@@ -308,6 +310,7 @@ namespace BlockWorld {
 		if (m_sprite) {
 			m_sprite->draw(engine, x, y);
 		}
+		
 		/*
 		list<Square*>::iterator it = m_collisionRectangles.begin();
 		for ( ; it != m_collisionRectangles.end(); it++) {
@@ -317,6 +320,7 @@ namespace BlockWorld {
 			engine.drawSquare(rectangle, 255, 0, 0);
 		}
 		*/
+		
 		m_screenX = x;
 		m_screenY = y;
 	}
@@ -348,5 +352,25 @@ namespace BlockWorld {
 	const string& GameObject::getCurrentSpriteAnimation()
 	{
 		return m_sprite->getCurrentAnimationName();
+	}
+	
+	void GameObject::setHealth(int health)
+	{
+		m_health = health;
+	}
+	
+	bool GameObject::takeDamage(int damage)
+	{
+		m_health -= damage;
+		if (m_health <= 0)
+			return true;
+		return false;
+	}
+	
+	bool GameObject::isAlive()
+	{
+		if (m_health > 0)
+			return true;
+		return false;
 	}
 };

@@ -32,6 +32,7 @@ namespace BlockWorld {
 			bool m_jump;
 			bool m_jumping;
 			bool m_touchingGround;
+			int m_health;
 			ObjectBehavior* m_movingBehavior;
 			ObjectBehavior* m_jumpingBehavior;
 			ObjectBehavior* m_fallingBehavior;
@@ -94,6 +95,10 @@ namespace BlockWorld {
 			
 			void setSpriteAnimation(const string& name);
 			const string& getCurrentSpriteAnimation();
+			
+			void setHealth(int health);
+			bool takeDamage(int damage);
+			bool isAlive();
 	};
 };
 
