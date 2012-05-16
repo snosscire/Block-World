@@ -1,6 +1,7 @@
 #include "Engine/SDL/SDLEngine.h"
 #include "Game/Game.h"
 #include "Game/BlockWorld.h"
+#include "Game/NothingMode.h"
 #include "Game/TestMode.h"
 #include "Game/NetworkTestMode.h"
 
@@ -15,13 +16,20 @@ int main(int argc, char *argv[])
 	
 	BadEngine::Engine* engine = new BadEngine::SDLEngine();
 	BlockWorld::Game* game = new BlockWorld::Game(engine);
-	//BlockWorld::TestMode* testMode = new BlockWorld::TestMode(game);
-	BlockWorld::NetworkTestMode* testMode = new BlockWorld::NetworkTestMode(game);
 	
-	game->registerMode(BlockWorld::NETWORK_TEST_MODE, testMode);
-	game->run(BlockWorld::NETWORK_TEST_MODE);
+	BlockWorld::NothingMode* nothingMode = new BlockWorld::NothingMode(game);
+	BlockWorld::TestMode* testMode = new BlockWorld::TestMode(game);
+	BlockWorld::NetworkTestMode* networkTestMode = new BlockWorld::NetworkTestMode(game);
 	
+	game->registerMode(BlockWorld::NOTHING_MODE, nothingMode);
+	game->registerMode(BlockWorld::TEST_MODE, testMode);
+	game->registerMode(BlockWorld::NETWORK_TEST_MODE, networkTestMode);
+	
+	game->run(BlockWorld::NOTHING_MODE);
+	
+	delete nothingMode;
 	delete testMode;
+	delete networkTestMode;
 	delete game;
 	delete engine;
 	

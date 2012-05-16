@@ -13,6 +13,7 @@ using namespace std;
 namespace BadEngine {
 	class Rectangle;
 	class Image;
+	class BitmapFont;
 	class Engine {	
 		protected:
 			map<EventType, list<EventObserver*> > m_eventObservers;
@@ -22,7 +23,8 @@ namespace BadEngine {
 		
 		public:
 			virtual ~Engine();
-			void registerEventObserver(EventType, EventObserver* observer);
+			void registerEventObserver(EventType type, EventObserver* observer);
+			void unregisterEventObserver(EventType type, EventObserver* observer);
 			virtual void start() = 0;
 			virtual void stop() = 0;
 			virtual void setVideoMode(int width, int height) = 0;
@@ -35,6 +37,7 @@ namespace BadEngine {
 			virtual int getScreenHeight() = 0;
 			virtual double getCurrentTime() = 0;
 			virtual Image* loadImage(string filename) = 0;
+			virtual BitmapFont* loadBitmapFont(string filename, int width, int height) = 0;
 			virtual void grabInput() = 0;
 			virtual void releaseInput() = 0;
 	};

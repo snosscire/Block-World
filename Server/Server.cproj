@@ -9,7 +9,7 @@
     <Target>Bin</Target>
     <Language>CPP</Language>
     <Compiler>
-      <Compiler ctype="GppCompiler" xmlns="" />
+      <Compiler ctype="GppCompiler" />
     </Compiler>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -19,6 +19,11 @@
     <SourceDirectory>.</SourceDirectory>
     <OutputName>Server</OutputName>
     <CompileTarget>Bin</CompileTarget>
+    <Libs>
+      <Libs>
+        <Lib>enet</Lib>
+      </Libs>
+    </Libs>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>bin\Release</OutputPath>
@@ -28,4 +33,7 @@
     <OutputName>Server</OutputName>
     <CompileTarget>Bin</CompileTarget>
   </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="main.cpp" />
+  </ItemGroup>
 </Project>

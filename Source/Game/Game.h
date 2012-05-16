@@ -6,6 +6,7 @@
 
 #include "../Engine/Engine.h"
 #include "../Engine/EventObserver.h"
+#include "../Engine/Console.h"
 
 using namespace std;
 using namespace BadEngine;
@@ -20,6 +21,8 @@ namespace BlockWorld {
 			map<const string, GameMode*> m_gameModes;
 			GameMode* m_currentMode;
 			GameNetworkClient* m_network;
+			bool m_showConsole;
+			Console* m_console;
 		
 		private:
 			Game();
@@ -31,11 +34,13 @@ namespace BlockWorld {
 			GameNetworkClient* getNetwork();
 			void registerMode(const string& name, GameMode* mode);
 			void setCurrentMode(const string& mode);
+			GameMode* getMode(const string& mode);
 			void activateNetwork();
 			void run(const string& mode);
 			void quit();
 			void onQuit();
 			void onVideoResize(VideoResizeEvent& event);
+			void onKeyboardButtonDown(KeyboardButtonEvent& event);
 	};
 };
 

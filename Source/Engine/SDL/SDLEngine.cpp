@@ -6,6 +6,7 @@
 #include "SDLImage.h"
 
 #include "../Rectangle.h"
+#include "../BitmapFont.h"
 
 #include <stdlib.h>
 #include <time.h>
@@ -149,12 +150,22 @@ namespace BadEngine
 		return NULL;
 	}
 	
+	BitmapFont* SDLEngine::loadBitmapFont(string filename, int width, int height)
+	{
+		return new BitmapFont(*this, filename, width, height);
+	}
+	
 	void SDLEngine::drawSurface(SDL_Surface* surface, int x, int y)
 	{
 		SDL_Rect dst;
 		dst.x = x;
 		dst.y = y;
 		SDL_BlitSurface(surface, NULL, m_videoSurface, &dst);
+	}
+	
+	SDL_Surface* SDLEngine::getVideoSurface()
+	{
+		return m_videoSurface;
 	}
 	
 	void SDLEngine::grabInput()

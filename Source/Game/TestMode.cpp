@@ -17,6 +17,7 @@
 namespace BlockWorld {
 	TestMode::TestMode() :
 		GameMode(),
+		m_map(NULL),
 		m_world(NULL),
 		m_camera(NULL),
 		m_player(NULL),
@@ -26,6 +27,7 @@ namespace BlockWorld {
 	
 	TestMode::TestMode(Game* game) :
 		GameMode(game),
+		m_map(NULL),
 		m_world(NULL),
 		m_camera(NULL),
 		m_player(NULL),
@@ -35,37 +37,37 @@ namespace BlockWorld {
 	
 	TestMode::~TestMode()
 	{
+		if (m_map) {
+			delete m_map;
+		}
 	}
 	
 	void TestMode::performStart()
 	{
-		Engine* engine = m_game->getEngine();
-		engine->registerEventObserver(EVENT_KEYBOARD_BUTTON_DOWN, this);
+		if (m_map) {
+			Engine* engine = m_game->getEngine();
+			engine->registerEventObserver(EVENT_KEYBOARD_BUTTON_DOWN, this);
 				
-		//MapLoader* mapLoader = new MapLoader();
-		//mapLoader->loadDirectory("Resources/Maps");
+			ImageMapWorldCreator* worldCreator = new ImageMapWorldCreator();
+			m_world = worldCreator->createWorld(*engine, *m_map);
 		
-		MapDirectory* mapDirectory = new MapDirectory("Resources/Maps/test1", "test1", "Resources/Maps/test1/map.png");
-		mapDirectory->setXMLPath("Resources/Maps/test1/map.xml");
+			Position* spawnPosition = m_world->getRandomOpenPosition(*engine, 64, 64);
 		
-		ImageMapWorldCreator* worldCreator = new ImageMapWorldCreator();
-		m_world = worldCreator->createWorld(*engine, *mapDirectory);
+			m_player = new Player(*engine, *m_world, spawnPosition->getX() + 32, spawnPosition->getY() + 32);
+			m_player->setController(new PlayerController(*m_player, *engine));
+			m_camera = new FollowObjectCamera(*m_world, *m_player, *engine);
+			m_crosshair = new Crosshair(engine->loadImage("Resources/crosshair.png"), *m_player, *engine);
 		
-		Position* spawnPosition = m_world->getRandomOpenPosition(*engine, 64, 64);
-		
-		m_player = new Player(*engine, *m_world, spawnPosition->getX() + 32, spawnPosition->getY() + 32);
-		m_player->setController(new PlayerController(*m_player, *engine));
-		m_camera = new FollowObjectCamera(*m_world, *m_player, *engine);
-		m_crosshair = new Crosshair(engine->loadImage("Resources/crosshair.png"), *m_player, *engine);
-		
-		delete spawnPosition;
-		delete mapDirectory;
-		delete worldCreator;
-		//delete mapLoader;		
+			delete spawnPosition;
+			delete worldCreator;
+		}
 	}
 	
 	void TestMode::performStop()
 	{
+		Engine* engine = m_game->getEngine();
+		engine->unregisterEventObserver(EVENT_KEYBOARD_BUTTON_DOWN, this);
+		
 		delete m_player;
 		m_player = NULL;
 		delete m_world;
@@ -88,6 +90,15 @@ namespace BlockWorld {
 		m_world->draw(*engine, *m_camera);
 		m_player->draw(*engine, *m_camera);
 		m_crosshair->draw();
+	}
+	
+	void TestMode::setMap(MapDirectory* map)
+	{
+		if (m_map) {
+			delete m_map;
+			m_map = NULL;
+		}
+		m_map = map->copy();
 	}
 	
 	void TestMode::onKeyboardButtonDown(KeyboardButtonEvent& event)

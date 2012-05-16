@@ -2,6 +2,11 @@
 #include "GameMode.h"
 #include "GameNetworkClient.h"
 
+#include "Console/QuitCommand.h"
+#include "Console/MapCommand.h"
+
+#include "../Engine/BitmapFont.h"
+
 #include <iostream>
 
 namespace BlockWorld {
@@ -11,7 +16,8 @@ namespace BlockWorld {
 		m_engine(NULL),
 		m_gameModes(),
 		m_currentMode(NULL),
-		m_network(NULL)
+		m_network(NULL),
+		m_showConsole(false)
 	{
 	}
 	
@@ -21,7 +27,8 @@ namespace BlockWorld {
 		m_engine(engine),
 		m_gameModes(),
 		m_currentMode(NULL),
-		m_network(NULL)
+		m_network(NULL),
+		m_showConsole(false)
 	{
 	}
 	
@@ -58,6 +65,15 @@ namespace BlockWorld {
 		}
 	}
 	
+	GameMode* Game::getMode(const string& name)
+	{
+		map<const string, GameMode*>::iterator it = m_gameModes.find(name);
+		if (it != m_gameModes.end()) {
+			return it->second;
+		}
+		return NULL;
+	}
+	
 	void Game::activateNetwork()
 	{
 		if (!m_network) {
@@ -74,8 +90,15 @@ namespace BlockWorld {
 		m_engine->start();
 		m_engine->registerEventObserver(EVENT_QUIT, this);
 		m_engine->registerEventObserver(EVENT_VIDEO_RESIZE, this);
+		m_engine->registerEventObserver(EVENT_KEYBOARD_BUTTON_DOWN, this);
 		
 		setCurrentMode(mode);
+		
+		BitmapFont* font = m_engine->loadBitmapFont("Resources/Fonts/font-console.png", 10, 10);
+		m_console = new Console(*m_engine, *font);
+		
+		m_console->registerCommand("quit", new QuitCommand(*this));
+		m_console->registerCommand("map", new MapCommand(*this));
 		
 		currentTime = m_engine->getCurrentTime();
 		lastTime = currentTime;
@@ -95,6 +118,9 @@ namespace BlockWorld {
 			m_engine->clearScreen();
 			if (m_currentMode) {
 				m_currentMode->draw();
+			}
+			if (m_showConsole) {
+				m_console->draw(*m_engine);
 			}
 			m_engine->updateScreen();
 		}
@@ -119,5 +145,13 @@ namespace BlockWorld {
 	void Game::onVideoResize(VideoResizeEvent& event)
 	{
 		m_engine->setVideoMode(event.getWidth(), event.getHeight());
+	}
+	
+	void Game::onKeyboardButtonDown(KeyboardButtonEvent& event)
+	{
+		if (event.getButton() == KEYBOARD_BUTTON_F1) {
+			m_showConsole = (m_showConsole ? false : true);
+			m_console->setActive(m_showConsole);
+		}
 	}
 };

@@ -5,6 +5,7 @@ all:
 		Source/External/tinyxml2/tinyxml2.cpp \
 		Source/Engine/SDL/*.cpp \
 		Source/Engine/*.cpp \
+		Source/Game/Console/*.cpp \
 		Source/Game/Network/*.cpp \
 		Source/Game/Blocks/Default/*.cpp \
 		Source/Game/Blocks/*.cpp \

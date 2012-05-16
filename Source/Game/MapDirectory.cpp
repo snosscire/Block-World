@@ -41,6 +41,11 @@ namespace BlockWorld {
 		return m_xmlPath;
 	}
 	
+	string& MapDirectory::getDirectoryName()
+	{
+		return m_directoryName;
+	}
+	
 	string& MapDirectory::getName()
 	{
 		return m_name;
@@ -61,5 +66,17 @@ namespace BlockWorld {
 		if (m_xmlPath.length() > 0)
 			return true;
 		return false;
+	}
+	
+	MapDirectory* MapDirectory::copy()
+	{
+		MapDirectory* copy = new MapDirectory();
+		copy->m_directoryName = m_directoryName;
+		copy->m_directoryPath = m_directoryPath;
+		copy->m_imagePath = m_imagePath;
+		copy->m_xmlPath = m_xmlPath;
+		copy->m_name = m_name;
+		copy->m_description = m_description;
+		return copy;
 	}
 };

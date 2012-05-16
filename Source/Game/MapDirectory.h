@@ -24,10 +24,12 @@ namespace BlockWorld {
 			string& getPath();
 			string& getImagePath();
 			string& getXMLPath();
+			string& getDirectoryName();
 			string& getName();
 			string& getDescription();
 			void setXMLPath(string path);
 			bool hasXML();
+			MapDirectory* copy();
 	};
 };
 

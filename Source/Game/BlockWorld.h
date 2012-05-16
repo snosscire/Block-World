@@ -6,6 +6,7 @@
 using namespace std;
 
 namespace BlockWorld {
+	const string NOTHING_MODE = "Nothing";
 	const string TEST_MODE = "Test";
 	const string NETWORK_TEST_MODE = "NetworkTest";
 	const int BLOCK_WIDTH = 16;

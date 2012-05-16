@@ -9,12 +9,14 @@
 using namespace BadEngine;
 
 namespace BlockWorld {
+	class MapDirectory;
 	class Camera;
 	class World;
 	class Player;
 	class Crosshair;
 	class TestMode : public GameMode, public EventObserver {
 		private:
+			MapDirectory* m_map;
 			World* m_world;
 			Camera* m_camera;
 			Player* m_player;
@@ -30,6 +32,7 @@ namespace BlockWorld {
 		public:
 			TestMode(Game* game);
 			~TestMode();
+			void setMap(MapDirectory* map);
 			void onKeyboardButtonDown(KeyboardButtonEvent& event);
 	};
 };
