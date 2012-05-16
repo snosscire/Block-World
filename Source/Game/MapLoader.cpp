@@ -31,7 +31,7 @@ namespace BlockWorld {
 			bool foundImage = false;
 			bool foundXML = false;
 			
-			for (unsigned int i = 0; i < directory->size; i++) {
+			for (int i = 0; i < directory->size; i++) {
 				if (strcmp(directory->contents[i], "map.png") == 0) {
 					foundImage = true;
 				} else if (strcmp(directory->contents[i], "map.xml") == 0) {
