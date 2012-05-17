@@ -4,6 +4,7 @@
 #include "../../Engine/Sprite.h"
 #include "../../Engine/Animation.h"
 #include "../../Engine/AnimationFrame.h"
+#include "../../Engine/Image.h"
 
 #include "../Config.h"
 #include "../World.h"
@@ -17,20 +18,20 @@
 using namespace std;
 
 namespace BlockWorld {
-	Gib::Gib(Engine& engine, World& world, double x, double y) :
+	Gib::Gib(Engine& engine, Image* image, World& world, double x, double y) :
 		GameObject(world)
 	{
 		m_x = x;
 		m_y = y;
 		
-		initialize(engine, x, y);
+		initialize(engine, image, x, y);
 	}
 	
 	Gib::~Gib()
 	{
 	}
 	
-	void Gib::initialize(Engine& engine, double x, double y)
+	void Gib::initialize(Engine& engine, Image* image, double x, double y)
 	{
 		m_jumping = true;
 		m_velocityX = engine.getRandomNumber(-Config::GibMaxSpeedX, Config::GibMaxSpeedX);
@@ -40,24 +41,27 @@ namespace BlockWorld {
 		m_fallingBehavior = new DefaultFallingBehavior();
 		m_collidingBehavior = new DefaultCollidingBehavior();
 		
-		addCollisionRectangle(new Square(x - 11.0, y - 11.0, 23.0, 23.0));
-		
 		m_sprite = new Sprite();
 		
-		int type = engine.getRandomNumber(1, 3);
+		double angle = 0.0;
 		
-		Image* image = NULL;
-		switch (type) {
-			case 3:          image = engine.loadImage("Resources/Gibs/skull-gib-03.png"); break;
-			case 2:          image = engine.loadImage("Resources/Gibs/skull-gib-02.png"); break;
-			case 1: default: image = engine.loadImage("Resources/Gibs/skull-gib-01.png"); break;
+		int rotation = engine.getRandomNumber(1, 4);
+		switch (rotation) {
+			case 4:          angle = 270.0; break;
+			case 3:          angle = 180.0; break;
+			case 2:          angle =  90.0; break;
+			case 1: default: angle =   0.0; break;
 		}
+		
+		image->rotate(angle);
 		
 		Animation* defaultAnimation = new Animation();
 		defaultAnimation->addFrame(new AnimationFrame(100.0, image));
 		
 		m_sprite->addAnimation("default", defaultAnimation);
 		m_sprite->playAnimation("default");
+
+		addCollisionRectangle(new Square(x - (image->getWidth() / 2), y - (image->getHeight() / 2), image->getWidth(), image->getHeight()));
 	}
 };
 

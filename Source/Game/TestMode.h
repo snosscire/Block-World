@@ -16,15 +16,16 @@ namespace BlockWorld {
 	class Camera;
 	class World;
 	class GameObject;
-	class Player;
 	class Crosshair;
+	class GibResourceLoader;
 	class TestMode : public GameMode, public EventObserver {
 		private:
 			MapDirectory* m_map;
 			World* m_world;
 			Camera* m_camera;
-			Player* m_player;
+			GameObject* m_player;
 			Crosshair* m_crosshair;
+			GibResourceLoader* m_gibLoader;
 			deque<GameObject*> m_gibs;
 		
 		private:

@@ -25,7 +25,7 @@ namespace BadEngine {
 			int getScreenWidth();
 			int getScreenHeight();
 			double getCurrentTime();
-			Image* loadImage(string filename);
+			Image* loadImage(const char* filename);
 			BitmapFont* loadBitmapFont(string filename, int width, int height);
 			void drawSurface(SDL_Surface* surface, int x, int y);
 			SDL_Surface* getVideoSurface();

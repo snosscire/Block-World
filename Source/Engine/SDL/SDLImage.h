@@ -23,6 +23,7 @@ namespace BadEngine {
 			int getWidth();
 			int getHeight();
 			void flip();
+			void rotate(double angle);
 	};
 };
 

@@ -5,6 +5,7 @@
 
 #include "Console/QuitCommand.h"
 #include "Console/MapCommand.h"
+#include "Console/DrawHitBoxesCommand.h"
 
 #include "../Engine/BitmapFont.h"
 
@@ -102,6 +103,7 @@ namespace BlockWorld {
 		
 		m_console->registerCommand("quit", new QuitCommand(*this));
 		m_console->registerCommand("map", new MapCommand(*this));
+		m_console->registerCommand("hitboxes", new DrawHitBoxesCommand());
 		
 		currentTime = m_engine->getCurrentTime();
 		lastTime = currentTime;

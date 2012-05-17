@@ -44,27 +44,28 @@ namespace BlockWorld {
 		m_fallingBehavior = new DefaultFallingBehavior();
 		m_collidingBehavior = new DefaultCollidingBehavior();
 
-		addCollisionRectangle(new Square(x - 16.0, y - 15.0, 32.0, 32.0));
-		addCollisionRectangle(new Square(x - 8.0, y + 17.0, 16.0, 4.0));
+		addCollisionRectangle(new Square(x - 12.0, y - 21.0, 23.0, 23.0));
+		addCollisionRectangle(new Square(x - 8.0, y + 2.0, 15.0, 13.0));
+		addCollisionRectangle(new Square(x - 5.0, y + 15.0, 11.0, 5.0));
 		
 		m_sprite = new Sprite();
 		
 		Animation* defaultAnimation = new Animation();
-		defaultAnimation->addFrame(new AnimationFrame(100.0, engine.loadImage("Resources/test-player.png")));
+		defaultAnimation->addFrame(new AnimationFrame(100.0, engine.loadImage("Resources/Player/character-run-00.png")));
 		
 		Animation* runAnimation = new Animation();
-		runAnimation->addFrame(new AnimationFrame(50.0, engine.loadImage("Resources/blockworld-character-run/blockworld-character-run-00.png")));
-		runAnimation->addFrame(new AnimationFrame(50.0, engine.loadImage("Resources/blockworld-character-run/blockworld-character-run-01.png")));
-		runAnimation->addFrame(new AnimationFrame(50.0, engine.loadImage("Resources/blockworld-character-run/blockworld-character-run-02.png")));
-		runAnimation->addFrame(new AnimationFrame(50.0, engine.loadImage("Resources/blockworld-character-run/blockworld-character-run-03.png")));
-		runAnimation->addFrame(new AnimationFrame(50.0, engine.loadImage("Resources/blockworld-character-run/blockworld-character-run-04.png")));
-		runAnimation->addFrame(new AnimationFrame(50.0, engine.loadImage("Resources/blockworld-character-run/blockworld-character-run-05.png")));
+		runAnimation->addFrame(new AnimationFrame(50.0, engine.loadImage("Resources/Player/character-run-00.png")));
+		runAnimation->addFrame(new AnimationFrame(50.0, engine.loadImage("Resources/Player/character-run-01.png")));
+		runAnimation->addFrame(new AnimationFrame(50.0, engine.loadImage("Resources/Player/character-run-02.png")));
+		runAnimation->addFrame(new AnimationFrame(50.0, engine.loadImage("Resources/Player/character-run-03.png")));
+		runAnimation->addFrame(new AnimationFrame(50.0, engine.loadImage("Resources/Player/character-run-04.png")));
+		/* runAnimation->addFrame(new AnimationFrame(50.0, engine.loadImage("Resources/blockworld-character-run/blockworld-character-run-05.png")));
 		runAnimation->addFrame(new AnimationFrame(50.0, engine.loadImage("Resources/blockworld-character-run/blockworld-character-run-06.png")));
 		runAnimation->addFrame(new AnimationFrame(50.0, engine.loadImage("Resources/blockworld-character-run/blockworld-character-run-07.png")));
-		runAnimation->addFrame(new AnimationFrame(50.0, engine.loadImage("Resources/blockworld-character-run/blockworld-character-run-08.png")));
+		runAnimation->addFrame(new AnimationFrame(50.0, engine.loadImage("Resources/blockworld-character-run/blockworld-character-run-08.png")));*/
 		
 		Animation* jumpAnimation = new Animation();
-		jumpAnimation->addFrame(new AnimationFrame(100.0, engine.loadImage("Resources/test-player-jump.png")));
+		jumpAnimation->addFrame(new AnimationFrame(100.0, engine.loadImage("Resources/Player/character-run-02.png")));
 		
 		m_sprite->addAnimation("default", defaultAnimation);
 		m_sprite->addAnimation("run", runAnimation);

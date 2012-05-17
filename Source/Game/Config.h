@@ -18,13 +18,18 @@ namespace BlockWorld {
 			static double MaxCrosshairDistance;
 			
 			/* Gibs and Blood */
-			static unsigned int MaxGibs;
+			static unsigned int MaxGibsOnScreen;
+			static int SkullSpawnChance;
+			static int GibsMin;
+			static int GibsMax;
 			static int BloodParticles;
 			static int BloodParticlesSpread;
 			static int GibMaxSpeedX;
 			static int GibMaxSpeedY;
 			static int BloodMaxSpeedX;
 			static int BloodMaxSpeedY;
+			
+			static bool DrawHitBoxes;
 	};
 };
 

@@ -77,7 +77,7 @@ namespace BlockWorld {
 			if (!error) {
 				ostringstream imagePath;
 				imagePath << mapDirectory->getPath() << "/Backgrounds/" << imageName;
-				Image* image = engine->loadImage(imagePath.str());
+				Image* image = engine->loadImage(imagePath.str().c_str());
 				if (image) {
 					world->addBackground(new WorldBackground(layer, x, y, speed, *image));
 				}
@@ -166,7 +166,7 @@ namespace BlockWorld {
 					if (it != m_textures.end()) {
 						ostringstream texturePath;
 						texturePath << mapDirectory.getPath() << "/Blocks/" << it->second;
-						Image* image = engine.loadImage(texturePath.str());
+						Image* image = engine.loadImage(texturePath.str().c_str());
 						if (image) {
 							DefaultBlock* block = new DefaultBlock(*world, x, y, BLOCK_TYPE_DIRT, *image);
 							world->setBlock(x, y, block);

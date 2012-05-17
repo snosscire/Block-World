@@ -4,6 +4,7 @@
 #include "ObjectBehavior.h"
 #include "ObjectController.h"
 #include "Camera.h"
+#include "Config.h"
 
 #include "../Engine/Square.h"
 
@@ -311,15 +312,15 @@ namespace BlockWorld {
 			m_sprite->draw(engine, x, y);
 		}
 		
-		/*
-		list<Square*>::iterator it = m_collisionRectangles.begin();
-		for ( ; it != m_collisionRectangles.end(); it++) {
-			double rectX = (*it)->getX() - camera.getLeft();
-			double rectY = (*it)->getY() - camera.getTop();
-			Square rectangle(rectX, rectY, (*it)->getWidth(), (*it)->getHeight());
-			engine.drawSquare(rectangle, 255, 0, 0);
+		if (Config::DrawHitBoxes) {
+			list<Square*>::iterator it = m_collisionRectangles.begin();
+			for ( ; it != m_collisionRectangles.end(); it++) {
+				double rectX = (*it)->getX() - camera.getLeft();
+				double rectY = (*it)->getY() - camera.getTop();
+				Square rectangle(rectX, rectY, (*it)->getWidth(), (*it)->getHeight());
+				engine.drawSquare(rectangle, 255, 0, 0);
+			}
 		}
-		*/
 		
 		m_screenX = x;
 		m_screenY = y;

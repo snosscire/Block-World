@@ -134,9 +134,9 @@ namespace BadEngine
 		return SDL_GetTicks();
 	}
 	
-	Image* SDLEngine::loadImage(string filename)
+	Image* SDLEngine::loadImage(const char* filename)
 	{
-		SDL_Surface* surface = IMG_Load(filename.c_str());
+		SDL_Surface* surface = IMG_Load(filename);
 		if (surface) {
 			SDL_Surface* newSurface = SDL_DisplayFormatAlpha(surface);
 			if (newSurface) {
