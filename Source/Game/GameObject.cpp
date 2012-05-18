@@ -327,6 +327,10 @@ namespace BlockWorld {
 	
 	void GameObject::draw(Engine& engine, Camera& camera)
 	{
+		if (m_weapon) {
+			m_weapon->drawBullets(engine, camera);
+		}
+		
 		int x = (m_x) - camera.getLeft() - (getSpriteWidth() / 2);
 		int y = (m_y) - camera.getTop() - (getSpriteHeight() / 2);
 		/*
@@ -351,7 +355,7 @@ namespace BlockWorld {
 		m_screenY = m_y - camera.getTop();
 		
 		if (m_weapon) {
-			m_weapon->draw(engine);
+			m_weapon->draw(engine, camera);
 		}
 	}
 	
@@ -392,15 +396,20 @@ namespace BlockWorld {
 	bool GameObject::takeDamage(int damage)
 	{
 		m_health -= damage;
-		if (m_health <= 0)
+		if (m_health <= 0) {
+			if (m_weapon) {
+				m_weapon->stopFiring();
+			}
 			return true;
+		}
 		return false;
 	}
 	
 	bool GameObject::isAlive()
 	{
-		if (m_health > 0)
+		if (m_health > 0) {
 			return true;
+		}
 		return false;
 	}
 	

@@ -1,6 +1,7 @@
 #include "PlayerController.h"
 #include "GameObject.h"
 #include "World.h"
+#include "Weapon.h"
 
 #include "../Engine/EventType.h"
 
@@ -22,6 +23,7 @@ namespace BlockWorld {
 		engine.registerEventObserver(EVENT_KEYBOARD_BUTTON_DOWN, this);
 		engine.registerEventObserver(EVENT_KEYBOARD_BUTTON_UP, this);
 		engine.registerEventObserver(EVENT_MOUSE_BUTTON_DOWN, this);
+		engine.registerEventObserver(EVENT_MOUSE_BUTTON_UP, this);
 	}
 	
 	PlayerController::~PlayerController()
@@ -29,6 +31,7 @@ namespace BlockWorld {
 		m_engine->unregisterEventObserver(EVENT_KEYBOARD_BUTTON_DOWN, this);
 		m_engine->unregisterEventObserver(EVENT_KEYBOARD_BUTTON_UP, this);
 		m_engine->unregisterEventObserver(EVENT_MOUSE_BUTTON_DOWN, this);
+		m_engine->unregisterEventObserver(EVENT_MOUSE_BUTTON_UP, this);
 	}
 	
 	void PlayerController::onKeyboardButtonDown(KeyboardButtonEvent& event)
@@ -38,7 +41,7 @@ namespace BlockWorld {
 				m_object->setMoveLeft(true);
 			} else if (event.getButton() == KEYBOARD_BUTTON_D) {
 				m_object->setMoveRight(true);
-			} else if (event.getButton() == KEYBOARD_BUTTON_SPACE) {
+			} else if (event.getButton() == KEYBOARD_BUTTON_W || event.getButton() == KEYBOARD_BUTTON_SPACE) {
 				m_object->setJump(true);
 			}
 		}
@@ -54,12 +57,28 @@ namespace BlockWorld {
 	};
 	
 	void PlayerController::onMouseButtonDown(MouseButtonEvent& event) {
-		if (!m_object->isAlive()) {
+		if (m_object->isAlive()) {
+			if (event.getButton() == MOUSE_BUTTON_LEFT) {
+				Weapon* weapon = m_object->getWeapon();
+				if (weapon) {
+					weapon->startFiring();
+				}
+			}
+		} else {
 			Position* spawnPosition = m_world->getRandomOpenPosition(*m_engine, 96, 96);
 			m_object->setX(spawnPosition->getX() + 48);
 			m_object->setY(spawnPosition->getY() + 48);
 			m_object->setHealth(100);
 			delete spawnPosition;
+		}
+	}
+	
+	void PlayerController::onMouseButtonUp(MouseButtonEvent& event) {
+		if (m_object->isAlive() && event.getButton() == MOUSE_BUTTON_LEFT) {
+			Weapon* weapon = m_object->getWeapon();
+			if (weapon) {
+				weapon->stopFiring();
+			}
 		}
 	}
 };

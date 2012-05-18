@@ -24,6 +24,7 @@ namespace BlockWorld {
 			void onKeyboardButtonDown(KeyboardButtonEvent& event);
 			void onKeyboardButtonUp(KeyboardButtonEvent& event);
 			void onMouseButtonDown(MouseButtonEvent& event);
+			void onMouseButtonUp(MouseButtonEvent& event);
 	};
 };
 

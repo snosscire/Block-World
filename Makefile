@@ -12,6 +12,7 @@ all:
 		Source/Game/Objects/*.cpp \
 		Source/Game/ObjectBehaviors/*.cpp \
 		Source/Game/Weapons/*.cpp \
+		Source/Game/Weapons/Bullets/*.cpp \
 		Source/Game/*.cpp \
 		Source/main.cpp
 	
