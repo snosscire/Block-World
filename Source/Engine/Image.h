@@ -13,7 +13,7 @@ namespace BadEngine {
 			virtual int getWidth() = 0;
 			virtual int getHeight() = 0;
 			virtual void flip() = 0;
-			virtual void rotate(double angle) = 0;
+			virtual Image* rotate(double angle) = 0;
 	};
 };
 

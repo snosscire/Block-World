@@ -5,6 +5,7 @@
 #include "ObjectController.h"
 #include "Camera.h"
 #include "Config.h"
+#include "Weapon.h"
 
 #include "../Engine/Square.h"
 
@@ -19,6 +20,7 @@ namespace BlockWorld {
 		m_screenY(0.0),
 		m_velocityX(0.0),
 		m_velocityY(0.0),
+		m_angle(0.0),
 		m_moveLeft(false),
 		m_moveRight(false),
 		m_jump(false),
@@ -33,7 +35,8 @@ namespace BlockWorld {
 		m_sprite(NULL),
 		m_collisionRectangles(),
 		m_nextNetworkUpdate(0.0),
-		m_networkID(0)
+		m_networkID(0),
+		m_weapon(NULL)
 	{
 	}
 
@@ -45,6 +48,7 @@ namespace BlockWorld {
 		m_screenY(0.0),
 		m_velocityX(0.0),
 		m_velocityY(0.0),
+		m_angle(0.0),
 		m_moveLeft(false),
 		m_moveRight(false),
 		m_jump(false),
@@ -59,7 +63,8 @@ namespace BlockWorld {
 		m_sprite(NULL),
 		m_collisionRectangles(),
 		m_nextNetworkUpdate(0.0),
-		m_networkID(0)
+		m_networkID(0),
+		m_weapon(NULL)
 	{
 	}
 	
@@ -134,6 +139,11 @@ namespace BlockWorld {
 	double GameObject::getVelocityY()
 	{
 		return m_velocityY;
+	}
+	
+	double GameObject::getAngle()
+	{
+		return m_angle;
 	}
 	
 	int GameObject::getSpriteWidth()
@@ -214,6 +224,11 @@ namespace BlockWorld {
 		m_velocityY = velocity;
 	}
 	
+	void GameObject::setAngle(double angle)
+	{
+		m_angle = angle;
+	}
+	
 	void GameObject::setMoveLeft(bool move)
 	{
 		m_moveLeft = move;
@@ -245,10 +260,10 @@ namespace BlockWorld {
 			m_sprite->playAnimation("jump");
 		} else {
 			if (m_velocityX < 0.0) {
-				m_sprite->flipImages(true);
+				//m_sprite->flipImages(true);
 				m_sprite->playAnimation("run");
 			} else if (m_velocityX > 0.0) {
-				m_sprite->flipImages(false);
+				//m_sprite->flipImages(false);
 				m_sprite->playAnimation("run");
 			} else {
 				if (m_sprite->getCurrentAnimationName() == "run") {
@@ -257,6 +272,12 @@ namespace BlockWorld {
 					m_sprite->playAnimation("default");
 				}
 			}
+		}
+		
+		if ((m_angle > 270.0 && m_angle < 360.0) || (m_angle > 0.0 && m_angle < 90.0)) {
+			m_sprite->flipImages(false);
+		} else if (m_angle > 90.0 && m_angle < 270.0) {
+			m_sprite->flipImages(true);
 		}
 		
 		m_sprite->update(deltaTime);
@@ -298,6 +319,10 @@ namespace BlockWorld {
 				//std::cout << "Not yet time to send update. (" << currentTime << ") (" << m_nextNetworkUpdate << ")" << std::endl;
 			}
 		}
+		
+		if (m_weapon) {
+			m_weapon->update(currentTime, deltaTime, network);
+		}
 	}
 	
 	void GameObject::draw(Engine& engine, Camera& camera)
@@ -322,8 +347,12 @@ namespace BlockWorld {
 			}
 		}
 		
-		m_screenX = x;
-		m_screenY = y;
+		m_screenX = m_x - camera.getLeft();
+		m_screenY = m_y - camera.getTop();
+		
+		if (m_weapon) {
+			m_weapon->draw(engine);
+		}
 	}
 	
 	void GameObject::clearCollisionRectangles()
@@ -374,4 +403,15 @@ namespace BlockWorld {
 			return true;
 		return false;
 	}
+	
+	void GameObject::setWeapon(Weapon& weapon)
+	{
+		m_weapon = &weapon;
+	}
+	
+	Weapon* GameObject::getWeapon()
+	{
+		return m_weapon;
+	}
 };
+

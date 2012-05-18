@@ -2,11 +2,15 @@
 #include "GameObject.h"
 #include "BlockWorld.h"
 
+#include "../Engine/Vector2d.h"
+
 #include <math.h>
 
 #include <iostream>
 
 #include <SDL/SDL.h>
+
+using namespace std;
 
 namespace BlockWorld {
 	Crosshair::Crosshair() :
@@ -49,7 +53,7 @@ namespace BlockWorld {
 	void Crosshair::draw()
 	{
 		if (m_image) {
-			m_image->draw(m_x, m_y);
+			m_image->draw(m_x - (m_image->getWidth() / 2), m_y - (m_image->getHeight() / 2));
 		}
 	}
 	
@@ -82,5 +86,13 @@ namespace BlockWorld {
 		
 		m_x = newX;
 		m_y = newY;
+		
+		// Update the angle of player
+		double radianAngle = atan2(m_y - originY, m_x - originX);
+		if (radianAngle < 0)
+			radianAngle += 2 * 3.14159265;
+		double angle = radianAngle * (180 / 3.14159265);
+		m_object->setAngle(angle);
 	}
 };
+

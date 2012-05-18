@@ -48,8 +48,8 @@ namespace BlockWorld {
 		
 		Image* image = NULL;
 		switch (type) {
-			case 2:          image = engine.loadImage("Resources/Gibs/blood2.png"); break;
-			case 1: default: image = engine.loadImage("Resources/Gibs/blood1.png"); break;
+			case 2:          image = engine.loadImage("Resources/Gibs/blood-02.png"); break;
+			case 1: default: image = engine.loadImage("Resources/Gibs/blood-01.png"); break;
 		}
 		
 		Animation* defaultAnimation = new Animation();

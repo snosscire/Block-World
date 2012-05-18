@@ -11,9 +11,11 @@ namespace BadEngine {
 			Vector2d();
 			Vector2d(double x, double y);
 			~Vector2d();
-			
 			double getX();
 			double getY();
+			double length();
+			void normalize();
+			double angle(Vector2d& other);
 	};
 };
 

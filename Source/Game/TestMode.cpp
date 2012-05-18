@@ -16,6 +16,7 @@
 #include "Config.h"
 #include "GibResourceLoader.h"
 #include "Effects.h"
+#include "Weapons/AssaultRifle.h"
 
 #include <iostream>
 
@@ -28,7 +29,8 @@ namespace BlockWorld {
 		m_player(NULL),
 		m_crosshair(NULL),
 		m_gibLoader(NULL),
-		m_gibs()
+		m_gibs(),
+		m_weapon(NULL)
 	{
 	}
 	
@@ -40,7 +42,8 @@ namespace BlockWorld {
 		m_player(NULL),
 		m_crosshair(NULL),
 		m_gibLoader(NULL),
-		m_gibs()
+		m_gibs(),
+		m_weapon(NULL)
 	{
 	}
 	
@@ -60,13 +63,16 @@ namespace BlockWorld {
 			ImageMapWorldCreator* worldCreator = new ImageMapWorldCreator();
 			m_world = worldCreator->createWorld(*engine, *m_map);
 		
-			Position* spawnPosition = m_world->getRandomOpenPosition(*engine, 64, 64);
+			Position* spawnPosition = m_world->getRandomOpenPosition(*engine, 96, 96);
 		
-			m_player = new Player(*engine, *m_world, spawnPosition->getX() + 32, spawnPosition->getY() + 32);
+			m_player = new Player(*engine, *m_world, spawnPosition->getX() + 48, spawnPosition->getY() + 48);
 			m_player->setController(new PlayerController(*m_player, *engine, *m_world));
 			m_camera = new FollowObjectCamera(*m_world, *m_player, *engine);
 			m_crosshair = new Crosshair(engine->loadImage("Resources/crosshair.png"), *m_player, *engine);
-		
+			m_weapon = new AssaultRifle(*engine, *m_player);
+			
+			m_player->setWeapon(*m_weapon);
+			
 			delete spawnPosition;
 			delete worldCreator;
 			
@@ -99,6 +105,10 @@ namespace BlockWorld {
 		if (m_gibLoader) {
 			delete m_gibLoader;
 			m_gibLoader = NULL;
+		}
+		if (m_weapon) {
+			delete m_weapon;
+			m_weapon = NULL;
 		}
 		
 		while (!m_gibs.empty()) {

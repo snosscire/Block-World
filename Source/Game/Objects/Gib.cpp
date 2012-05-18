@@ -53,7 +53,9 @@ namespace BlockWorld {
 			case 1: default: angle =   0.0; break;
 		}
 		
-		image->rotate(angle);
+		Image* rotatedImage = image->rotate(angle);
+		delete image;
+		image = rotatedImage;
 		
 		Animation* defaultAnimation = new Animation();
 		defaultAnimation->addFrame(new AnimationFrame(100.0, image));

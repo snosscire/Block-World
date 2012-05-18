@@ -18,6 +18,7 @@ namespace BlockWorld {
 	class ObjectBehavior;
 	class ObjectController;
 	class World;
+	class Weapon;
 	class GameObject {
 		protected:
 			World* m_world;
@@ -27,6 +28,7 @@ namespace BlockWorld {
 			double m_screenY;
 			double m_velocityX;
 			double m_velocityY;
+			double m_angle;
 			bool m_moveLeft;
 			bool m_moveRight;
 			bool m_jump;
@@ -42,6 +44,7 @@ namespace BlockWorld {
 			list<Square*> m_collisionRectangles;
 			double m_nextNetworkUpdate;
 			int m_networkID;
+			Weapon* m_weapon;
 		
 		private:
 			GameObject();
@@ -60,6 +63,7 @@ namespace BlockWorld {
 			double getWorldY();
 			double getScreenX();
 			double getScreenY();
+			double getAngle();
 			double getVelocityX();
 			double getVelocityY();
 			int getSpriteWidth();
@@ -78,6 +82,7 @@ namespace BlockWorld {
 			void setY(double y);
 			void setVelocityX(double velocity);
 			void setVelocityY(double velocity);
+			void setAngle(double angle);
 			void setMoveLeft(bool move);
 			void setMoveRight(bool move);
 			void setTouchingGround(bool touching);
@@ -99,6 +104,9 @@ namespace BlockWorld {
 			void setHealth(int health);
 			bool takeDamage(int damage);
 			bool isAlive();
+			
+			Weapon* getWeapon();
+			void setWeapon(Weapon& weapon);
 	};
 };
 

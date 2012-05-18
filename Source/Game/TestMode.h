@@ -18,6 +18,7 @@ namespace BlockWorld {
 	class GameObject;
 	class Crosshair;
 	class GibResourceLoader;
+	class Weapon;
 	class TestMode : public GameMode, public EventObserver {
 		private:
 			MapDirectory* m_map;
@@ -27,6 +28,7 @@ namespace BlockWorld {
 			Crosshair* m_crosshair;
 			GibResourceLoader* m_gibLoader;
 			deque<GameObject*> m_gibs;
+			Weapon* m_weapon;
 		
 		private:
 			TestMode();

@@ -54,10 +54,12 @@ namespace BadEngine {
 		m_surface = newSurface;
 	}
 	
-	void SDLImage::rotate(double angle)
+	Image* SDLImage::rotate(double angle)
 	{
 		SDL_Surface* newSurface = rotozoomSurface(m_surface, angle, 1.0, 0);
-		SDL_FreeSurface(m_surface);
-		m_surface = newSurface;
+		if (newSurface) {
+			return new SDLImage(newSurface, *m_engine);
+		}
+		return NULL;
 	}
 };

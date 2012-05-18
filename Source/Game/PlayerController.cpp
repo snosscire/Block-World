@@ -55,9 +55,9 @@ namespace BlockWorld {
 	
 	void PlayerController::onMouseButtonDown(MouseButtonEvent& event) {
 		if (!m_object->isAlive()) {
-			Position* spawnPosition = m_world->getRandomOpenPosition(*m_engine, 64, 64);
-			m_object->setX(spawnPosition->getX() + 32);
-			m_object->setY(spawnPosition->getY() + 32);
+			Position* spawnPosition = m_world->getRandomOpenPosition(*m_engine, 96, 96);
+			m_object->setX(spawnPosition->getX() + 48);
+			m_object->setY(spawnPosition->getY() + 48);
 			m_object->setHealth(100);
 			delete spawnPosition;
 		}
