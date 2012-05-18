@@ -4,9 +4,10 @@
 #include "Bullets/AssaultRifleBullet.h"
 
 namespace BlockWorld {
-	AssaultRifle::AssaultRifle(Engine& engine, GameObject& owner) :
+	AssaultRifle::AssaultRifle(Engine& engine, World& world, GameObject& owner) :
 		Weapon(owner),
 		m_engine(&engine),
+		m_world(&world),
 		m_withoutMuzzleFlashImage(NULL),
 		m_withMuzzleFlashImage(NULL),
 		m_firing(false),
@@ -55,7 +56,7 @@ namespace BlockWorld {
 	
 	void AssaultRifle::fireBullet(double x, double y, double angle)
 	{
-		Bullet* bullet = new AssaultRifleBullet(*m_engine, *m_owner, x, y, angle);
+		Bullet* bullet = new AssaultRifleBullet(*m_engine, *m_world, *m_owner, x, y, angle);
 		m_bullets.push_back(bullet);
 	}
 };

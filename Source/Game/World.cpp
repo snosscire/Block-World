@@ -155,9 +155,10 @@ namespace BlockWorld {
 		return true;
 	}
 	
-	bool World::haveCollision(int x, int y, int width, int height)
+	Block* World::haveCollision(int x, int y, int width, int height)
 	{
 		bool haveCollision = false;
+		Block* collisionBlock = NULL;
 		list<Block*> blocks;
 		
 		int iStart = x - BlockWorld::BLOCK_WIDTH;
@@ -193,11 +194,12 @@ namespace BlockWorld {
 			
 			if (_haveCollision(objectRectangle, blockRectangle)) {
 				haveCollision = true;
+				collisionBlock = block;
 				break;
 			}
 		}
 				
-		return haveCollision;
+		return collisionBlock;
 	}
 	
 	void World::getWorldPositionFromScreenPosition(Camera& camera, Position& screenPosition, Position& worldPosition)

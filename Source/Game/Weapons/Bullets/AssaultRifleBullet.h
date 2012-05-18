@@ -4,11 +4,12 @@
 #include "../../Bullet.h"
 
 namespace BlockWorld {
+	class World;
 	class GameObject;
 	class Block;
 	class AssaultRifleBullet : public Bullet {
 		public:
-			AssaultRifleBullet(Engine& engine, GameObject& owner, double x, double y, double angle);
+			AssaultRifleBullet(Engine& engine, World& world, GameObject& owner, double x, double y, double angle);
 			virtual ~AssaultRifleBullet();
 			void doDamage(GameObject& object);
 			void doDamage(Block& object);

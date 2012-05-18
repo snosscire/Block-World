@@ -34,7 +34,7 @@ namespace BlockWorld {
 			void setBlock(int x, int y, Block* block);
 			Block* getBlock(int x, int y);
 			void draw(Engine& engine, Camera& camera);
-			bool haveCollision(int x, int y, int width, int height);
+			Block* haveCollision(int x, int y, int width, int height);
 			void getWorldPositionFromScreenPosition(Camera& camera, Position& screenPosition, Position& worldPosition);
 			Block* takeBlock(int x, int y);
 			Position* getRandomOpenPosition(Engine& engine, int width, int height);

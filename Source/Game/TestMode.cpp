@@ -69,7 +69,7 @@ namespace BlockWorld {
 			m_player->setController(new PlayerController(*m_player, *engine, *m_world));
 			m_camera = new FollowObjectCamera(*m_world, *m_player, *engine);
 			m_crosshair = new Crosshair(engine->loadImage("Resources/crosshair.png"), *m_player, *engine);
-			m_weapon = new AssaultRifle(*engine, *m_player);
+			m_weapon = new AssaultRifle(*engine, *m_world, *m_player);
 			
 			m_player->setWeapon(*m_weapon);
 			
