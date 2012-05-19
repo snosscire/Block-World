@@ -3,21 +3,23 @@
 
 #include "NetworkMessage.h"
 
+#include <string>
+
+using namespace std;
+
 namespace BlockWorld {
 	class JoinMessage : public NetworkMessage {
 		private:
 			int m_id;
-			double m_x;
-			double m_y;
+			string m_name;
 		
 		public:
 			JoinMessage();
-			JoinMessage(int id, double x, double y);
+			JoinMessage(int id, string name);
 			JoinMessage(string& data);
 			virtual ~JoinMessage();
 			int getID();
-			double getX();
-			double getY();
+			string getName();
 			string toData();
 	};
 };

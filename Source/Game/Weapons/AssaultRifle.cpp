@@ -1,6 +1,8 @@
 #include "AssaultRifle.h"
+#include "../GameNetworkClient.h"
 #include "../GameObject.h"
 #include "../Bullet.h"
+#include "../Network/ShotMessage.h"
 #include "Bullets/AssaultRifleBullet.h"
 
 namespace BlockWorld {
@@ -35,6 +37,10 @@ namespace BlockWorld {
 		if (m_firing) {
 			if (currentTime >= m_fireNextRound) {
 				fireBullet(m_owner->getX(), m_owner->getY(), m_owner->getAngle());
+				if (network ) {
+					ShotMessage message(m_owner->getNetworkID(), 0, m_owner->getX(), m_owner->getY(), m_owner->getAngle());
+					network->sendMessage(message);
+				}
 				m_fireNextRound = currentTime + 100;
 			}
 			m_image = m_withMuzzleFlashImage;

@@ -13,6 +13,7 @@ namespace BlockWorld {
 		m_id(0),
 		m_x(0.0),
 		m_y(0.0),
+		m_angle(0.0),
 		m_velocityX(0.0),
 		m_velocityY(0.0),
 		m_moveLeft(0),
@@ -29,6 +30,7 @@ namespace BlockWorld {
 		m_id(id),
 		m_x(x),
 		m_y(y),
+		m_angle(0.0),
 		m_velocityX(0.0),
 		m_velocityY(0.0),
 		m_moveLeft(0),
@@ -40,11 +42,19 @@ namespace BlockWorld {
 	{
 	}
 	
-	UpdateMessage::UpdateMessage(int id, double x, double y, double velocityX, double velocityY, bool jumping, bool touchingGround) :
+	UpdateMessage::UpdateMessage(int id,
+	                             double x,
+	                             double y,
+	                             double angle,
+	                             double velocityX,
+	                             double velocityY,
+	                             bool jumping,
+	                             bool touchingGround) :
 		NetworkMessage(),
 		m_id(id),
 		m_x(x),
 		m_y(y),
+		m_angle(angle),
 		m_velocityX(velocityX),
 		m_velocityY(velocityY),
 		m_moveLeft(0),
@@ -61,6 +71,7 @@ namespace BlockWorld {
 		m_id(0),
 		m_x(0.0),
 		m_y(0.0),
+		m_angle(0.0),
 		m_velocityX(0.0),
 		m_velocityY(0.0),
 		m_moveLeft(0),
@@ -72,6 +83,7 @@ namespace BlockWorld {
 		m_id = Network::readByteFromData(data);
 		m_x = Network::readDoubleFromData(data);
 		m_y = Network::readDoubleFromData(data);
+		m_angle = Network::readDoubleFromData(data);
 		m_velocityX = Network::readDoubleFromData(data);
 		m_velocityY = Network::readDoubleFromData(data);
 		//m_moveLeft = Network::readByteFromData(data);
@@ -94,6 +106,7 @@ namespace BlockWorld {
 		m_id(id),
 		m_x(x),
 		m_y(y),
+		m_angle(0.0),
 		m_velocityX(0.0),
 		m_velocityY(0.0),
 		m_moveLeft((moveLeft ? 1 : 0)),
@@ -122,6 +135,11 @@ namespace BlockWorld {
 	double UpdateMessage::getY()
 	{
 		return m_y;
+	}
+	
+	double UpdateMessage::getAngle()
+	{
+		return m_angle;
 	}
 	
 	double UpdateMessage::getVelocityX()
@@ -171,6 +189,7 @@ namespace BlockWorld {
 		Network::addByteToData(data, m_id);
 		Network::addDoubleToData(data, m_x);
 		Network::addDoubleToData(data, m_y);
+		Network::addDoubleToData(data, m_angle);
 		Network::addDoubleToData(data, m_velocityX);
 		Network::addDoubleToData(data, m_velocityY);
 		//Network::addByteToData(data, m_moveLeft);

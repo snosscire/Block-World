@@ -35,6 +35,7 @@ namespace BlockWorld {
 			void registerMode(const string& name, GameMode* mode);
 			void setCurrentMode(const string& mode);
 			GameMode* getMode(const string& mode);
+			Console* getConsole();
 			void activateNetwork();
 			void run(const string& mode);
 			void quit();

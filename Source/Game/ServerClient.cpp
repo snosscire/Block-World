@@ -11,7 +11,8 @@ namespace BlockWorld {
 		m_id(0),
 		m_peer(NULL),
 		m_x(0.0),
-		m_y(0.0)
+		m_y(0.0),
+		m_ready(false)
 	{
 	}
 	
@@ -19,7 +20,8 @@ namespace BlockWorld {
 		m_id(id),
 		m_peer(peer),
 		m_x(0.0),
-		m_y(0.0)
+		m_y(0.0),
+		m_ready(false)
 	{
 	}
 	
@@ -42,6 +44,21 @@ namespace BlockWorld {
 		m_y = y;
 	}
 	
+	void ServerClient::setName(string name)
+	{
+		m_name = name;
+	}
+	
+	void ServerClient::setReady(bool ready)
+	{
+		m_ready = ready;
+	}
+	
+	void ServerClient::setMapLoaded(bool loaded)
+	{
+		m_mapLoaded = loaded;
+	}
+	
 	double ServerClient::getX()
 	{
 		return m_x;
@@ -50,6 +67,21 @@ namespace BlockWorld {
 	double ServerClient::getY()
 	{
 		return m_y;
+	}
+	
+	string ServerClient::getName()
+	{
+		return m_name;
+	}
+	
+	bool ServerClient::isReady()
+	{
+		return m_ready;
+	}
+	
+	bool ServerClient::hasLoadedMap()
+	{
+		return m_mapLoaded;
 	}
 	
 	void ServerClient::disconnect()

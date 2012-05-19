@@ -7,7 +7,12 @@
 #include "Network/ConnectResponseMessage.h"
 #include "Network/JoinMessage.h"
 #include "Network/LeaveMessage.h"
+#include "Network/LoadMapMessage.h"
+#include "Network/StartGameMessage.h"
+#include "Network/SpawnMessage.h"
 #include "Network/UpdateMessage.h"
+#include "Network/ShotMessage.h"
+
 
 #include <iostream>
 #include <string>
@@ -38,19 +43,10 @@ namespace BlockWorld {
 	
 	void GameNetworkClient::sendUpdate(GameObject& object)
 	{
-		/*
 		UpdateMessage message(object.getNetworkID(),
 		                      object.getX(),
 		                      object.getY(),
-		                      false,
-		                      false,
-		                      false,
-		                      object.isTouchingGround(),
-		                      object.getCurrentSpriteAnimation());
-		*/
-		UpdateMessage message(object.getNetworkID(),
-		                      object.getX(),
-		                      object.getY(),
+		                      object.getAngle(),
 		                      object.getVelocityX(),
 		                      object.getVelocityY(),
 		                      object.isJumping(),
@@ -107,11 +103,43 @@ namespace BlockWorld {
 				}
 				break;
 			}
+			case GameNetwork::MESSAGE_LOAD_MAP:{
+				LoadMapMessage message(data);
+				it = m_messageObservers.begin();
+				for ( ; it != m_messageObservers.end(); it++) {
+					(*it)->onLoadMap(message);
+				}
+				break;
+			}
+			case GameNetwork::MESSAGE_START_GAME:{
+				StartGameMessage message(data);
+				it = m_messageObservers.begin();
+				for ( ; it != m_messageObservers.end(); it++) {
+					(*it)->onStartGame(message);
+				}
+				break;
+			}
+			case GameNetwork::MESSAGE_SPAWN:{
+				SpawnMessage message(data);
+				it = m_messageObservers.begin();
+				for ( ; it != m_messageObservers.end(); it++) {
+					(*it)->onSpawn(message);
+				}
+				break;
+			}
 			case GameNetwork::MESSAGE_UPDATE: {
 				UpdateMessage message(data);
 				it = m_messageObservers.begin();
 				for ( ; it != m_messageObservers.end(); it++) {
 					(*it)->onUpdate(message);
+				}
+				break;
+			}
+			case GameNetwork::MESSAGE_SHOT: {
+				ShotMessage message(data);
+				it = m_messageObservers.begin();
+				for ( ; it != m_messageObservers.end(); it++) {
+					(*it)->onShot(message);
 				}
 				break;
 			}

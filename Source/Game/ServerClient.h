@@ -16,6 +16,9 @@ namespace BlockWorld {
 			ENetPeer* m_peer;
 			double m_x;
 			double m_y;
+			string m_name;
+			bool m_ready;
+			bool m_mapLoaded;
 		
 		private:
 			ServerClient();
@@ -26,8 +29,14 @@ namespace BlockWorld {
 			int getID();
 			void setX(double x);
 			void setY(double y);
+			void setName(string name);
+			void setReady(bool ready);
+			void setMapLoaded(bool loaded);
 			double getX();
 			double getY();
+			string getName();
+			bool isReady();
+			bool hasLoadedMap();
 			void disconnect();
 			void sendData(ENetHost* host, unsigned char* data, unsigned int length);
 			void sendData(ENetHost* host, string& data);

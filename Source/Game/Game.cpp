@@ -76,6 +76,11 @@ namespace BlockWorld {
 		return NULL;
 	}
 	
+	Console* Game::getConsole()
+	{
+		return m_console;
+	}
+	
 	void Game::activateNetwork()
 	{
 		if (!m_network) {
@@ -95,17 +100,17 @@ namespace BlockWorld {
 		m_engine->registerEventObserver(EVENT_KEYBOARD_BUTTON_DOWN, this);
 		
 		Config::loadFile("config.xml");
-		
-		setCurrentMode(mode);
-		
+
 		BitmapFont* font = m_engine->loadBitmapFont("Resources/Fonts/font-console.png", 10, 10);
 		m_console = new Console(*m_engine, *font);
-		
+
 		m_console->registerCommand("quit", new QuitCommand(*this));
 		m_console->registerCommand("map", new MapCommand(*this));
 		m_console->registerCommand("hitboxes", new DrawHitBoxesCommand());
 		
 		m_engine->grabInput();
+		
+		setCurrentMode(mode);
 		
 		currentTime = m_engine->getCurrentTime();
 		lastTime = currentTime;

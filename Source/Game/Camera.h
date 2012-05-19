@@ -7,7 +7,7 @@ namespace BlockWorld {
 			Camera() { }
 		
 		public:
-			~Camera() { }
+			virtual ~Camera() { }
 			virtual void update() { }
 			virtual int getLeft() = 0;
 			virtual int getRight() = 0;

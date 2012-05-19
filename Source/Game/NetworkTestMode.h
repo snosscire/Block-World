@@ -10,6 +10,7 @@
 #include "World.h"
 
 #include <list>
+#include <string>
 
 using namespace std;
 using namespace BadEngine;
@@ -18,10 +19,12 @@ namespace BlockWorld {
 	class Camera;
 	class World;
 	class Player;
+	class Weapon;
 	class Crosshair;
 	class ConnectResponseMessage;
 	class JoinMessage;
-	
+	class LoadMapMessage;
+	class ShotMessage;
 	class NetworkTestMode : public GameMode, public EventObserver, public NetworkObserver, public MessageObserver {
 		private:
 			World* m_world;
@@ -29,6 +32,9 @@ namespace BlockWorld {
 			Crosshair* m_crosshair;
 			list<Player*> m_players;
 			Player* m_thisPlayer;
+			Weapon* m_weapon;
+			int m_thisNetworkID;
+			string m_thisPlayerName;
 			
 		private:
 			NetworkTestMode();
@@ -43,6 +49,10 @@ namespace BlockWorld {
 			void onKeyboardButtonDown(KeyboardButtonEvent& event);
 			void onConnectResponse(ConnectResponseMessage& message);
 			void onJoin(JoinMessage& message);
+			void onLoadMap(LoadMapMessage& message);
+			void onStartGame(StartGameMessage& message);
+			void onSpawn(SpawnMessage& message);
+			void sendReadyMessage();
 	};
 };
 

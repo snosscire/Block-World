@@ -7,6 +7,7 @@
 namespace BlockWorld {
 	class GameNetworkClient;
 	class UpdateMessage;
+	class ShotMessage;
 	class NetworkController : public ObjectController, public MessageObserver {
 		private:
 			GameNetworkClient* m_network;
@@ -18,6 +19,7 @@ namespace BlockWorld {
 			NetworkController(GameObject& object, GameNetworkClient& network);
 			virtual ~NetworkController();
 			void onUpdate(UpdateMessage& message);
+			void onShot(ShotMessage& message);
 	};
 };
 

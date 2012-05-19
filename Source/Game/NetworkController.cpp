@@ -2,6 +2,8 @@
 #include "GameObject.h"
 #include "GameNetworkClient.h"
 #include "Network/UpdateMessage.h"
+#include "Network/ShotMessage.h"
+#include "Weapon.h"
 
 #include <iostream>
 
@@ -31,6 +33,7 @@ namespace BlockWorld {
 		if (message.getID() == m_object->getNetworkID()) {
 			m_object->setX(message.getX());
 			m_object->setY(message.getY());
+			m_object->setAngle(message.getAngle());
 			m_object->setVelocityX(message.getVelocityX());
 			m_object->setVelocityY(message.getVelocityY());
 			m_object->setJumping(message.getJumping());
@@ -39,6 +42,16 @@ namespace BlockWorld {
 			//m_object->setMoveLeft(message.getMoveLeft());
 			//m_object->setMoveRight(message.getMoveRight());
 			//m_object->setJump(message.getJump());
+		}
+	}
+	
+	void NetworkController::onShot(ShotMessage& message)
+	{
+		if (message.getID() == m_object->getNetworkID()) {
+			Weapon* weapon = m_object->getWeapon();
+			if (weapon) {
+				weapon->fireBullet(message.getX(), message.getY(), message.getAngle());
+			}
 		}
 	}
 };

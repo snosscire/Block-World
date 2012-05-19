@@ -12,21 +12,33 @@ using namespace BadEngine;
 
 namespace BlockWorld {
 	class ServerClient;
-	class ConnectMessage;
+	class NetworkMessage;
+	class IdentityMessage;
+	class ReadyMessage;
+	class MapLoadedMessage;
+	class SpawnMessage;
 	class UpdateMessage;
+	class ShotMessage;
 	class GameNetworkServer : public NetworkServer, public NetworkObserver {
 		private:
+			bool m_gameInProgres;
 			int m_lastClientID;
 			map<int, ServerClient*> m_clients;
 		
 		private:
 			void sendToAll(unsigned char* data, unsigned int length);
 			void sendToAll(string& data);
+			void sendToAll(NetworkMessage& message);
 			void sendToAllExcept(unsigned char* data, unsigned int length, int clientID);
 			void sendToAllExcept(string& data, int clientID);
-			
-			void handleConnectMessage(ConnectMessage& message);
+			void sendToAllExcept(NetworkMessage& message, int clientID);
+			ServerClient* getClient(int id);
+			void handleIdentityMessage(IdentityMessage& message);
+			void handleReadyMessage(ReadyMessage& message);
+			void handleMapLoadedMessage(MapLoadedMessage& message);
 			void handleUpdateMessage(UpdateMessage& updateMessage, ENetPacket* packet);
+			void handleSpawnMessage(SpawnMessage& updateMessage, ENetPacket* packet);
+			void handleShotMessage(ShotMessage& message, ENetPacket* packet);
 		
 		public:
 			GameNetworkServer();

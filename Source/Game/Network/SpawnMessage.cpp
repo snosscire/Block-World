@@ -1,4 +1,4 @@
-#include "ConnectMessage.h"
+#include "SpawnMessage.h"
 
 #include "../GameNetwork.h"
 #include "../../Engine/Network.h"
@@ -6,7 +6,7 @@
 using namespace BadEngine;
 
 namespace BlockWorld {
-	ConnectMessage::ConnectMessage() :
+	SpawnMessage::SpawnMessage() :
 		NetworkMessage(),
 		m_id(0),
 		m_x(0.0),
@@ -14,7 +14,7 @@ namespace BlockWorld {
 	{
 	}
 	
-	ConnectMessage::ConnectMessage(int id, double x, double y) :
+	SpawnMessage::SpawnMessage(int id, double x, double y) :
 		NetworkMessage(),
 		m_id(id),
 		m_x(x),
@@ -22,7 +22,7 @@ namespace BlockWorld {
 	{
 	}
 	
-	ConnectMessage::ConnectMessage(string& data) :
+	SpawnMessage::SpawnMessage(string& data) :
 		NetworkMessage(),
 		m_id(0),
 		m_x(0.0),
@@ -33,32 +33,33 @@ namespace BlockWorld {
 		m_y = Network::readDoubleFromData(data);
 	}
 	
-	ConnectMessage::~ConnectMessage()
+	SpawnMessage::~SpawnMessage()
 	{
 	}
 	
-	int ConnectMessage::getID()
+	int SpawnMessage::getID()
 	{
 		return m_id;
 	}
 	
-	double ConnectMessage::getX()
+	double SpawnMessage::getX()
 	{
 		return m_x;
 	}
 	
-	double ConnectMessage::getY()
+	double SpawnMessage::getY()
 	{
 		return m_y;
 	}
 	
-	string ConnectMessage::toData()
+	string SpawnMessage::toData()
 	{
 		string data;
-		Network::addByteToData(data, GameNetwork::MESSAGE_CONNECT);
+		Network::addByteToData(data, GameNetwork::MESSAGE_SPAWN);
 		Network::addByteToData(data, m_id);
 		Network::addDoubleToData(data, m_x);
 		Network::addDoubleToData(data, m_y);
 		return data;
 	}
 };
+

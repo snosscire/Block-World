@@ -32,6 +32,9 @@ namespace BlockWorld {
 	
 	MouseScrollCamera::~MouseScrollCamera()
 	{
+		m_engine->unregisterEventObserver(EVENT_MOUSE_BUTTON_DOWN, this);
+		m_engine->unregisterEventObserver(EVENT_MOUSE_BUTTON_UP, this);
+		m_engine->unregisterEventObserver(EVENT_MOUSE_MOVEMENT, this);
 	}
 	
 	int MouseScrollCamera::getLeft()

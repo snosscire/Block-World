@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
 	game->registerMode(BlockWorld::TEST_MODE, testMode);
 	game->registerMode(BlockWorld::NETWORK_TEST_MODE, networkTestMode);
 	
-	game->run(BlockWorld::NOTHING_MODE);
+	game->run(BlockWorld::NETWORK_TEST_MODE);
 	
 	delete nothingMode;
 	delete testMode;

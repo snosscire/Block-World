@@ -2,17 +2,26 @@
 #include "Game.h"
 #include "GameNetworkClient.h"
 #include "World.h"
+#include "MouseScrollCamera.h"
 #include "FollowObjectCamera.h"
 #include "Crosshair.h"
 #include "Objects/Player.h"
+#include "MapLoader.h"
 #include "MapDirectory.h"
 #include "ImageMapWorldCreator.h"
 #include "PlayerController.h"
 #include "NetworkController.h"
+#include "Weapons/AssaultRifle.h"
 
-#include "Network/ConnectMessage.h"
 #include "Network/ConnectResponseMessage.h"
+#include "Network/IdentityMessage.h"
 #include "Network/JoinMessage.h"
+#include "Network/ReadyMessage.h"
+#include "Network/LoadMapMessage.h"
+#include "Network/MapLoadedMessage.h"
+#include "Network/SpawnMessage.h"
+
+#include "Console/ReadyCommand.h"
 
 #include <iostream>
 
@@ -27,7 +36,10 @@ namespace BlockWorld {
 		m_camera(NULL),
 		m_crosshair(NULL),
 		m_players(),
-		m_thisPlayer(NULL)
+		m_thisPlayer(NULL),
+		m_weapon(NULL),
+		m_thisNetworkID(0),
+		m_thisPlayerName()
 	{
 	}
 	
@@ -39,7 +51,10 @@ namespace BlockWorld {
 		m_camera(NULL),
 		m_crosshair(NULL),
 		m_players(),
-		m_thisPlayer(NULL)
+		m_thisPlayer(NULL),
+		m_weapon(NULL),
+		m_thisNetworkID(0),
+		m_thisPlayerName()
 	{
 	}
 	
@@ -52,6 +67,8 @@ namespace BlockWorld {
 		Engine* engine = m_game->getEngine();
 		
 		engine->registerEventObserver(EVENT_KEYBOARD_BUTTON_DOWN, this);
+		
+		m_game->getConsole()->registerCommand("ready", new ReadyCommand(*this));
 		
 		m_game->activateNetwork();
 		
@@ -90,6 +107,11 @@ namespace BlockWorld {
 			delete m_crosshair;
 			m_crosshair = NULL;
 		}
+		
+		if (m_weapon) {
+			delete m_weapon;
+			m_weapon = NULL;
+		}
 	}
 	
 	void NetworkTestMode::performUpdate(double currentTime, double deltaTime)
@@ -108,6 +130,10 @@ namespace BlockWorld {
 			Player* player = *it;
 			if (player->getNetworkID() != m_thisPlayer->getNetworkID()) {
 				player->spriteUpdate(currentTime, deltaTime);
+				Weapon* weapon = player->getWeapon();
+				if (weapon) {
+					weapon->update(currentTime, deltaTime, m_game->getNetwork());
+				}
 			}
 		}
 		
@@ -148,41 +174,88 @@ namespace BlockWorld {
 	
 	void NetworkTestMode::onConnectResponse(ConnectResponseMessage& message)
 	{
-		cout << "Connected." << endl;
+		m_thisNetworkID = message.getID();
 		
-		Engine* engine = m_game->getEngine();
-		
-		MapDirectory* mapDirectory = new MapDirectory("Resources/Maps/test1", "test1", "Resources/Maps/test1/map.png");
-		mapDirectory->setXMLPath("Resources/Maps/test1/map.xml");
-		
-		ImageMapWorldCreator* worldCreator = new ImageMapWorldCreator();
-		m_world = worldCreator->createWorld(*engine, *mapDirectory);
-		
-		Position* spawnPosition = m_world->getRandomOpenPosition(*engine, 64, 64);
-
-		Player* player = new Player(message.getID(), *engine, *m_world, spawnPosition->getX() + 32, spawnPosition->getY() + 32);
-		player->setController(new PlayerController(*player, *engine, *m_world));
-		
-		m_players.push_back(player);
-		m_thisPlayer = player;
-			
-		m_camera = new FollowObjectCamera(*m_world, *player, *engine);
-		m_crosshair = new Crosshair(engine->loadImage("Resources/crosshair.png"), *player, *engine);
-		
-		ConnectMessage connectMessage(message.getID(), player->getX(), player->getY());
-		m_game->getNetwork()->sendMessage(connectMessage);
-		
-		delete spawnPosition;
-		delete mapDirectory;
-		delete worldCreator;
+		IdentityMessage identityMessage(m_thisNetworkID, m_thisPlayerName);
+		m_game->getNetwork()->sendMessage(identityMessage);
 	}
 	
 	void NetworkTestMode::onJoin(JoinMessage& message)
 	{
-		cout << "Received join message." << endl;
-		
 		// We got a new player playing with us :)
 		
+		// TODO: We should also add the player to the lobby list
+	}
+	
+	void NetworkTestMode::onLoadMap(LoadMapMessage& message)
+	{
+		MapLoader* loader = new MapLoader();
+		MapDirectory* map = NULL;
+		
+		loader->loadDirectory("Resources/Maps");
+		
+		list<MapDirectory*>& maps = loader->getMaps();
+		list<MapDirectory*>::iterator it = maps.begin();
+		
+		for ( ; it != maps.end(); it++) {
+			if ((*it)->getDirectoryName().compare(message.getName()) == 0) {
+				map = *it;
+				break;
+			}
+		}
+		
+		if (map) {
+			Engine* engine = m_game->getEngine();
+			
+			ImageMapWorldCreator* worldCreator = new ImageMapWorldCreator();
+			m_world = worldCreator->createWorld(*engine, *map);
+			
+			m_camera = new MouseScrollCamera(*m_world, *engine);
+			
+			delete worldCreator;
+			
+			//m_gibLoader = new GibResourceLoader(*engine);
+			//m_gibLoader->loadFile("Resources/Gibs/gibs.xml");
+			
+			// If we get here the map should be successfully loaded ;)
+			// Therefore we send the message to the server.
+			MapLoadedMessage loaded(m_thisNetworkID);
+			m_game->getNetwork()->sendMessage(loaded);
+		}
+
+		delete loader;
+	}
+	
+	void NetworkTestMode::onStartGame(StartGameMessage& message)
+	{
+		// Delete the temporary camera.
+		if (m_camera) {
+			delete m_camera;
+			m_camera = NULL;
+		}
+		
+		Engine* engine = m_game->getEngine();
+		
+		Position* spawnPosition = m_world->getRandomOpenPosition(*engine, 96, 96);
+		
+		m_thisPlayer = new Player(m_thisNetworkID, *engine, *m_world, spawnPosition->getX() + 48, spawnPosition->getY() + 48);
+		m_thisPlayer->setController(new PlayerController(*m_thisPlayer, *engine, *m_world));
+		m_camera = new FollowObjectCamera(*m_world, *m_thisPlayer, *engine);
+		m_crosshair = new Crosshair(engine->loadImage("Resources/crosshair.png"), *m_thisPlayer, *engine);
+		m_weapon = new AssaultRifle(*engine, *m_world, *m_thisPlayer);
+		
+		m_thisPlayer->setWeapon(*m_weapon);
+		
+		m_players.push_back(m_thisPlayer);
+
+		delete spawnPosition;
+		
+		SpawnMessage spawnMessage(m_thisPlayer->getNetworkID(), m_thisPlayer->getX(), m_thisPlayer->getY());
+		m_game->getNetwork()->sendMessage(spawnMessage);
+	}
+	
+	void NetworkTestMode::onSpawn(SpawnMessage& message)
+	{
 		Engine* engine = m_game->getEngine();
 		GameNetworkClient* network = m_game->getNetwork();
 		
@@ -190,8 +263,18 @@ namespace BlockWorld {
 		Player* player = new Player(message.getID(), *engine, *m_world, message.getX(), message.getY());
 		player->setController(new NetworkController(*player, *network));
 		
+		// TODO: FIX MEMORY LEAK!
+		Weapon* weapon = new AssaultRifle(*engine, *m_world, *player);
+		player->setWeapon(*weapon);
+		
 		// Then we add the player to the list of players
 		m_players.push_back(player);
+	}
+	
+	void NetworkTestMode::sendReadyMessage()
+	{
+		ReadyMessage message(m_thisNetworkID);
+		m_game->getNetwork()->sendMessage(message);
 	}
 };
 
