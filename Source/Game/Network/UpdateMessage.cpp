@@ -21,6 +21,7 @@ namespace BlockWorld {
 		m_jump(0),
 		m_jumping(0),
 		m_touchingGround(0),
+		m_health(0),
 		m_currentAnimation("default")
 	{
 	}
@@ -38,6 +39,7 @@ namespace BlockWorld {
 		m_jump(0),
 		m_jumping(0),
 		m_touchingGround(0),
+		m_health(0),
 		m_currentAnimation("default")
 	{
 	}
@@ -49,7 +51,8 @@ namespace BlockWorld {
 	                             double velocityX,
 	                             double velocityY,
 	                             bool jumping,
-	                             bool touchingGround) :
+	                             bool touchingGround,
+	                             int health) :
 		NetworkMessage(),
 		m_id(id),
 		m_x(x),
@@ -62,6 +65,7 @@ namespace BlockWorld {
 		m_jump(0),
 		m_jumping((jumping ? 1 : 0)),
 		m_touchingGround((touchingGround ? 1 : 0)),
+		m_health(health),
 		m_currentAnimation("default")
 	{
 	}
@@ -78,6 +82,7 @@ namespace BlockWorld {
 		m_moveRight(0),
 		m_jump(0),
 		m_touchingGround(0),
+		m_health(0),
 		m_currentAnimation("default")
 	{
 		m_id = Network::readByteFromData(data);
@@ -91,6 +96,7 @@ namespace BlockWorld {
 		//m_jump = Network::readByteFromData(data);
 		m_jumping = Network::readByteFromData(data);
 		m_touchingGround = Network::readByteFromData(data);
+		m_health = Network::readLongFromData(data);
 		//Network::readStringFromData(data, m_currentAnimation);
 	}
 	
@@ -114,6 +120,7 @@ namespace BlockWorld {
 		m_jump((jump ? 1 : 0 )),
 		m_jumping(0),
 		m_touchingGround((touchingGround ? 1 : 0)),
+		m_health(0),
 		m_currentAnimation(animation)
 	{
 	}	
@@ -177,6 +184,11 @@ namespace BlockWorld {
 		return (m_touchingGround == 1 ? true : false);
 	}
 	
+	int UpdateMessage::getHealth()
+	{
+		return m_health;
+	}
+	
 	const string& UpdateMessage::getCurrentAnimation()
 	{
 		return m_currentAnimation;
@@ -197,6 +209,7 @@ namespace BlockWorld {
 		//Network::addByteToData(data, m_jump);
 		Network::addByteToData(data, m_jumping);
 		Network::addByteToData(data, m_touchingGround);
+		Network::addLongToData(data, m_health);
 		//Network::addStringToData(data, m_currentAnimation);
 		return data;
 	}

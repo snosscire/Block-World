@@ -9,7 +9,7 @@
 #include "../Engine/Image.h"
 
 namespace BlockWorld {
-	void Effects::bloodSplash(Engine& engine, GibResourceLoader& gibLoader, deque<GameObject*>& list, World& world, GameObject& origin)
+	void Effects::bloodSplash(Engine& engine, GibResourceLoader& gibLoader, deque<GameObject*>& list, World& world, double originX, double originY)
 	{
 		int number = engine.getRandomNumber(1, Config::SkullSpawnChance);
 		if (number == 1) {
@@ -17,7 +17,7 @@ namespace BlockWorld {
 			if (file) {
 				Image* image = engine.loadImage(file);
 				if (image) {
-					Gib* skull = new Gib(engine, image, world, origin.getX(), origin.getY());
+					Gib* skull = new Gib(engine, image, world, originX, originY);
 					list.push_back(skull);
 				}
 			}
@@ -29,15 +29,15 @@ namespace BlockWorld {
 			if (file) {
 				Image* image = engine.loadImage(file);
 				if (image) {
-					Gib* gib = new Gib(engine, image, world, origin.getX(), origin.getY());
+					Gib* gib = new Gib(engine, image, world, originX, originY);
 					list.push_back(gib);
 				}
 			}
 		}
 		
 		for (int i = 0; i < Config::BloodParticles; i++) {
-			double x = origin.getX() - engine.getRandomNumber(-Config::BloodParticlesSpread, Config::BloodParticlesSpread);
-			double y = origin.getY() - engine.getRandomNumber(-Config::BloodParticlesSpread, Config::BloodParticlesSpread);
+			double x = originX - engine.getRandomNumber(-Config::BloodParticlesSpread, Config::BloodParticlesSpread);
+			double y = originY - engine.getRandomNumber(-Config::BloodParticlesSpread, Config::BloodParticlesSpread);
 			Blood* blood = new Blood(engine, world, x, y);
 			list.push_back(blood);
 		}

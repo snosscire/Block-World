@@ -10,6 +10,7 @@ namespace BlockWorld {
 	class SpawnMessage;
 	class UpdateMessage;
 	class ShotMessage;
+	class DeathMessage;
 	class MessageObserver {
 		protected:
 			MessageObserver()  { }
@@ -24,6 +25,7 @@ namespace BlockWorld {
 			virtual void onSpawn(SpawnMessage& message) { }
 			virtual void onUpdate(UpdateMessage& message) { }
 			virtual void onShot(ShotMessage& message) { }
+			virtual void onDeath(DeathMessage& message) { }
 	};
 };
 

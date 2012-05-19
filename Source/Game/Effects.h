@@ -14,7 +14,7 @@ namespace BlockWorld {
 	class GibResourceLoader;
 	class Effects {
 		public:
-			static void bloodSplash(Engine& engine, GibResourceLoader& gibLoader, deque<GameObject*>& list, World& world, GameObject& origin);
+			static void bloodSplash(Engine& engine, GibResourceLoader& gibLoader, deque<GameObject*>& list, World& world, double originX, double originY);
 	};
 };
 

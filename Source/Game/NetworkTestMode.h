@@ -6,16 +6,19 @@
 
 #include "GameMode.h"
 #include "MessageObserver.h"
+#include "DamageHandler.h"
 
 #include "World.h"
 
-#include <list>
 #include <string>
+#include <deque>
 
 using namespace std;
 using namespace BadEngine;
 
 namespace BlockWorld {
+	class GibResourceLoader;
+	class ObjectManager;
 	class Camera;
 	class World;
 	class Player;
@@ -25,16 +28,18 @@ namespace BlockWorld {
 	class JoinMessage;
 	class LoadMapMessage;
 	class ShotMessage;
-	class NetworkTestMode : public GameMode, public EventObserver, public NetworkObserver, public MessageObserver {
+	class NetworkTestMode : public GameMode, public EventObserver, public NetworkObserver, public MessageObserver, public DamageHandler {
 		private:
 			World* m_world;
 			Camera* m_camera;
 			Crosshair* m_crosshair;
-			list<Player*> m_players;
 			Player* m_thisPlayer;
 			Weapon* m_weapon;
 			int m_thisNetworkID;
 			string m_thisPlayerName;
+			ObjectManager* m_objectManager;
+			GibResourceLoader* m_gibLoader;
+			deque<GameObject*> m_gibs;
 			
 		private:
 			NetworkTestMode();
@@ -52,7 +57,9 @@ namespace BlockWorld {
 			void onLoadMap(LoadMapMessage& message);
 			void onStartGame(StartGameMessage& message);
 			void onSpawn(SpawnMessage& message);
+			void onDeath(DeathMessage& message);
 			void sendReadyMessage();
+			void handleDamage(GameObject* object, int damage);
 	};
 };
 

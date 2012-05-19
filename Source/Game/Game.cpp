@@ -108,7 +108,7 @@ namespace BlockWorld {
 		m_console->registerCommand("map", new MapCommand(*this));
 		m_console->registerCommand("hitboxes", new DrawHitBoxesCommand());
 		
-		m_engine->grabInput();
+		//m_engine->grabInput();
 		
 		setCurrentMode(mode);
 		
@@ -165,9 +165,9 @@ namespace BlockWorld {
 			m_showConsole = (m_showConsole ? false : true);
 			m_console->setActive(m_showConsole);
 			if (m_showConsole) {
-				m_engine->releaseInput();
+				//m_engine->releaseInput();
 			} else {
-				m_engine->grabInput();
+				//m_engine->grabInput();
 			}
 		}
 	}

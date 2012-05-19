@@ -38,6 +38,7 @@ namespace BlockWorld {
 			m_object->setVelocityY(message.getVelocityY());
 			m_object->setJumping(message.getJumping());
 			m_object->setTouchingGround(message.getTouchingGround());
+			m_object->setHealth(message.getHealth());
 			//m_object->setSpriteAnimation(message.getCurrentAnimation());
 			//m_object->setMoveLeft(message.getMoveLeft());
 			//m_object->setMoveRight(message.getMoveRight());

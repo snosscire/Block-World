@@ -19,6 +19,8 @@ namespace BlockWorld {
 	class ObjectController;
 	class World;
 	class Weapon;
+	class ObjectManager;
+	class DamageHandler;
 	class GameObject {
 		protected:
 			World* m_world;
@@ -45,6 +47,9 @@ namespace BlockWorld {
 			double m_nextNetworkUpdate;
 			int m_networkID;
 			Weapon* m_weapon;
+			ObjectManager* m_manager;
+			bool m_canTakeDamage;
+			DamageHandler* m_damageHandler;
 		
 		private:
 			GameObject();
@@ -101,12 +106,19 @@ namespace BlockWorld {
 			void setSpriteAnimation(const string& name);
 			const string& getCurrentSpriteAnimation();
 			
+			int getHealth();
 			void setHealth(int health);
 			bool takeDamage(int damage);
 			bool isAlive();
 			
 			Weapon* getWeapon();
 			void setWeapon(Weapon& weapon);
+			
+			void setManager(ObjectManager* manager);
+			ObjectManager* getManager();
+			
+			void setCanTakeDamage(bool can);
+			void setDamageHandler(DamageHandler* handler);
 	};
 };
 

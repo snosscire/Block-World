@@ -12,6 +12,9 @@
 #include "PlayerController.h"
 #include "NetworkController.h"
 #include "Weapons/AssaultRifle.h"
+#include "ObjectManager.h"
+#include "GibResourceLoader.h"
+#include "Effects.h"
 
 #include "Network/ConnectResponseMessage.h"
 #include "Network/IdentityMessage.h"
@@ -20,6 +23,7 @@
 #include "Network/LoadMapMessage.h"
 #include "Network/MapLoadedMessage.h"
 #include "Network/SpawnMessage.h"
+#include "Network/DeathMessage.h"
 
 #include "Console/ReadyCommand.h"
 
@@ -35,11 +39,12 @@ namespace BlockWorld {
 		m_world(NULL),
 		m_camera(NULL),
 		m_crosshair(NULL),
-		m_players(),
 		m_thisPlayer(NULL),
 		m_weapon(NULL),
 		m_thisNetworkID(0),
-		m_thisPlayerName()
+		m_thisPlayerName(),
+		m_gibLoader(NULL),
+		m_gibs()
 	{
 	}
 	
@@ -50,11 +55,11 @@ namespace BlockWorld {
 		m_world(NULL),
 		m_camera(NULL),
 		m_crosshair(NULL),
-		m_players(),
 		m_thisPlayer(NULL),
 		m_weapon(NULL),
 		m_thisNetworkID(0),
-		m_thisPlayerName()
+		m_thisPlayerName(),
+		m_gibs()
 	{
 	}
 	
@@ -75,7 +80,7 @@ namespace BlockWorld {
 		m_game->getNetwork()->registerObserver(this);
 		m_game->getNetwork()->registerMessageObserver(this);
 		
-		if (m_game->getNetwork()->connect("localhost", 7788)) {
+		if (m_game->getNetwork()->connect("wedogames.se", 7788)) {
 			
 		} else {
 			
@@ -84,14 +89,10 @@ namespace BlockWorld {
 	
 	void NetworkTestMode::performStop()
 	{
-		list<Player*>::iterator it = m_players.begin();
-		for ( ; it != m_players.end(); it++) {
-			Player* player = *it;
-			delete player;
+		if (m_objectManager) {
+			delete m_objectManager;
+			m_objectManager = NULL;
 		}
-		m_players.clear();
-		
-		m_thisPlayer = NULL;
 		
 		if (m_camera) {
 			delete m_camera;
@@ -116,25 +117,13 @@ namespace BlockWorld {
 	
 	void NetworkTestMode::performUpdate(double currentTime, double deltaTime)
 	{
-		/*
-		list<Player*>::iterator it = m_players.begin();
-		for ( ; it != m_players.end(); it++) {
-			Player* player = *it;
-			GameNetworkClient* network = (player->getNetworkID() == m_thisPlayer->getNetworkID() ? m_game->getNetwork() : NULL);
-			player->update(currentTime, deltaTime, network);
+		deque<GameObject*>::reverse_iterator it = m_gibs.rbegin();
+		for ( ; it != m_gibs.rend(); it++) {
+			(*it)->update(currentTime, deltaTime, NULL);
 		}
-		*/
 		
-		list<Player*>::iterator it = m_players.begin();
-		for ( ; it != m_players.end(); it++) {
-			Player* player = *it;
-			if (player->getNetworkID() != m_thisPlayer->getNetworkID()) {
-				player->spriteUpdate(currentTime, deltaTime);
-				Weapon* weapon = player->getWeapon();
-				if (weapon) {
-					weapon->update(currentTime, deltaTime, m_game->getNetwork());
-				}
-			}
+		if (m_objectManager) {
+			m_objectManager->spriteUpdate(currentTime, deltaTime, (m_thisPlayer ? m_thisPlayer->getNetworkID() : 0));
 		}
 		
 		if (m_thisPlayer) {
@@ -154,10 +143,13 @@ namespace BlockWorld {
 			m_world->draw(*engine, *m_camera);
 		}
 		
-		list<Player*>::iterator it = m_players.begin();
-		for ( ; it != m_players.end(); it++) {
-			Player* player = *it;
-			player->draw(*engine, *m_camera);
+		deque<GameObject*>::iterator it = m_gibs.begin();
+		for ( ; it != m_gibs.end(); it++) {
+			(*it)->draw(*engine, *m_camera);
+		}
+				
+		if (m_objectManager) {
+			m_objectManager->draw(*engine, *m_camera);
 		}
 		
 		if (m_crosshair) {
@@ -214,8 +206,10 @@ namespace BlockWorld {
 			
 			delete worldCreator;
 			
-			//m_gibLoader = new GibResourceLoader(*engine);
-			//m_gibLoader->loadFile("Resources/Gibs/gibs.xml");
+			m_objectManager = new ObjectManager();
+			
+			m_gibLoader = new GibResourceLoader(*engine);
+			m_gibLoader->loadFile("Resources/Gibs/gibs.xml");
 			
 			// If we get here the map should be successfully loaded ;)
 			// Therefore we send the message to the server.
@@ -239,14 +233,17 @@ namespace BlockWorld {
 		Position* spawnPosition = m_world->getRandomOpenPosition(*engine, 96, 96);
 		
 		m_thisPlayer = new Player(m_thisNetworkID, *engine, *m_world, spawnPosition->getX() + 48, spawnPosition->getY() + 48);
+		m_thisPlayer->setCanTakeDamage(true);
 		m_thisPlayer->setController(new PlayerController(*m_thisPlayer, *engine, *m_world));
+		m_thisPlayer->setDamageHandler(this);
+		m_thisPlayer->setHealth(100);
 		m_camera = new FollowObjectCamera(*m_world, *m_thisPlayer, *engine);
 		m_crosshair = new Crosshair(engine->loadImage("Resources/crosshair.png"), *m_thisPlayer, *engine);
 		m_weapon = new AssaultRifle(*engine, *m_world, *m_thisPlayer);
 		
 		m_thisPlayer->setWeapon(*m_weapon);
 		
-		m_players.push_back(m_thisPlayer);
+		m_objectManager->addObject(m_thisPlayer);
 
 		delete spawnPosition;
 		
@@ -262,19 +259,40 @@ namespace BlockWorld {
 		// First we need to create he player object
 		Player* player = new Player(message.getID(), *engine, *m_world, message.getX(), message.getY());
 		player->setController(new NetworkController(*player, *network));
+		player->setDamageHandler(this);
+		player->setHealth(100);
 		
 		// TODO: FIX MEMORY LEAK!
 		Weapon* weapon = new AssaultRifle(*engine, *m_world, *player);
 		player->setWeapon(*weapon);
 		
 		// Then we add the player to the list of players
-		m_players.push_back(player);
+		m_objectManager->addObject(player);
+	}
+	
+	void NetworkTestMode::onDeath(DeathMessage& message)
+	{
+		Engine* engine = m_game->getEngine();
+		Effects::bloodSplash(*engine, *m_gibLoader, m_gibs, *m_world, message.getX(), message.getY());
 	}
 	
 	void NetworkTestMode::sendReadyMessage()
 	{
 		ReadyMessage message(m_thisNetworkID);
 		m_game->getNetwork()->sendMessage(message);
+	}
+	
+	void NetworkTestMode::handleDamage(GameObject* object, int damage)
+	{
+		if (object->getNetworkID() == m_thisNetworkID) {
+			object->setHealth(object->getHealth() - damage);
+			if (!object->isAlive()) {
+				Engine* engine = m_game->getEngine();
+				Effects::bloodSplash(*engine, *m_gibLoader, m_gibs, *m_world, object->getX(), object->getY());
+				DeathMessage message(object->getNetworkID(), object->getX(), object->getY());
+				m_game->getNetwork()->sendMessage(message);
+			}
+		}
 	}
 };
 

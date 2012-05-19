@@ -12,7 +12,7 @@
 #include "Network/SpawnMessage.h"
 #include "Network/UpdateMessage.h"
 #include "Network/ShotMessage.h"
-
+#include "Network/DeathMessage.h"
 
 #include <iostream>
 #include <string>
@@ -50,7 +50,8 @@ namespace BlockWorld {
 		                      object.getVelocityX(),
 		                      object.getVelocityY(),
 		                      object.isJumping(),
-		                      object.isTouchingGround());
+		                      object.isTouchingGround(),
+		                      object.getHealth());
 		sendMessage(message);
 	}
 	
@@ -140,6 +141,14 @@ namespace BlockWorld {
 				it = m_messageObservers.begin();
 				for ( ; it != m_messageObservers.end(); it++) {
 					(*it)->onShot(message);
+				}
+				break;
+			}
+			case GameNetwork::MESSAGE_DEATH: {
+				DeathMessage message(data);
+				it = m_messageObservers.begin();
+				for ( ; it != m_messageObservers.end(); it++) {
+					(*it)->onDeath(message);
 				}
 				break;
 			}

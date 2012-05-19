@@ -6,6 +6,8 @@
 #include "Camera.h"
 #include "Config.h"
 #include "Weapon.h"
+#include "ObjectManager.h"
+#include "DamageHandler.h"
 
 #include "../Engine/Square.h"
 
@@ -36,7 +38,10 @@ namespace BlockWorld {
 		m_collisionRectangles(),
 		m_nextNetworkUpdate(0.0),
 		m_networkID(0),
-		m_weapon(NULL)
+		m_weapon(NULL),
+		m_manager(NULL),
+		m_canTakeDamage(false),
+		m_damageHandler(NULL)
 	{
 	}
 
@@ -64,7 +69,10 @@ namespace BlockWorld {
 		m_collisionRectangles(),
 		m_nextNetworkUpdate(0.0),
 		m_networkID(0),
-		m_weapon(NULL)
+		m_weapon(NULL),
+		m_manager(NULL),
+		m_canTakeDamage(true),
+		m_damageHandler(NULL)
 	{
 	}
 	
@@ -388,6 +396,11 @@ namespace BlockWorld {
 		return m_sprite->getCurrentAnimationName();
 	}
 	
+	int GameObject::getHealth()
+	{
+		return m_health;
+	}
+	
 	void GameObject::setHealth(int health)
 	{
 		m_health = health;
@@ -395,12 +408,18 @@ namespace BlockWorld {
 	
 	bool GameObject::takeDamage(int damage)
 	{
-		m_health -= damage;
-		if (m_health <= 0) {
-			if (m_weapon) {
-				m_weapon->stopFiring();
+		if (m_canTakeDamage) {
+			if (m_damageHandler) {
+				m_damageHandler->handleDamage(this, damage);
+			} else {
+				m_health -= damage;
+				if (m_health <= 0) {
+					if (m_weapon) {
+						m_weapon->stopFiring();
+					}
+					return true;
+				}
 			}
-			return true;
 		}
 		return false;
 	}
@@ -421,6 +440,26 @@ namespace BlockWorld {
 	Weapon* GameObject::getWeapon()
 	{
 		return m_weapon;
+	}
+	
+	void GameObject::setManager(ObjectManager* manager)
+	{
+		m_manager = manager;
+	}
+	
+	ObjectManager* GameObject::getManager()
+	{
+		return m_manager;
+	}
+	
+	void GameObject::setCanTakeDamage(bool can)
+	{
+		m_canTakeDamage = can;
+	}
+	
+	void GameObject::setDamageHandler(DamageHandler* handler)
+	{
+		m_damageHandler = handler;
 	}
 };
 

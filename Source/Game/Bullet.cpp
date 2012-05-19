@@ -3,6 +3,7 @@
 #include "GameObject.h"
 #include "Block.h"
 #include "Camera.h"
+#include "ObjectManager.h"
 
 #include <math.h>
 
@@ -38,13 +39,21 @@ namespace BlockWorld {
 			double radianAngle = m_angle * 0.017453292;
 			double newX = m_x + (deltaSpeed * cos(radianAngle));
 			double newY = m_y + (deltaSpeed * sin(radianAngle));
-			Block* block = m_world->haveCollision(newX, newY, m_image->getWidth(), m_image->getHeight());
-			if (block) {
-				doDamage(*block);
+			
+			ObjectManager* objectManager = m_owner->getManager();
+			GameObject* object = objectManager->haveCollision(newX, newY, m_image->getWidth(), m_image->getHeight(), *m_owner);
+			if ( object ) {
+				doDamage(*object);
 				m_alive = false;
 			} else {
-				m_x = newX;
-				m_y = newY;
+				Block* block = m_world->haveCollision(newX, newY, m_image->getWidth(), m_image->getHeight());
+				if (block) {
+					doDamage(*block);
+					m_alive = false;
+				} else {
+					m_x = newX;
+					m_y = newY;
+				}
 			}
 		}
 	}

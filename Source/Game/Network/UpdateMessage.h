@@ -21,12 +21,13 @@ namespace BlockWorld {
 			int m_jump;
 			int m_jumping;
 			int m_touchingGround;
+			int m_health;
 			string m_currentAnimation;
 		
 		public:
 			UpdateMessage();
 			UpdateMessage(int id, double x, double y);
-			UpdateMessage(int id, double x, double y, double angle, double velocityX, double velocityY, bool jumping, bool touchingGround);
+			UpdateMessage(int id, double x, double y, double angle, double velocityX, double velocityY, bool jumping, bool touchingGround, int health);
 			UpdateMessage(int id, double x, double y, bool moveLeft, bool moveRight, bool jump, bool touchingGround, string animation);
 			UpdateMessage(string& data);
 			virtual ~UpdateMessage();
@@ -41,6 +42,7 @@ namespace BlockWorld {
 			bool getJump();
 			bool getJumping();
 			bool getTouchingGround();
+			int getHealth();
 			const string& getCurrentAnimation();
 			string toData();
 	};

@@ -66,6 +66,7 @@ namespace BlockWorld {
 			Position* spawnPosition = m_world->getRandomOpenPosition(*engine, 96, 96);
 		
 			m_player = new Player(*engine, *m_world, spawnPosition->getX() + 48, spawnPosition->getY() + 48);
+			m_player->setCanTakeDamage(true);
 			m_player->setController(new PlayerController(*m_player, *engine, *m_world));
 			m_camera = new FollowObjectCamera(*m_world, *m_player, *engine);
 			m_crosshair = new Crosshair(engine->loadImage("Resources/crosshair.png"), *m_player, *engine);
@@ -163,7 +164,7 @@ namespace BlockWorld {
 		else if (event.getButton() == KEYBOARD_BUTTON_F2) {
 			if (m_player->isAlive() && m_player->takeDamage(9999)) {
 				Engine* engine = m_game->getEngine();
-				Effects::bloodSplash(*engine, *m_gibLoader, m_gibs, *m_world, *m_player);
+				Effects::bloodSplash(*engine, *m_gibLoader, m_gibs, *m_world, m_player->getX(), m_player->getY());
 			}
 		}
 		// Kill player in Explosion

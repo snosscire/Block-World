@@ -15,6 +15,7 @@
 #include "Network/SpawnMessage.h"
 #include "Network/UpdateMessage.h"
 #include "Network/ShotMessage.h"
+#include "Network/DeathMessage.h"
 
 #include <iostream>
 
@@ -160,6 +161,10 @@ namespace BlockWorld {
 			} case GameNetwork::MESSAGE_SHOT: {
 				ShotMessage message(data);
 				handleShotMessage(message, packet);
+				break;
+			} case GameNetwork::MESSAGE_DEATH: {
+				DeathMessage message(data);
+				handleDeathMessage(message, packet);
 				break;
 			}
 		}
@@ -320,6 +325,14 @@ namespace BlockWorld {
 	}
 
 	void GameNetworkServer::handleShotMessage(ShotMessage& message, ENetPacket* packet)
+	{
+		ServerClient* client = getClient(message.getID());
+		if (client) {
+			sendToAllExcept((unsigned char*)packet->data, packet->dataLength, client->getID());
+		}
+	}
+
+	void GameNetworkServer::handleDeathMessage(DeathMessage& message, ENetPacket* packet)
 	{
 		ServerClient* client = getClient(message.getID());
 		if (client) {

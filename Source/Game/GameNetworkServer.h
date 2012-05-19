@@ -19,6 +19,7 @@ namespace BlockWorld {
 	class SpawnMessage;
 	class UpdateMessage;
 	class ShotMessage;
+	class DeathMessage;
 	class GameNetworkServer : public NetworkServer, public NetworkObserver {
 		private:
 			bool m_gameInProgres;
@@ -39,6 +40,7 @@ namespace BlockWorld {
 			void handleUpdateMessage(UpdateMessage& updateMessage, ENetPacket* packet);
 			void handleSpawnMessage(SpawnMessage& updateMessage, ENetPacket* packet);
 			void handleShotMessage(ShotMessage& message, ENetPacket* packet);
+			void handleDeathMessage(DeathMessage& message, ENetPacket* packet);
 		
 		public:
 			GameNetworkServer();
