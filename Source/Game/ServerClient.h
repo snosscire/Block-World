@@ -19,6 +19,7 @@ namespace BlockWorld {
 			string m_name;
 			bool m_ready;
 			bool m_mapLoaded;
+			int m_lives;
 		
 		private:
 			ServerClient();
@@ -41,6 +42,8 @@ namespace BlockWorld {
 			void sendData(ENetHost* host, unsigned char* data, unsigned int length);
 			void sendData(ENetHost* host, string& data);
 			void sendMessage(ENetHost* host, NetworkMessage& message);
+			void removeLife();
+			bool isAlive();
 	};
 };
 

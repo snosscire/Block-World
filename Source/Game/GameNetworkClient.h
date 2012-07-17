@@ -20,6 +20,7 @@ namespace BlockWorld {
 			GameNetworkClient();
 			virtual ~GameNetworkClient();
 			void registerMessageObserver(MessageObserver* observer);
+			void unregisterObserver(MessageObserver* observer);
 			void sendMessage(NetworkMessage& message);
 			void sendUpdate(GameObject& object);
 			void sendUpdate(GameObject& object, bool moveLeft, bool moveRight, bool jump);

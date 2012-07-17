@@ -12,7 +12,8 @@ namespace BlockWorld {
 		m_peer(NULL),
 		m_x(0.0),
 		m_y(0.0),
-		m_ready(false)
+		m_ready(false),
+		m_lives(5)
 	{
 	}
 	
@@ -21,7 +22,8 @@ namespace BlockWorld {
 		m_peer(peer),
 		m_x(0.0),
 		m_y(0.0),
-		m_ready(false)
+		m_ready(false),
+		m_lives(5)
 	{
 	}
 	
@@ -103,6 +105,18 @@ namespace BlockWorld {
 	{
 		string data = message.toData();
 		sendData(host, data);
+	}
+	
+	void ServerClient::removeLife()
+	{
+		m_lives--;
+	}
+	
+	bool ServerClient::isAlive()
+	{
+		if (m_lives > 0)
+			return true;
+		return false;
 	}
 };
 

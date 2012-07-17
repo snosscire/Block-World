@@ -7,13 +7,15 @@ namespace BlockWorld {
 	class ConnectResponseMessage : public NetworkMessage {
 		private:
 			int m_id;
+			int m_gameInProgress;
 		
 		public:
 			ConnectResponseMessage();
-			ConnectResponseMessage(int id);
+			ConnectResponseMessage(int id, bool gameInProgress);
 			ConnectResponseMessage(string& data);
 			virtual ~ConnectResponseMessage();
 			int getID();
+			bool getGameInProgress();
 			string toData();
 	};
 };

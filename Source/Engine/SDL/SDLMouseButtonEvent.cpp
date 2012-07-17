@@ -24,7 +24,7 @@ namespace BadEngine {
 	
 	int SDLMouseButtonEvent::getY()
 	{
-		return m_event->button.x;
+		return m_event->button.y;
 	}
 	
 	MouseButton SDLMouseButtonEvent::getButton()

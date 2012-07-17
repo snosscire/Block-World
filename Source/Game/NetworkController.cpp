@@ -26,6 +26,7 @@ namespace BlockWorld {
 	NetworkController::~NetworkController()
 	{
 		// TODO: Unregister as message observer
+		m_network->unregisterObserver(this);
 	}
 	
 	void NetworkController::onUpdate(UpdateMessage& message)

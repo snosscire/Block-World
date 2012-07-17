@@ -16,6 +16,7 @@
 #include "Network/UpdateMessage.h"
 #include "Network/ShotMessage.h"
 #include "Network/DeathMessage.h"
+#include "Network/EndGameMessage.h"
 
 #include <iostream>
 
@@ -23,6 +24,7 @@ namespace BlockWorld {
 	GameNetworkServer::GameNetworkServer() :
 		NetworkServer(),
 		NetworkObserver(),
+		m_gameInProgress(false),
 		m_lastClientID(0),
 		m_clients()
 	{
@@ -96,35 +98,58 @@ namespace BlockWorld {
 	{
 		cout << "Got new connection." << endl;
 		
-		int* clientID = new int(); 
-		*clientID = m_lastClientID + 1;
+		if (m_clients.size() < 4) {
+			int* clientID = new int(); 
+			*clientID = m_lastClientID + 1;
 		
-		ServerClient* client = new ServerClient(*clientID, peer);
-		m_clients.insert(pair<int, ServerClient*>(*clientID, client));
-		peer->data = clientID;
+			ServerClient* client = new ServerClient(*clientID, peer);
+			m_clients.insert(pair<int, ServerClient*>(*clientID, client));
+			peer->data = clientID;
 		
-		cout << "Sending connect confirmation." << endl;
+			cout << "Sending connect confirmation." << endl;
 		
-		ConnectResponseMessage message(*clientID);
-		string data = message.toData();
-		client->sendData(m_host, data);
+			ConnectResponseMessage message(*clientID, false);
+			string data = message.toData();
+			client->sendData(m_host, data);
 		
-		m_lastClientID = *clientID;
+			m_lastClientID = *clientID;
+		} else {
+			ServerClient* client = new ServerClient(0, peer);
+			ConnectResponseMessage message(0, true);
+			string data = message.toData();
+			client->sendData(m_host, data);
+			delete client;
+		}
 	}
 	
 	void GameNetworkServer::onDisconnect(ENetPeer* peer)
 	{
 		cout << "Client disconnected." << endl;
 		
-		int* clientID = static_cast<int*>(peer->data);
-		m_clients.erase(*clientID);
+		if (peer->data) {
+			int* clientID = static_cast<int*>(peer->data);
 		
-		LeaveMessage message(*clientID);
-		string data = message.toData();
-		sendToAll(data);
+			ServerClient* client = getClient(*clientID);
 		
-		delete clientID;
-		peer->data = NULL;
+			if (client) {
+				m_clients.erase(*clientID);
+			
+				LeaveMessage message(*clientID);
+				string data = message.toData();
+				sendToAll(data);
+			
+			
+				//if (m_clients.size() == 1) {
+				//	m_gameInProgress = false;
+				//	if (playersAlive() <= 1) {
+				//		sendEndGameMessage();
+				//	}
+				//}
+			}
+
+			delete clientID;
+			peer->data = NULL;
+		}
 	}
 	
 	void GameNetworkServer::onReceive(ENetPacket* packet)
@@ -170,38 +195,6 @@ namespace BlockWorld {
 		}
 	}
 	
-	/*
-	void GameNetworkServer::handleConnectMessage(ConnectMessage& connectMessage)
-	{
-		cout << "Sending join message..." << endl;
-		
-		// Check if we have a player with this id
-		map<int, ServerClient*>::iterator it = m_clients.find(connectMessage.getID());
-		
-		if (it != m_clients.end()) {
-			// Update ServerClient object with position
-			ServerClient* client = it->second;
-			client->setX(connectMessage.getX());
-			client->setY(connectMessage.getY());
-			
-			// Send join message about new player to all current players
-			JoinMessage joinMessage(connectMessage.getID(), connectMessage.getX(), connectMessage.getY());
-			string data = joinMessage.toData();
-			sendToAllExcept(data, connectMessage.getID());
-		
-			// Send positions of all current players to connecting player
-			map<int, ServerClient*>::iterator it;
-			it = m_clients.begin();
-			for ( ; it != m_clients.end(); it++) {
-				if (it->second->getID() != connectMessage.getID()) {
-					JoinMessage joinMessage(it->second->getID(), it->second->getX(), it->second->getY());
-					client->sendMessage(m_host, joinMessage);
-				}
-			}
-		}
-	}
-	*/
-	
 	void GameNetworkServer::handleIdentityMessage(IdentityMessage& message)
 	{
 		// We have now received the identity message from the player.
@@ -213,52 +206,59 @@ namespace BlockWorld {
 			client->setName(message.getName());
 			
 			// Send the new player the list of already connected players.
-			map<int, ServerClient*>::iterator it = m_clients.begin();
-			for ( ; it != m_clients.end(); it++) {
-				if (it->second->getID() != client->getID()) {
-					JoinMessage join(it->second->getID(), it->second->getName());
-					client->sendMessage(m_host, join);
-				}
-			}
+			//map<int, ServerClient*>::iterator it = m_clients.begin();
+			//for ( ; it != m_clients.end(); it++) {
+			//	if (it->second->getID() != client->getID()) {
+			//		JoinMessage join(it->second->getID(), it->second->getName());
+			//		client->sendMessage(m_host, join);
+			//	}
+			//}
 
 			// Send a message to the already connected players telling them
 			// about the new player.
-			JoinMessage join(client->getID(), client->getName());
-			sendToAllExcept(join, client->getID());
+			//if (!m_gameInProgress) {
+			//	JoinMessage join(client->getID(), client->getName());
+			//	sendToAllExcept(join, client->getID());
+			//}
 		}
 	}
 	
 	void GameNetworkServer::handleReadyMessage(ReadyMessage& message)
 	{
 		cout << "Handling ready message." << endl;
-		ServerClient* client = getClient(message.getID());
-		if (client) {
-			cout << "Setting client to ready." << endl;
-			client->setReady(true);
+		if (m_clients.size() < 5) {
+			ServerClient* client = getClient(message.getID());
+			if (client) {
+				cout << "Setting client to ready." << endl;
+				client->setReady(true);
 			
-			// Check if all clients now are ready so the game can be started.
-			bool allClientsReady = true;
+				// Check if all clients now are ready so the game can be started.
+				bool allClientsReady = true;
 			
-			map<int, ServerClient*>::iterator it;
-			it = m_clients.begin();
-			for ( ; it != m_clients.end(); it++) {
-				if (!it->second->isReady()) {
-					allClientsReady = false;
-					break;
+				map<int, ServerClient*>::iterator it;
+				it = m_clients.begin();
+				for ( ; it != m_clients.end(); it++) {
+					if (!it->second->isReady()) {
+						allClientsReady = false;
+						break;
+					}
 				}
-			}
 			
-			// If clients are ready send the load map message and tell
-			// the clients what map to load.
-			if (allClientsReady) {
-				cout << "Asking clients to load the map." << endl;
-				LoadMapMessage loadMessage(m_clients.size(), "test1");
-				sendToAll(loadMessage);
+				// If clients are ready send the load map message and tell
+				// the clients what map to load.
+				if (allClientsReady) {
+					m_gameInProgress = true;
+					cout << "Asking clients to load the map." << endl;
+					LoadMapMessage loadMessage(m_clients.size(), "test1");
+					sendToAll(loadMessage);
+				} else {
+					cout << "All clients are not ready yet." << endl;
+				}
 			} else {
-				cout << "All clients are not ready yet." << endl;
+				cout << "Could not find client." << endl;
 			}
 		} else {
-			cout << "Could not find client." << endl;
+			cout << "A game is already in progress. Not accepting ready commands." << endl;
 		}
 	}
 	
@@ -337,7 +337,43 @@ namespace BlockWorld {
 		ServerClient* client = getClient(message.getID());
 		if (client) {
 			sendToAllExcept((unsigned char*)packet->data, packet->dataLength, client->getID());
+			client->removeLife();
+			if (playersAlive() <= 1) {
+				sendEndGameMessage();
+			}
 		}
+	}
+	
+	int GameNetworkServer::playersAlive()
+	{
+		int alive = 0;
+		map<int, ServerClient*>::iterator it;
+		it = m_clients.begin();
+		for ( ; it != m_clients.end(); it++) {
+			if (it->second->isAlive())
+				alive++;
+		}
+		return alive;
+	}
+	
+	string GameNetworkServer::findWinner()
+	{
+		string winner;
+		map<int, ServerClient*>::iterator it;
+		it = m_clients.begin();
+		for ( ; it != m_clients.end(); it++) {
+			if (it->second->isAlive()) {
+				winner = it->second->getName();
+				break;
+			}
+		}
+		return winner;
+	}
+	
+	void GameNetworkServer::sendEndGameMessage()
+	{
+		EndGameMessage message(m_clients.size(), findWinner());
+		sendToAll(message);
 	}
 };
 

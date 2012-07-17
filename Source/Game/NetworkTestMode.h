@@ -28,6 +28,7 @@ namespace BlockWorld {
 	class JoinMessage;
 	class LoadMapMessage;
 	class ShotMessage;
+	class EndGameMessage;
 	class NetworkTestMode : public GameMode, public EventObserver, public NetworkObserver, public MessageObserver, public DamageHandler {
 		private:
 			World* m_world;
@@ -60,6 +61,7 @@ namespace BlockWorld {
 			void onDeath(DeathMessage& message);
 			void sendReadyMessage();
 			void handleDamage(GameObject* object, int damage);
+			void onEndGame(EndGameMessage& message);
 	};
 };
 

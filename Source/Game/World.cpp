@@ -47,7 +47,9 @@ namespace BlockWorld {
 	{		
 		for (int x = 0; x < m_width; x++) {
 			for(int y = 0; y < m_height; y++ ) {
-				delete m_blocks[x][y];
+				if (m_blocks[x][y]) {
+					delete m_blocks[x][y];
+				}
 			}
 			delete[] m_blocks[x];
 		}

@@ -11,6 +11,7 @@ namespace BlockWorld {
 	class UpdateMessage;
 	class ShotMessage;
 	class DeathMessage;
+	class EndGameMessage;
 	class MessageObserver {
 		protected:
 			MessageObserver()  { }
@@ -26,6 +27,7 @@ namespace BlockWorld {
 			virtual void onUpdate(UpdateMessage& message) { }
 			virtual void onShot(ShotMessage& message) { }
 			virtual void onDeath(DeathMessage& message) { }
+			virtual void onEndGame(EndGameMessage& message) { }
 	};
 };
 

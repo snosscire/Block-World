@@ -23,6 +23,7 @@ namespace BlockWorld {
 			GameNetworkClient* m_network;
 			bool m_showConsole;
 			Console* m_console;
+			bool m_shouldGrabMouse;
 		
 		private:
 			Game();
@@ -42,6 +43,7 @@ namespace BlockWorld {
 			void onQuit();
 			void onVideoResize(VideoResizeEvent& event);
 			void onKeyboardButtonDown(KeyboardButtonEvent& event);
+			void setShouldGrabMouse(bool should);
 	};
 };
 

@@ -19,7 +19,8 @@ namespace BlockWorld {
 		m_gameModes(),
 		m_currentMode(NULL),
 		m_network(NULL),
-		m_showConsole(false)
+		m_showConsole(false),
+		m_shouldGrabMouse(false)
 	{
 	}
 	
@@ -30,7 +31,8 @@ namespace BlockWorld {
 		m_gameModes(),
 		m_currentMode(NULL),
 		m_network(NULL),
-		m_showConsole(false)
+		m_showConsole(false),
+		m_shouldGrabMouse(false)
 	{
 	}
 	
@@ -108,7 +110,9 @@ namespace BlockWorld {
 		m_console->registerCommand("map", new MapCommand(*this));
 		m_console->registerCommand("hitboxes", new DrawHitBoxesCommand());
 		
-		//m_engine->grabInput();
+		if (m_shouldGrabMouse) {
+			m_engine->grabInput();
+		}
 		
 		setCurrentMode(mode);
 		
@@ -164,11 +168,18 @@ namespace BlockWorld {
 		if (event.getButton() == KEYBOARD_BUTTON_F1) {
 			m_showConsole = (m_showConsole ? false : true);
 			m_console->setActive(m_showConsole);
-			if (m_showConsole) {
-				//m_engine->releaseInput();
-			} else {
-				//m_engine->grabInput();
+			if (m_shouldGrabMouse) {
+				if (m_showConsole) {
+					m_engine->releaseInput();
+				} else {
+					m_engine->grabInput();
+				}
 			}
 		}
+	}
+	
+	void Game::setShouldGrabMouse(bool should)
+	{
+		m_shouldGrabMouse = should;
 	}
 };

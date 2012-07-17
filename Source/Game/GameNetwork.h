@@ -19,6 +19,7 @@ namespace BlockWorld {
 			static const int MESSAGE_SPAWN            = 10;
 			static const int MESSAGE_SHOT             = 11;
 			static const int MESSAGE_DEATH            = 12;
+			static const int MESSAGE_END_GAME         = 13;
 			
 			static void sendUpdate(ENetHost* host, ENetPeer* peer, GameObject& object);
 			
