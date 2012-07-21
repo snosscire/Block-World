@@ -17,6 +17,7 @@
 #include "GibResourceLoader.h"
 #include "Effects.h"
 #include "Weapons/AssaultRifle.h"
+#include "ObjectManager.h"
 
 #include <iostream>
 
@@ -30,7 +31,8 @@ namespace BlockWorld {
 		m_crosshair(NULL),
 		m_gibLoader(NULL),
 		m_gibs(),
-		m_weapon(NULL)
+		m_weapon(NULL),
+		m_objectManager(NULL)
 	{
 	}
 	
@@ -43,7 +45,8 @@ namespace BlockWorld {
 		m_crosshair(NULL),
 		m_gibLoader(NULL),
 		m_gibs(),
-		m_weapon(NULL)
+		m_weapon(NULL),
+		m_objectManager(NULL)
 	{
 	}
 	
@@ -77,6 +80,9 @@ namespace BlockWorld {
 			delete spawnPosition;
 			delete worldCreator;
 			
+			m_objectManager = new ObjectManager();
+			m_objectManager->addObject(m_player);
+			
 			m_gibLoader = new GibResourceLoader(*engine);
 			m_gibLoader->loadFile("Resources/Gibs/gibs.xml");
 		}
@@ -87,10 +93,14 @@ namespace BlockWorld {
 		Engine* engine = m_game->getEngine();
 		engine->unregisterEventObserver(EVENT_KEYBOARD_BUTTON_DOWN, this);
 		
-		if (m_player) {
-			delete m_player;
-			m_player = NULL;
+		if (m_objectManager) {
+			delete m_objectManager;
+			m_objectManager = NULL;
 		}
+		//if (m_player) {
+		//	delete m_player;
+		//	m_player = NULL;
+		//}
 		if (m_world) {
 			delete m_world;
 			m_world = NULL;

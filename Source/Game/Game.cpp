@@ -20,7 +20,7 @@ namespace BlockWorld {
 		m_currentMode(NULL),
 		m_network(NULL),
 		m_showConsole(false),
-		m_shouldGrabMouse(false)
+		m_shouldGrabMouse(true)
 	{
 	}
 	
@@ -32,7 +32,7 @@ namespace BlockWorld {
 		m_currentMode(NULL),
 		m_network(NULL),
 		m_showConsole(false),
-		m_shouldGrabMouse(false)
+		m_shouldGrabMouse(true)
 	{
 	}
 	
