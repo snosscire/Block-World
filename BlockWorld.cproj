@@ -134,6 +134,11 @@
     <Compile Include="Source\Game\Objects\Player.cpp" />
     <Compile Include="Source\Game\Weapons\AssaultRifle.cpp" />
     <Compile Include="Source\Game\Weapons\Bullets\AssaultRifleBullet.cpp" />
+    <Compile Include="Source\Game\EndGameMode.cpp" />
+    <Compile Include="Source\Game\ServerListMode.cpp" />
+    <Compile Include="Source\Game\ServerLobbyMode.cpp" />
+    <Compile Include="Source\Game\SplashMode.cpp" />
+    <Compile Include="Source\Game\Network\EndGameMessage.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Source\External\aphex\aphex.h" />
@@ -235,5 +240,10 @@
     <None Include="Source\Game\Objects\Player.h" />
     <None Include="Source\Game\Weapons\AssaultRifle.h" />
     <None Include="Source\Game\Weapons\Bullets\AssaultRifleBullet.h" />
+    <None Include="Source\Game\EndGameMode.h" />
+    <None Include="Source\Game\ServerListMode.h" />
+    <None Include="Source\Game\ServerLobbyMode.h" />
+    <None Include="Source\Game\SplashMode.h" />
+    <None Include="Source\Game\Network\EndGameMessage.h" />
   </ItemGroup>
 </Project>
