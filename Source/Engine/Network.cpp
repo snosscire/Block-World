@@ -151,4 +151,20 @@ namespace BadEngine {
 	{
 		m_observers.push_back(observer);
 	}
+	
+	void Network::unregisterObserver(NetworkObserver* observer)
+	{
+		bool found;
+		list<NetworkObserver*>::iterator it = m_observers.begin();
+		for ( ; it != m_observers.end(); it++) {
+			if ((*it) == observer) {
+				found = true;
+				break;
+			}
+		}
+		if (found) {
+			m_observers.erase(it);
+		}
+	}
 };
+

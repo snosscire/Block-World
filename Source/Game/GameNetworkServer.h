@@ -22,7 +22,7 @@ namespace BlockWorld {
 	class DeathMessage;
 	class GameNetworkServer : public NetworkServer, public NetworkObserver {
 		private:
-			bool m_gameInProgres;
+			bool m_gameInProgress;
 			int m_lastClientID;
 			map<int, ServerClient*> m_clients;
 		
@@ -41,6 +41,9 @@ namespace BlockWorld {
 			void handleSpawnMessage(SpawnMessage& updateMessage, ENetPacket* packet);
 			void handleShotMessage(ShotMessage& message, ENetPacket* packet);
 			void handleDeathMessage(DeathMessage& message, ENetPacket* packet);
+			int playersAlive();
+			string findWinner();
+			void sendEndGameMessage();
 		
 		public:
 			GameNetworkServer();

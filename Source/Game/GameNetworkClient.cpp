@@ -13,6 +13,7 @@
 #include "Network/UpdateMessage.h"
 #include "Network/ShotMessage.h"
 #include "Network/DeathMessage.h"
+#include "Network/EndGameMessage.h"
 
 #include <iostream>
 #include <string>
@@ -33,6 +34,21 @@ namespace BlockWorld {
 	void GameNetworkClient::registerMessageObserver(MessageObserver* observer)
 	{
 		m_messageObservers.push_back(observer);
+	}
+	
+	void GameNetworkClient::unregisterObserver(MessageObserver* observer)
+	{
+		bool found;
+		list<MessageObserver*>::iterator it = m_messageObservers.begin();
+		for ( ; it != m_messageObservers.end(); it++) {
+			if ((*it) == observer) {
+				found = true;
+				break;
+			}
+		}
+		if (found) {
+			m_messageObservers.erase(it);
+		}
 	}
 	
 	void GameNetworkClient::sendMessage(NetworkMessage& message)
@@ -149,6 +165,14 @@ namespace BlockWorld {
 				it = m_messageObservers.begin();
 				for ( ; it != m_messageObservers.end(); it++) {
 					(*it)->onDeath(message);
+				}
+				break;
+			}
+			case GameNetwork::MESSAGE_END_GAME: {
+				EndGameMessage message(data);
+				it = m_messageObservers.begin();
+				for ( ; it != m_messageObservers.end(); it++) {
+					(*it)->onEndGame(message);
 				}
 				break;
 			}

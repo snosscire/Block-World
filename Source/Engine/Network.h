@@ -37,6 +37,7 @@ namespace BadEngine {
 			
 			void notifyObservers(int timeout = 0);
 			void registerObserver(NetworkObserver* observer);
+			void unregisterObserver(NetworkObserver* observer);
 	};
 };
 

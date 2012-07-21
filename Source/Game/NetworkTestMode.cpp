@@ -15,6 +15,8 @@
 #include "ObjectManager.h"
 #include "GibResourceLoader.h"
 #include "Effects.h"
+#include "EndGameMode.h"
+#include "BlockWorld.h"
 
 #include "Network/ConnectResponseMessage.h"
 #include "Network/IdentityMessage.h"
@@ -24,6 +26,7 @@
 #include "Network/MapLoadedMessage.h"
 #include "Network/SpawnMessage.h"
 #include "Network/DeathMessage.h"
+#include "Network/EndGameMessage.h"
 
 #include "Console/ReadyCommand.h"
 
@@ -43,6 +46,7 @@ namespace BlockWorld {
 		m_weapon(NULL),
 		m_thisNetworkID(0),
 		m_thisPlayerName(),
+		m_objectManager(NULL),
 		m_gibLoader(NULL),
 		m_gibs()
 	{
@@ -59,6 +63,8 @@ namespace BlockWorld {
 		m_weapon(NULL),
 		m_thisNetworkID(0),
 		m_thisPlayerName(),
+		m_objectManager(NULL),
+		m_gibLoader(NULL),
 		m_gibs()
 	{
 	}
@@ -73,14 +79,14 @@ namespace BlockWorld {
 		
 		engine->registerEventObserver(EVENT_KEYBOARD_BUTTON_DOWN, this);
 		
-		m_game->getConsole()->registerCommand("ready", new ReadyCommand(*this));
+		//m_game->getConsole()->registerCommand("ready", new ReadyCommand(*this));
 		
 		m_game->activateNetwork();
 		
 		m_game->getNetwork()->registerObserver(this);
 		m_game->getNetwork()->registerMessageObserver(this);
 		
-		if (m_game->getNetwork()->connect("wedogames.se", 7788)) {
+		if (m_game->getNetwork()->connect("localhost", 7788)) {
 			
 		} else {
 			
@@ -89,6 +95,8 @@ namespace BlockWorld {
 	
 	void NetworkTestMode::performStop()
 	{
+		m_thisPlayer = NULL;
+		
 		if (m_objectManager) {
 			delete m_objectManager;
 			m_objectManager = NULL;
@@ -113,6 +121,13 @@ namespace BlockWorld {
 			delete m_weapon;
 			m_weapon = NULL;
 		}
+		
+		deque<GameObject*>::reverse_iterator it = m_gibs.rbegin();
+		for ( ; it != m_gibs.rend(); it++) {
+			GameObject* object = *it;
+			delete object;
+		}
+		m_gibs.clear();
 	}
 	
 	void NetworkTestMode::performUpdate(double currentTime, double deltaTime)
@@ -170,6 +185,8 @@ namespace BlockWorld {
 		
 		IdentityMessage identityMessage(m_thisNetworkID, m_thisPlayerName);
 		m_game->getNetwork()->sendMessage(identityMessage);
+		
+		sendReadyMessage();
 	}
 	
 	void NetworkTestMode::onJoin(JoinMessage& message)
@@ -181,6 +198,8 @@ namespace BlockWorld {
 	
 	void NetworkTestMode::onLoadMap(LoadMapMessage& message)
 	{
+		performStop();
+		
 		MapLoader* loader = new MapLoader();
 		MapDirectory* map = NULL;
 		
@@ -253,6 +272,8 @@ namespace BlockWorld {
 	
 	void NetworkTestMode::onSpawn(SpawnMessage& message)
 	{
+		cout << "onSpawn" << endl;
+		
 		Engine* engine = m_game->getEngine();
 		GameNetworkClient* network = m_game->getNetwork();
 		
@@ -292,6 +313,15 @@ namespace BlockWorld {
 				DeathMessage message(object->getNetworkID(), object->getX(), object->getY());
 				m_game->getNetwork()->sendMessage(message);
 			}
+		}
+	}
+	
+	void NetworkTestMode::onEndGame(EndGameMessage& message)
+	{
+		EndGameMode* mode = dynamic_cast<EndGameMode*>(m_game->getMode(BlockWorld::END_GAME_MODE));
+		if (mode) {
+			mode->setWinner(message.getWinner());
+			m_game->setCurrentMode(BlockWorld::END_GAME_MODE);
 		}
 	}
 };

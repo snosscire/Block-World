@@ -32,7 +32,6 @@ namespace BadEngine
 		SDL_Init(SDL_INIT_VIDEO);
 		setVideoMode(640, 480);
 		srand(time(NULL));
-		SDL_ShowCursor(SDL_DISABLE);
 	}
 	
 	void SDLEngine::stop()
@@ -171,10 +170,12 @@ namespace BadEngine
 	void SDLEngine::grabInput()
 	{
 		SDL_WM_GrabInput(SDL_GRAB_ON);
+		SDL_ShowCursor(SDL_DISABLE);
 	}
 	
 	void SDLEngine::releaseInput()
 	{
 		SDL_WM_GrabInput(SDL_GRAB_OFF);
+		SDL_ShowCursor(SDL_ENABLE);
 	}
 };
